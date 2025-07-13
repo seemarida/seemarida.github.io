@@ -21,9 +21,10 @@ export const socialLinks = [
 
 export const siteConfig = {
   name: "Seema Rida",
-  title: "Seema | Cognitive Science",
-  description: "Cognitive Science student at UCSD exploring the mysteries of the brain and consciousness.",
-  author: "Seema",
-  email: "seema@seemazr.com",
+  title: "Seema Rida | Cognitive Science Student at UCSD",
+  description: "Seema Rida - Cognitive Science student at UCSD specializing in Machine Learning & Neural Computation. Research assistant at Chiba Lab working on brain-computer interfaces and neurotechnology.",
+  author: "Seema Rida",
+  email: "srida@ucsd.edu",
+  url: "https://seemazr.com",
   socialLinks
 };

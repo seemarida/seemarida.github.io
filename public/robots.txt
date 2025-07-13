@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://seemazr.com/sitemap-index.xml
+
+# Block access to admin areas if any exist
+Disallow: /admin/
+Disallow: /.git/
+Disallow: /node_modules/
+
+# Allow search engines to crawl everything else
+Allow: /projects/
+Allow: /images/
+Allow: /resume.pdf

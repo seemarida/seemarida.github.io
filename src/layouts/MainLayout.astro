@@ -27,14 +27,82 @@ const { title, description = "Seema's Cognitive Science Portfolio" } =
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
 		<title>{title}</title>
+		
+		<!-- SEO Meta Tags -->
+		<meta name="author" content="Seema Rida" />
+		<meta name="keywords" content="Seema Rida, cognitive science, UCSD, neuroscience, brain computer interfaces, machine learning, neural computation, research, undergraduate, student, portfolio" />
+		<meta name="robots" content="index, follow" />
+		<meta name="language" content="English" />
+		<meta name="revisit-after" content="7 days" />
 		<meta name="theme-color" content="var(--tw-color-creamy-white, #FFFBE6)" />
 		<meta name="color-scheme" content="light" />
+		<link rel="canonical" href={new URL(Astro.url.pathname, Astro.site)} />
+		
+		<!-- Open Graph Meta Tags -->
 		<meta property="og:title" content={title} />
 		<meta property="og:description" content={description} />
 		<meta property="og:type" content="website" />
+		<meta property="og:url" content={Astro.url} />
+		<meta property="og:site_name" content="Seema Rida - Cognitive Science Portfolio" />
+		<meta property="og:locale" content="en_US" />
+		<meta property="og:image:alt" content="Seema Rida - Cognitive Science Student at UCSD" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		
+		<!-- Twitter Card Meta Tags -->
 		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={title} />
 		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image:alt" content="Seema Rida - Cognitive Science Student at UCSD" />
+		
+		<!-- Structured Data -->
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "Person",
+			"name": "Seema Rida",
+			"alternateName": "Seema",
+			"description": "Cognitive Science student at UCSD specializing in Machine Learning and Neural Computation, researching brain-computer interfaces and neurotechnology",
+			"url": "https://seemazr.com",
+			"sameAs": [
+				"https://www.linkedin.com/in/seema-rida/",
+				"https://github.com/seemarida",
+				"https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz"
+			],
+			"jobTitle": "Cognitive Science Student & Research Assistant",
+			"worksFor": {
+				"@type": "Organization",
+				"name": "University of California, San Diego",
+				"url": "https://ucsd.edu"
+			},
+			"affiliation": {
+				"@type": "Organization",
+				"name": "Chiba Lab",
+				"url": "https://psychology.ucsd.edu/people/profiles/achiba.html"
+			},
+			"alumniOf": {
+				"@type": "Organization",
+				"name": "University of California, San Diego",
+				"url": "https://ucsd.edu"
+			},
+			"knowsAbout": [
+				"Cognitive Science",
+				"Machine Learning",
+				"Neural Computation",
+				"Brain-Computer Interfaces",
+				"Neuroscience",
+				"Python Programming",
+				"Signal Processing",
+				"Research"
+			],
+			"email": "srida@ucsd.edu",
+			"contactPoint": {
+				"@type": "ContactPoint",
+				"email": "srida@ucsd.edu",
+				"contactType": "academic"
+			}
+		}
+		</script>
 	</head>
 	<body class="bg-transparent">
 		<div class="relative min-h-screen flex flex-col bg-transparent">
