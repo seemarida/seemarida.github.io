@@ -1,0 +1,94 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+// import CursorTrail from '../components/CursorTrail.jsx';
+import PageTransition from '../components/PageTransition.jsx';
+
+interface Props {
+	title: string;
+	description?: string;
+}
+
+const { title, description = "Seema's Cognitive Science Portfolio" } =
+	Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<title>{title}</title>
+		<meta name="theme-color" content="var(--tw-color-creamy-white, #FFFBE6)" />
+		<meta name="color-scheme" content="light" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+	</head>
+	<body class="bg-transparent">
+		<div class="relative min-h-screen flex flex-col bg-transparent">
+			<!-- Page transition loading effect - client rendered -->
+			<PageTransition client:load />
+
+			<Header />
+			<main class="container flex-grow py-12">
+				<slot />
+			</main>
+			<Footer />
+		</div>
+
+		<script>
+			// Add scroll reveal animation
+			document.addEventListener('astro:page-load', () => {
+				const animateOnScroll = () => {
+					const elements = document.querySelectorAll('.animate-on-scroll');
+
+					elements.forEach(element => {
+						const rect = element.getBoundingClientRect();
+						const isVisible = rect.top < window.innerHeight - 100;
+
+						if (isVisible) {
+							element.classList.add('animate-fade-in');
+						}
+					});
+				};
+
+				// Add animation class to elements
+				const sections = document.querySelectorAll('section, article, .card');
+				sections.forEach(section => {
+					section.classList.add('animate-on-scroll');
+					section.classList.add('opacity-0');
+				});
+
+				// Run on load and scroll
+				animateOnScroll();
+				window.addEventListener('scroll', animateOnScroll);
+			});
+		</script>
+
+		<style is:global>
+			/* Animation classes */
+			.animate-fade-in {
+				animation: fadeIn 0.8s ease forwards;
+			}
+
+			@keyframes fadeIn {
+				from {
+					opacity: 0;
+					transform: translateY(20px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+		</style>
+	</body>
+</html>

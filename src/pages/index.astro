@@ -1,0 +1,111 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { homeContent } from '../data/homeContent.ts';
+import { siteConfig } from '../data/siteConfig.js';
+---
+
+<MainLayout
+	title={`${siteConfig.name} | Home`}
+	description={siteConfig.description}
+>
+	<div class="max-w-4xl mx-auto py-8">
+		<!-- Hero Section -->
+		<div class="text-center mb-16">
+			<h1 class="text-4xl md:text-6xl font-bold mb-6 text-gray-800">
+				{homeContent.hero.title}
+			</h1>
+			<p class="text-2xl md:text-3xl text-soft-blue font-light mb-8">
+				{homeContent.hero.subtitle}
+			</p>
+		</div>
+
+		<!-- Personal Introduction -->
+		<div class="bg-white/90 rounded-2xl p-8 md:p-12 shadow-lg mb-12 border border-gray-100 hover:border-muted-rose/30 transition-all duration-300">
+			<div class="prose prose-lg max-w-none">
+				<p class="text-lg md:text-xl text-gray-700 mb-6 leading-relaxed">
+					{homeContent.hero.description}
+				</p>
+				
+				<div class="bg-gradient-to-r from-muted-rose/10 to-purple-50 rounded-xl p-6 mb-6 border-l-4 border-muted-rose">
+					<p class="text-lg text-gray-700 leading-relaxed">
+						<span class="font-semibold text-muted-rose">What I'm up to right now:</span><br/>
+						{homeContent.hero.currentlyDoing}
+					</p>
+				</div>
+				
+				<p class="text-lg text-gray-700 leading-relaxed mb-8">
+					{homeContent.hero.personality}
+				</p>
+
+				<!-- Resume Highlights -->
+				<div class="border-t border-muted-rose/20 pt-6">
+					<h3 class="text-xl font-bold bg-gradient-to-r from-gray-800 to-muted-rose bg-clip-text text-transparent mb-4">
+						{homeContent.resumeHighlights.title}
+					</h3>
+					<ul class="space-y-2 mb-4 list-disc list-inside">
+						{
+							homeContent.resumeHighlights.items.map(item => (
+								<li class="text-gray-700">
+									{item}
+								</li>
+							))
+						}
+					</ul>
+					<a
+						href={homeContent.resumeHighlights.resumeLink.href}
+						class="text-soft-blue hover:text-muted-rose transition-colors font-semibold underline"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						{homeContent.resumeHighlights.resumeLink.text} →
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<!-- Social Links -->
+		<div class="text-center mb-8">
+			<h2 class="text-2xl font-bold bg-gradient-to-r from-gray-800 to-muted-rose bg-clip-text text-transparent mb-4">
+				{homeContent.socialLinks.title}
+			</h2>
+			<div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
+				{
+					homeContent.socialLinks.links.map(link => (
+						<a
+							href={link.href}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="group flex items-center gap-3 bg-white rounded-xl p-4 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-muted-rose/40 hover:shadow-muted-rose/10"
+						>
+							<div class={`w-12 h-12 rounded-lg flex items-center justify-center text-white text-xl font-bold
+								${link.icon === 'linkedin' ? 'bg-blue-600' : ''}
+								${link.icon === 'github' ? 'bg-gray-800' : ''}
+								${link.icon === 'spotify' ? 'bg-green-500' : ''}
+								group-hover:scale-110 transition-transform duration-300`}>
+								{link.icon === 'linkedin' && 'in'}
+								{link.icon === 'github' && 'gh'}
+								{link.icon === 'spotify' && '♫'}
+							</div>
+							<div class="text-left">
+								<div class="font-semibold text-gray-800 group-hover:text-muted-rose transition-colors">
+									{link.name}
+								</div>
+								<div class="text-sm text-gray-500">
+									{link.description}
+								</div>
+							</div>
+						</a>
+					))
+				}
+			</div>
+		</div>
+
+		<!-- Fun Footer Note -->
+		<div class="text-center mt-16">
+			<p class="text-sm text-gray-500 hover:text-muted-rose transition-colors duration-300">
+				This little corner of the internet is where I collect my thoughts about brains, code, and everything in between.
+			</p>
+			<div class="mt-4 w-16 h-0.5 bg-gradient-to-r from-transparent via-muted-rose to-transparent mx-auto opacity-60"></div>
+		</div>
+	</div>
+</MainLayout>

@@ -1,0 +1,85 @@
+---
+interface Props {
+	title: string;
+	description: string;
+	tags?: string[];
+	projectLink?: string;
+	links?: Array<{ text: string; href: string; type?: string }>;
+}
+
+const {
+	title,
+	description,
+	tags = [],
+	projectLink,
+	links = [],
+} = Astro.props;
+---
+
+<div class="mb-12 pb-12 border-b border-gray-200 last:border-b-0 last:pb-0">
+	<div class="mb-4">
+		{
+			projectLink ? (
+				<a 
+					href={projectLink}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="text-2xl font-bold text-gray-800 hover:text-muted-rose transition-colors underline decoration-2 decoration-transparent hover:decoration-muted-rose"
+				>
+					{title}
+				</a>
+			) : (
+				<h3 class="text-2xl font-bold text-gray-800">
+					{title}
+				</h3>
+			)
+		}
+	</div>
+
+	<p class="text-lg text-gray-700 mb-4 leading-relaxed max-w-4xl">
+		{description}
+	</p>
+
+	{
+		tags && tags.length > 0 && (
+			<div class="flex flex-wrap gap-2 mb-4">
+				{tags.map(tag => (
+					<span class="px-3 py-1 bg-muted-rose/15 text-muted-rose rounded-full text-sm font-medium">
+						{tag}
+					</span>
+				))}
+			</div>
+		)
+	}
+
+	{
+		(projectLink || links.length > 0) && (
+			<div class="flex flex-wrap gap-4">
+				{
+					projectLink && (
+						<a
+							href={projectLink}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-soft-blue hover:text-muted-rose transition-colors font-medium underline"
+						>
+							View Project →
+						</a>
+					)
+				}
+				{
+					links.map(link => (
+						<a
+							href={link.href}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="text-soft-blue hover:text-muted-rose transition-colors font-medium underline"
+						>
+							{link.text} →
+						</a>
+					))
+				}
+			</div>
+		)
+	}
+</div>

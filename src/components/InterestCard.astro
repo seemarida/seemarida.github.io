@@ -1,0 +1,70 @@
+---
+import { Icon } from 'astro-icon/components';
+
+export interface Props {
+	title: string;
+	description: string;
+	icon: string;
+}
+
+const { title, description, icon } = Astro.props;
+
+// Map old icon names to Iconify icon sets
+const getIconName = (iconName: string) => {
+	switch (iconName) {
+		case 'brain':
+			return 'mdi:brain';
+		case 'beaker':
+			return 'mdi:flask';
+		case 'chip':
+			return 'mdi:chip';
+		default:
+			return 'mdi:help-circle';
+	}
+};
+
+// Determine the background color based on the icon
+const getBgColorClass = () => {
+	switch (icon) {
+		case 'brain':
+			return 'bg-soft-blue';
+		case 'beaker':
+			return 'bg-muted-rose';
+		case 'chip':
+			return 'bg-light-pink';
+		default:
+			return 'bg-soft-blue';
+	}
+};
+
+const getTextColorClass = () => {
+	switch (icon) {
+		case 'brain':
+			return 'text-soft-blue';
+		case 'beaker':
+			return 'text-muted-rose';
+		case 'chip':
+			return 'text-light-pink';
+		default:
+			return 'text-soft-blue';
+	}
+};
+
+const bgColorClass = getBgColorClass();
+const textColorClass = getTextColorClass();
+const iconName = getIconName(icon);
+---
+
+<div
+	class="bg-white bg-opacity-70 p-6 rounded-lg shadow-md transition-all duration-300 hover:shadow-lg hover:transform hover:translate-y-[-5px]"
+>
+	<div
+		class={`${bgColorClass} bg-opacity-20 p-3 rounded-full w-16 h-16 flex items-center justify-center mb-4`}
+	>
+		<Icon name={iconName} class={textColorClass} size="24" />
+	</div>
+	<h3 class="text-xl font-semibold mb-2">{title}</h3>
+	<p class="text-gray-600">
+		{description}
+	</p>
+</div>

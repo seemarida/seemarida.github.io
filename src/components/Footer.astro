@@ -1,0 +1,69 @@
+---
+import { siteConfig, socialLinks } from '../data/siteConfig.js';
+import { Icon } from 'astro-icon/components';
+
+const currentYear = new Date().getFullYear();
+
+// Map social icons to Iconify icon sets
+const getSocialIcon = (icon: string) => {
+	switch (icon) {
+		case 'github':
+			return 'mdi:github';
+		case 'email':
+			return 'mdi:email';
+		case 'linkedin':
+			return 'mdi:linkedin';
+		case 'spotify':
+			return 'mdi:spotify';
+		default:
+			return 'mdi:web';
+	}
+};
+---
+
+<footer class="bg-light-pink bg-opacity-80 backdrop-blur-sm mt-auto py-6">
+	<div class="container text-center md:flex md:justify-between md:items-center">
+		<div>
+			<p class="text-sm mb-2 md:mb-0">
+				&copy; {currentYear}
+				{siteConfig.name}. All rights reserved.
+			</p>
+		</div>
+
+		<div class="mb-4 md:mb-0 flex justify-center">
+			<div class="w-24 h-8 relative">
+				<svg
+					viewBox="0 0 100 30"
+					xmlns="http://www.w3.org/2000/svg"
+					class="absolute inset-0"
+				>
+					<!-- Simple brainwave EEG visualization -->
+					<path
+						d="M0,15 L5,15 L10,5 L15,25 L20,10 L25,20 L30,15 L35,15 L40,5 L45,25 L50,10 L55,20 L60,15 L65,15 L70,5 L75,25 L80,10 L85,20 L90,15 L95,15 L100,15"
+						fill="none"
+						stroke="currentColor"
+						class="text-soft-blue"
+						stroke-width="1.5"
+						stroke-linecap="round"
+						stroke-linejoin="round"></path>
+				</svg>
+			</div>
+		</div>
+
+		<div class="flex justify-center space-x-4">
+			{
+				socialLinks.map((link) => (
+					<a
+						href={link.href}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="text-gray-700 hover:text-muted-rose transition-all duration-300 hover:transform hover:translate-y-[-2px] p-2"
+					>
+						<span class="sr-only">{link.name}</span>
+						<Icon name={getSocialIcon(link.icon)} size="24" />
+					</a>
+				))
+			}
+		</div>
+	</div>
+</footer>

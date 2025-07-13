@@ -1,0 +1,28 @@
+---
+export interface Props {
+  title: string;
+  journal: string;
+  year: string;
+  description: string;
+  link: string;
+}
+
+const { title, journal, year, description, link } = Astro.props;
+---
+
+<div class="border-l-4 border-muted-rose pl-6 py-2">
+  <h3 class="text-xl font-semibold">
+    {title}
+  </h3>
+  <p class="text-gray-600 italic mt-1">
+    {journal}, {year}
+  </p>
+  <p class="text-gray-700 mt-4">
+    {description}
+  </p>
+  <a
+    href={link}
+    class="inline-block mt-4 text-soft-blue hover:text-muted-rose transition-colors"
+    >Read abstract →</a
+  >
+</div>

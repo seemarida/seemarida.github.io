@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* CSS Variables for theme colors to use in gradients - using Tailwind theme colors */
+    --color-light-pink: theme('colors.light-pink');
+    --color-soft-blue: theme('colors.soft-blue');
+    --color-muted-rose: theme('colors.muted-rose');
+    --color-tag-green: theme('colors.tag-green');
+    --color-tag-yellow: theme('colors.tag-yellow');
+    --color-tag-orange: theme('colors.tag-orange');
+    --color-tag-purple: theme('colors.tag-purple');
+    --color-tag-teal: theme('colors.tag-teal');
+    
+    /* Expose Tailwind colors as CSS variables for meta tags */
+    --tw-color-creamy-white: theme('colors.creamy-white');
+  }
+
+  html {
+    scroll-behavior: smooth;
+    @apply bg-creamy-white;
+  }
+  
+  body {
+    @apply bg-creamy-white text-gray-800 font-sans min-h-screen;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold;
+  }
+  
+  h1 {
+    @apply text-4xl md:text-5xl mb-6;
+  }
+  
+  h2 {
+    @apply text-3xl md:text-4xl mb-4;
+  }
+  
+  h3 {
+    @apply text-2xl md:text-3xl mb-3;
+  }
+  
+  p {
+    @apply mb-4 leading-relaxed;
+  }
+  
+  a {
+    @apply text-soft-blue hover:text-muted-rose transition-colors duration-300;
+  }
+
+  /* Neural network background enhancement */
+  .brainwave-background {
+    z-index: -1;
+    opacity: 0.5; /* Lower opacity for subtlety */
+  }
+
+  #neural-canvas {
+    filter: blur(1.5px); /* Slightly increased blur */
+    mix-blend-mode: soft-light; /* Blend with background color */
+  }
+
+  /* Overlay container to create layered effect */
+  .bg-overlay {
+    position: fixed;
+    inset: 0;
+    @apply bg-creamy-white bg-opacity-75;
+    pointer-events: none;
+    z-index: -5;
+  }
+}
+
+@layer components {
+  .container {
+    @apply px-4 mx-auto max-w-7xl;
+  }
+  
+  .btn {
+    @apply px-6 py-2 rounded-lg transition-all duration-300 inline-block;
+  }
+  
+  .btn-primary {
+    @apply bg-soft-blue text-white hover:bg-light-pink hover:text-gray-800;
+  }
+  
+  .btn-secondary {
+    @apply bg-muted-rose text-white hover:bg-light-pink hover:text-gray-800;
+  }
+}

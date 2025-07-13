@@ -1,0 +1,37 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { Icon } from 'astro-icon/components';
+import { projectsData } from '../data/projectsData.ts';
+import { siteConfig } from '../data/siteConfig.js';
+---
+
+<MainLayout
+	title={`${siteConfig.name} | Projects`}
+	description="My personal and professional projects"
+>
+	<div class="max-w-5xl mx-auto px-4">
+		<header class="text-center my-16">
+			<h1 class="text-4xl md:text-5xl font-bold mb-6">Projects</h1>
+			<p class="text-xl max-w-3xl mx-auto leading-relaxed text-gray-700">
+				{projectsData.description}
+			</p>
+		</header>
+
+		<section class="mb-20">
+			<div class="space-y-6">
+				{
+					projectsData.projects.map(project => (
+						<ProjectCard
+							title={project.title}
+							description={project.description}
+							tags={project.tags}
+							projectLink={project.projectLink}
+							links={project.links}
+						/>
+					))
+				}
+			</div>
+		</section>
+	</div>
+</MainLayout>

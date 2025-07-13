@@ -1,0 +1,69 @@
+---
+interface Props {
+  imagePath: string;
+  caption: string;
+}
+
+const { imagePath, caption } = Astro.props;
+---
+
+<div class="polaroid-container">
+  <div class="polaroid">
+    <div class="polaroid-image">
+      <img src={imagePath} alt={caption} />
+    </div>
+    <div class="polaroid-caption">
+      <p>{caption}</p>
+    </div>
+  </div>
+</div>
+
+<style>
+  .polaroid-container {
+    perspective: 1000px;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  .polaroid {
+    background-color: white;
+    padding: 15px 15px 40px 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    border-radius: 2px;
+    transform: rotate(-2deg);
+    transition: all 0.3s ease;
+  }
+
+  .polaroid:hover {
+    transform: rotate(0deg) translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .polaroid-image {
+    margin-bottom: 5px;
+    overflow: hidden;
+  }
+
+  .polaroid-image img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .polaroid:hover .polaroid-image img {
+    transform: scale(1.03);
+  }
+  
+  .polaroid-caption {
+    text-align: center;
+    font-family: 'Indie Flower', cursive, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .polaroid-caption p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #444;
+    line-height: 1.2;
+  }
+</style>
