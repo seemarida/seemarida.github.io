@@ -4,7 +4,7 @@ export const homeContent = {
   hero: {
     title: "hi, i'm seema 🕺",
     subtitle: "cog sci student • researcher • brain nerd",
-    description: "I'm a senior at UCSD majoring in Cognitive Science, specializing in Machine Learning and Neural Computation. I'm also a research assistant at the Chiba Lab! I'm interested in how the brain supports learning, speech and language, and in developing neurotechnology and BCIs.",
+    description: "I'm a senior at UCSD majoring in Cognitive Science, specializing in Machine Learning and Neural Computation. I'm also a research assistant at the Chiba Lab! I'm interested in how our brains process learning, speech, and language, and in developing neurotechnology and BCIs.",
     currentlyDoing: "I'm in the UC Scholars Research program working with Dr. Andrea Chiba, developing a time-synchronized embedded system to analyze student behavior and wellbeing in classroom environments through multimodal data collection.",
     personality: "When I’m not buried in work, I’m playing music, skateboarding, or listening to Fleetwood Mac.",
     ctaButtons: [
