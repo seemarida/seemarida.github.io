@@ -38,10 +38,16 @@ const getSocialIcon = (icon: string) => {
 						href={link.href}
 						target="_blank"
 						rel="noopener noreferrer"
-						class="text-gray-700 hover:text-muted-rose transition-all duration-300 hover:transform hover:translate-y-[-2px] p-2"
+						class="text-gray-700 hover:text-muted-rose transition-all duration-300 hover:transform hover:translate-y-[-2px] p-2 relative group"
+						title={link.description}
 					>
 						<span class="sr-only">{link.name}</span>
 						<Icon name={getSocialIcon(link.icon)} size="24" />
+						{link.icon === 'email' && (
+							<div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none">
+								{link.description}
+							</div>
+						)}
 					</a>
 				))
 			}
