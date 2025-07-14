@@ -12,6 +12,27 @@ export const socialLinks = [
     description: "Code & projects"
   },
   {
+    name: "Spotify",
+    href: "https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz?si=5cf2ec54d8db47da",
+    icon: "spotify",
+    description: "What I'm listening to"
+  }
+];
+
+export const footerSocialLinks = [
+  {
+    name: "LinkedIn",
+    href: "https://www.linkedin.com/in/seema-rida/",
+    icon: "linkedin",
+    description: "Let's connect!"
+  },
+  {
+    name: "GitHub", 
+    href: "https://github.com/seemarida",
+    icon: "github",
+    description: "Code & projects"
+  },
+  {
     name: "Academic Email",
     href: "mailto:srida@ucsd.edu?subject=Hello!",
     icon: "email",

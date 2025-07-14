@@ -1,5 +1,5 @@
 ---
-import { siteConfig, socialLinks } from '../data/siteConfig.js';
+import { siteConfig, footerSocialLinks } from '../data/siteConfig.js';
 import { Icon } from 'astro-icon/components';
 
 const currentYear = new Date().getFullYear();
@@ -33,7 +33,7 @@ const getSocialIcon = (icon: string) => {
 
 		<div class="flex justify-center space-x-4">
 			{
-				socialLinks.map((link) => (
+				footerSocialLinks.map((link) => (
 					<a
 						href={link.href}
 						target="_blank"
