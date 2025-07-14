@@ -33,18 +33,6 @@ export const footerSocialLinks = [
     description: "Code & projects"
   },
   {
-    name: "Academic Email",
-    href: "mailto:srida@ucsd.edu?subject=Hello!",
-    icon: "email",
-    description: "Academic inquiries"
-  },
-  {
-    name: "Personal Email",
-    href: "mailto:seemazrida@gmail.com?subject=Hello!",
-    icon: "email",
-    description: "Personal contact"
-  },
-  {
     name: "Spotify",
     href: "https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz?si=5cf2ec54d8db47da",
     icon: "spotify",
