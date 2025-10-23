@@ -6,6 +6,8 @@ export const homeContent = {
     subtitle: "cogsci student • researcher • brain nerd",
     description: "I'm a senior at UCSD majoring in Cognitive Science, specializing in Machine Learning and Neural Computation. I'm also a research assistant at the Chiba Lab! I'm interested in how our brains process learning, speech, and language, and in developing neurotechnology and BCIs.",
     currentlyDoing: "I'm in the UC Scholars Research program working with Dr. Andrea Chiba, developing a time-synchronized embedded system to analyze student behavior and wellbeing in classroom environments through multimodal data collection.",
+    // "I'm in the UC Scholars Research program working with Dr. Andrea Chiba, developing a time-synchronized embedded system to analyze student behavior and wellbeing in classroom environments through multimodal data collection."
+    // "I was recently accepted into the Cognitive Science Honors Program and will be mentored by Professors Andrea Chiba and Virginia de Sa. I’m continuing my research in the Chiba Lab and am currently exploring job opportunities in neurotech, biotech, machine learning/data science, and UX."
     personality: "When I’m not at the lab, I’m playing music, skateboarding, or listening to Fleetwood Mac.",
     ctaButtons: [
       {
@@ -26,12 +28,12 @@ export const homeContent = {
     items: [
       "Cognitive Science (ML & Neural Computation) + CS Minor at UCSD",
       "UC Scholar & Research Assistant at Chiba Lab",
-      "Principal Member, Tritons Prosthetics Society",
+      "Co-president, Tritons Prosthetics Society",
       "Strong background in Python, signal processing, and machine learning"
     ],
     resumeLink: {
       text: "View Full Resume",
-      href: "/resume.pdf"
+      href: "/SeemaRidaCVCore.pdf"
     }
   },
 
