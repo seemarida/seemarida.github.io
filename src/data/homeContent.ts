@@ -5,10 +5,10 @@ export const homeContent = {
     title: "hi, i'm seema 🕺",
     subtitle: "cogsci student • researcher • brain nerd",
     description: "I'm a senior at UCSD majoring in Cognitive Science, specializing in Machine Learning and Neural Computation. I'm also a research assistant at the Chiba Lab! I'm interested in how our brains process learning, speech, and language, and in developing neurotechnology and BCIs.",
-    currentlyDoing: "I'm in the UC Scholars Research program working with Dr. Andrea Chiba, developing a time-synchronized embedded system to analyze student behavior and wellbeing in classroom environments through multimodal data collection.",
+    currentlyDoing: "Currently working with Professor Andrea Chiba, developing a time-synchronized embedded system to analyze student behavior and wellbeing in classroom environments through multimodal data collection.",
     // "I'm in the UC Scholars Research program working with Dr. Andrea Chiba, developing a time-synchronized embedded system to analyze student behavior and wellbeing in classroom environments through multimodal data collection."
     // "I was recently accepted into the Cognitive Science Honors Program and will be mentored by Professors Andrea Chiba and Virginia de Sa. I’m continuing my research in the Chiba Lab and am currently exploring job opportunities in neurotech, biotech, machine learning/data science, and UX."
-    personality: "When I’m not at the lab, I’m playing music, skateboarding, or listening to Fleetwood Mac.",
+    personality: "When I’m not at the lab, I’m playing piano, collecting CDs, bench-pressing my heart out, or creating yet another Spotify playlist.",
     ctaButtons: [
       {
         text: "See what I'm building",
@@ -29,11 +29,12 @@ export const homeContent = {
       "Cognitive Science (ML & Neural Computation) + CS Minor at UCSD",
       "UC Scholar & Research Assistant at Chiba Lab",
       "Co-president, Tritons Prosthetics Society",
-      "Strong background in Python, signal processing, and machine learning"
+      "Strong background in Python, signal processing, and machine learning",
+      "Hands-on experience with biosensors, EEG, and multimodal embedded systems"
     ],
     resumeLink: {
       text: "View Full Resume",
-      href: "/SeemaRidaCVCore.pdf"
+      href: "/Seema_Resume_Official.pdf"
     }
   },
 
