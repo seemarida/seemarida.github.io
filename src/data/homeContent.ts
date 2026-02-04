@@ -23,20 +23,32 @@ export const homeContent = {
     ]
   },
 
-  resumeHighlights: {
-    title: "Quick Resume Highlights",
-    items: [
-      "Cognitive Science (ML & Neural Computation) + CS Minor at UCSD",
-      "UC Scholar & Research Assistant at Chiba Lab",
-      "Co-president, Tritons Prosthetics Society",
-      "Strong background in Python, signal processing, and machine learning",
-      "Hands-on experience with biosensors, EEG, and multimodal embedded systems"
-    ],
-    resumeLink: {
-      text: "View Full Resume",
-      href: "/Seema_Resume_Official.pdf"
+  projects: [
+    {
+      slug: "eeg-attention",
+      title: "EEG-based Attention Analysis",
+      description: "Designed EEG experiments to examine attentional fluctuations, applied frequency domain analysis, and identified attention-related brainwave patterns.",
+      image: "/projects/eeg-attention.png"
+    },
+    {
+      slug: "biometric-integration",
+      title: "Biometric Integration",
+      description: "Integrated multimodal biometric data to characterize behavioral patterns and developmental trajectories in young children.",
+      image: "/projects/biometric-integration.png"
+    },
+    {
+      slug: "zebrafish-dynamics",
+      title: "Zebrafish Multiscale Dynamics",
+      description: "Implemented the Iterative Coarse Graining algorithm to uncover multiscale spatial structure across larval zebrafish brain regions.",
+      image: null
+    },
+    {
+      slug: "sarcastic-headlines",
+      title: "Sarcastic Headline Generator",
+      description: "Explored whether character-level RNNs can learn sarcasm using The Onion dataset with RNN, LSTM, and GRU architectures.",
+      image: null
     }
-  },
+  ],
 
   interests: {
     title: "My Interests",

@@ -1,0 +1,77 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { siteConfig } from '../data/siteConfig.js';
+
+const googleDriveResumeLink = "https://drive.google.com/file/d/1vMcm1Vrld1HCFTy2rBo5zAO5CgFo5NxH/view?usp=sharing";
+---
+
+<MainLayout
+	title={`${siteConfig.name} | Resume`}
+	description="Seema Rida resume and links"
+>
+	<div class="max-w-3xl mx-auto px-4 py-16 text-center">
+		<h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-2" style="margin-bottom: 0.5rem;">Resume</h1>
+		<div class="w-16 h-0.5 bg-muted-rose mx-auto mb-10"></div>
+
+		<!-- Resume card -->
+		<div class="bg-white rounded-2xl shadow-md border border-gray-100 p-10 md:p-14">
+			<svg class="w-16 h-16 mx-auto mb-4 text-muted-rose opacity-70" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h12m-5-8v.01M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+			</svg>
+
+			<h2 class="text-xl font-bold text-gray-800 mb-2">My Resume</h2>
+			<p class="text-gray-500 mb-6">Hosted on Google Drive — always up to date.</p>
+
+			<a
+				href={googleDriveResumeLink}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="inline-block bg-muted-rose text-white font-semibold px-8 py-3 rounded-xl shadow-sm hover:shadow-md hover:bg-purple-500 transition-all duration-300"
+			>
+				View Resume on Google Drive
+			</a>
+		</div>
+
+		<!-- Links section -->
+		<div class="mt-14">
+			<h2 class="text-xl font-bold text-gray-800 mb-6" style="margin-bottom: 1.5rem;">Links</h2>
+			<div class="flex flex-col sm:flex-row gap-4 justify-center">
+				<a
+					href="https://www.linkedin.com/in/seema-rida/"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="group flex items-center gap-3 bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:border-muted-rose/40 hover:shadow-md transition-all duration-300"
+				>
+					<div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center text-white text-lg font-bold">in</div>
+					<span class="font-semibold text-gray-800 group-hover:text-muted-rose transition-colors">LinkedIn</span>
+				</a>
+
+				<a
+					href="https://github.com/seemarida"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="group flex items-center gap-3 bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:border-muted-rose/40 hover:shadow-md transition-all duration-300"
+				>
+					<div class="w-10 h-10 rounded-lg bg-gray-800 flex items-center justify-center text-white text-lg font-bold">gh</div>
+					<span class="font-semibold text-gray-800 group-hover:text-muted-rose transition-colors">GitHub</span>
+				</a>
+
+				<a
+					href="mailto:srida@ucsd.edu"
+					class="group flex items-center gap-3 bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:border-muted-rose/40 hover:shadow-md transition-all duration-300"
+				>
+					<div class="w-10 h-10 rounded-lg bg-muted-rose flex items-center justify-center text-white text-lg">✉</div>
+					<span class="font-semibold text-gray-800 group-hover:text-muted-rose transition-colors">Email</span>
+				</a>
+			</div>
+		</div>
+
+		<!-- Bottom note -->
+		<div class="mt-16 pt-8 border-t border-gray-100">
+			<p class="text-sm text-gray-400 italic">
+				This little corner of the internet is where I collect my thoughts about brains, code, and everything in between.
+			</p>
+			<div class="mt-3 w-12 h-0.5 bg-gradient-to-r from-transparent via-muted-rose to-transparent mx-auto opacity-50"></div>
+		</div>
+	</div>
+</MainLayout>

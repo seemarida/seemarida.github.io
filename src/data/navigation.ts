@@ -1,5 +1,5 @@
 export const navItems = [
   { href: '/', text: 'Home' },
-  { href: '/projects', text: 'Projects' },
-  // { href: '/thoughts', text: 'Thoughts' },
+  { href: '/about', text: 'About' },
+  { href: '/resume', text: 'Resume' },
 ];
