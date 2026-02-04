@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "WebFetch(domain:github.com)",
-      "Bash(npx astro build:*)"
+      "Bash(npx astro build:*)",
+      "Bash(wc:*)"
     ],
     "deny": []
   }

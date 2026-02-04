@@ -2,6 +2,9 @@
 import MainLayout from '../layouts/MainLayout.astro';
 import { aboutContent } from '../data/aboutContent.ts';
 import { siteConfig } from '../data/siteConfig.js';
+
+const googleDriveResumeLink = "https://drive.google.com/file/d/1vMcm1Vrld1HCFTy2rBo5zAO5CgFo5NxH/view?usp=sharing";
+const spotifyLink = "https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz?si=5cf2ec54d8db47da";
 ---
 
 <MainLayout
@@ -14,79 +17,71 @@ import { siteConfig } from '../data/siteConfig.js';
 		<section class="flex flex-col md:flex-row gap-10 items-start mb-16">
 			<!-- Headshot -->
 			<div class="flex-shrink-0 flex flex-col items-center">
-				<div class="w-56 h-56 md:w-64 md:h-64 rounded-2xl overflow-hidden shadow-lg border-4 border-white">
+				<div class="w-56 h-56 md:w-64 md:h-64 rounded-2xl overflow-hidden" style="box-shadow: 0 6px 10px rgba(0,0,0,0.07);">
 					<img src="/headshot.png" alt="Seema Rida" class="w-full h-full object-cover" />
 				</div>
 			</div>
 
 			<!-- Bio -->
 			<div class="flex-1">
-				<h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-2" style="margin-bottom: 0.5rem;">About Me</h1>
-				<p class="text-lg text-muted-rose font-light mb-4">Cognitive Science &amp; Machine Learning at UCSD</p>
 				<p class="text-base md:text-lg text-gray-700 leading-relaxed" style="margin-bottom: 0;">
 					{aboutContent.profile.bio[0]}
 				</p>
 			</div>
 		</section>
 
-		<!-- ========== RESEARCH EXPERIENCE + SKILLS (side by side) ========== -->
-		<section class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-			<!-- Left: Research & Education Timeline -->
-			<div>
-				<h2 class="text-2xl font-bold text-gray-800 mb-6" style="margin-bottom: 1.5rem;">Research &amp; Education</h2>
+		<!-- ========== EXPERIENCE ========== -->
+		<section class="mb-16">
+			<h2 class="text-2xl font-bold text-gray-800 mb-6" style="margin-bottom: 1.5rem;">Experience</h2>
 
-				<!-- Timeline -->
-				<div class="relative">
-					<!-- vertical line -->
-					<div class="absolute left-4 top-0 bottom-0 w-0.5 bg-muted-rose/30"></div>
-
-					<!-- Item: Current Research -->
-					<div class="relative pl-12 pb-8">
-						<div class="absolute left-2.5 top-1.5 w-3 h-3 rounded-full bg-muted-rose border-2 border-white shadow"></div>
-						<span class="text-xs font-semibold text-muted-rose uppercase tracking-widest">Summer 2025 – Present</span>
-						<h3 class="text-lg font-bold text-gray-800 mt-0.5" style="margin-bottom: 0.25rem;">Research Assistant — Chiba Lab</h3>
-						<p class="text-sm text-gray-600" style="margin-bottom: 0;">UC Scholars Summer Research Program. Developing a time-synchronized embedded system to analyze student behavior and wellbeing in classroom environments through multimodal data collection.</p>
+			<div class="space-y-6">
+				<!-- Research Assistant — Chiba Lab -->
+				<div class="flex items-start gap-5">
+					<!-- Logo placeholder -->
+					<div class="flex-shrink-0 w-14 h-14 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center">
+						<span class="text-xs font-bold text-gray-400 text-center leading-tight">LOGO</span>
 					</div>
-
-					<!-- Item: Education -->
-					<div class="relative pl-12 pb-8">
-						<div class="absolute left-2.5 top-1.5 w-3 h-3 rounded-full bg-muted-rose/60 border-2 border-white shadow"></div>
-						<span class="text-xs font-semibold text-muted-rose uppercase tracking-widest">2022 – Present</span>
-						<h3 class="text-lg font-bold text-gray-800 mt-0.5" style="margin-bottom: 0.25rem;">B.S. Cognitive Science</h3>
-						<p class="text-sm text-gray-600" style="margin-bottom: 0;">University of California, San Diego — Specialization in Machine Learning &amp; Neural Computation. Minor in Computer Science.</p>
+					<div class="flex-1">
+						<h3 class="text-lg font-bold text-gray-800" style="margin-bottom: 0.15rem;">Research Assistant</h3>
+						<p class="text-sm text-gray-400" style="margin-bottom: 0;">Chiba Lab · UC San Diego · Summer 2025 – Present</p>
 					</div>
+				</div>
 
-					<!-- Item: placeholder for future -->
-					<div class="relative pl-12">
-						<div class="absolute left-2.5 top-1.5 w-3 h-3 rounded-full bg-gray-300 border-2 border-white shadow"></div>
-						<span class="text-xs font-semibold text-gray-400 uppercase tracking-widest">More to come</span>
-						<h3 class="text-lg font-bold text-gray-400 mt-0.5" style="margin-bottom: 0.25rem;">...</h3>
+				<!-- B.S. Cognitive Science -->
+				<div class="flex items-start gap-5">
+					<!-- Logo placeholder -->
+					<div class="flex-shrink-0 w-14 h-14 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center">
+						<span class="text-xs font-bold text-gray-400 text-center leading-tight">LOGO</span>
+					</div>
+					<div class="flex-1">
+						<h3 class="text-lg font-bold text-gray-800" style="margin-bottom: 0.15rem;">B.S. Cognitive Science</h3>
+						<p class="text-sm text-gray-400" style="margin-bottom: 0;">UC San Diego · 2022 – Present</p>
 					</div>
 				</div>
 			</div>
+		</section>
 
-			<!-- Right: Skills -->
-			<div>
-				<h2 class="text-2xl font-bold text-gray-800 mb-6" style="margin-bottom: 1.5rem;">Skills</h2>
+		<!-- ========== SKILLS ========== -->
+		<section class="mb-16">
+			<h2 class="text-2xl font-bold text-gray-800 mb-6" style="margin-bottom: 1.5rem;">Skills</h2>
 
-				<!-- Technical -->
-				<div class="mb-6">
-					<h3 class="text-sm font-semibold text-muted-rose uppercase tracking-widest mb-3">Technical</h3>
-					<div class="flex flex-wrap gap-2">
-						{aboutContent.skills.techniques.items.map(skill => (
-							<span class="px-3 py-1 bg-muted-rose/10 text-gray-700 rounded-full text-sm border border-muted-rose/20">{skill}</span>
-						))}
-					</div>
+			<!-- Technical -->
+			<div class="mb-6">
+				<h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Technical</h3>
+				<div class="flex flex-wrap gap-2">
+					{aboutContent.skills.techniques.items.map(skill => (
+						<span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm border border-gray-200">{skill}</span>
+					))}
 				</div>
+			</div>
 
-				<!-- Research -->
-				<div>
-					<h3 class="text-sm font-semibold text-muted-rose uppercase tracking-widest mb-3">Research</h3>
-					<div class="flex flex-wrap gap-2">
-						{aboutContent.skills.technologies.items.map(skill => (
-							<span class="px-3 py-1 bg-purple-50 text-gray-700 rounded-full text-sm border border-purple-200">{skill}</span>
-						))}
-					</div>
+			<!-- Research -->
+			<div>
+				<h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Research</h3>
+				<div class="flex flex-wrap gap-2">
+					{aboutContent.skills.technologies.items.map(skill => (
+						<span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm border border-gray-200">{skill}</span>
+					))}
 				</div>
 			</div>
 		</section>
@@ -95,87 +90,86 @@ import { siteConfig } from '../data/siteConfig.js';
 		<section class="mb-16">
 			<h2 class="text-2xl font-bold text-gray-800 mb-6" style="margin-bottom: 1.5rem;">Leadership</h2>
 			<div class="space-y-3">
-				<div class="flex flex-col sm:flex-row sm:items-center gap-2 bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-					<span class="font-semibold text-gray-800">Tritons Prosthetics Society</span>
-					<span class="text-gray-300 hidden sm:inline">|</span>
-					<span class="text-gray-600">Co-President</span>
+				<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+					<div class="flex flex-col sm:flex-row sm:items-center gap-2">
+						<span class="font-semibold text-gray-800">Tritons Prosthetics Society</span>
+						<span class="text-gray-300 hidden sm:inline">|</span>
+						<span class="text-gray-600">Co-President</span>
+					</div>
+					<span class="text-sm text-gray-400">2023 – Present</span>
 				</div>
 			</div>
 		</section>
 
-		<!-- ========== FAVORITES / HOBBIES ========== -->
+		<!-- ========== WANT TO SEE MORE? ========== -->
+		<section class="mb-16 text-center">
+			<h2 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">Want to see more?</h2>
+			<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+				<a
+					href={googleDriveResumeLink}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="inline-block bg-gray-800 text-white font-semibold px-6 py-2.5 rounded-xl shadow-sm hover:shadow-md hover:bg-gray-700 transition-all duration-300 text-sm"
+				>
+					View Resume
+				</a>
+				<a
+					href="/resume"
+					class="text-sm text-gray-500 hover:text-gray-800 transition-colors underline underline-offset-4"
+				>
+					Resume &amp; Links page →
+				</a>
+			</div>
+		</section>
+
+		<!-- ========== PROOF OF WORK-LIFE BALANCE (auto-scroll gallery) ========== -->
 		<section class="mb-16">
-			<h2 class="text-2xl font-bold text-gray-800 mb-8" style="margin-bottom: 2rem;">a few of my favorites</h2>
+			<h2 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-6 text-center">Proof of Work-Life Balance</h2>
 
-			<!-- Grid of interest cards -->
-			<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-10">
-				<!-- Walk / Hike -->
-				<div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 text-center hover:shadow-md transition-shadow">
-					<div class="text-2xl mb-1">🥾</div>
-					<h4 class="text-sm font-bold text-gray-800 mb-0.5">Favorite Hike</h4>
-					<p class="text-xs text-gray-500" style="margin-bottom: 0;">Torrey Pines</p>
-				</div>
-
-				<!-- Song -->
-				<div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 text-center hover:shadow-md transition-shadow">
-					<div class="text-2xl mb-1">🎵</div>
-					<h4 class="text-sm font-bold text-gray-800 mb-0.5">Song on Repeat</h4>
-					<p class="text-xs text-gray-500" style="margin-bottom: 0;">You Make Loving Fun — Fleetwood Mac</p>
-				</div>
-
-				<!-- Book -->
-				<div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 text-center hover:shadow-md transition-shadow">
-					<div class="text-2xl mb-1">📖</div>
-					<h4 class="text-sm font-bold text-gray-800 mb-0.5">Current Read</h4>
-					<p class="text-xs text-gray-500" style="margin-bottom: 0;">Thinking, Fast and Slow</p>
-				</div>
-
-				<!-- Hobby -->
-				<div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 text-center hover:shadow-md transition-shadow">
-					<div class="text-2xl mb-1">🎹</div>
-					<h4 class="text-sm font-bold text-gray-800 mb-0.5">Hobby</h4>
-					<p class="text-xs text-gray-500" style="margin-bottom: 0;">Playing piano</p>
-				</div>
-
-				<!-- Food -->
-				<div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 text-center hover:shadow-md transition-shadow">
-					<div class="text-2xl mb-1">🍜</div>
-					<h4 class="text-sm font-bold text-gray-800 mb-0.5">Favorite Food</h4>
-					<p class="text-xs text-gray-500" style="margin-bottom: 0;">Ramen</p>
-				</div>
-
-				<!-- Music collection -->
-				<div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 text-center hover:shadow-md transition-shadow">
-					<div class="text-2xl mb-1">💿</div>
-					<h4 class="text-sm font-bold text-gray-800 mb-0.5">Collecting</h4>
-					<p class="text-xs text-gray-500" style="margin-bottom: 0;">CDs</p>
-				</div>
-
-				<!-- Fitness -->
-				<div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 text-center hover:shadow-md transition-shadow">
-					<div class="text-2xl mb-1">💪</div>
-					<h4 class="text-sm font-bold text-gray-800 mb-0.5">At the Gym</h4>
-					<p class="text-xs text-gray-500" style="margin-bottom: 0;">Bench press</p>
-				</div>
-
-				<!-- Playlists -->
-				<div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 text-center hover:shadow-md transition-shadow">
-					<div class="text-2xl mb-1">🎧</div>
-					<h4 class="text-sm font-bold text-gray-800 mb-0.5">Always Doing</h4>
-					<p class="text-xs text-gray-500" style="margin-bottom: 0;">Making playlists</p>
+			<!-- Scrolling gallery wrapper -->
+			<div class="overflow-hidden">
+				<div class="gallery-track flex gap-4" style="width: max-content;">
+					<!-- Placeholder image slots — replace src with real images later -->
+					{[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+						<div class="flex-shrink-0 w-64 h-48 rounded-2xl bg-gray-100 border border-gray-200 flex items-center justify-center">
+							<span class="text-xs text-gray-400 font-medium">Photo {i}</span>
+						</div>
+					))}
+					<!-- Duplicate set for seamless loop -->
+					{[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+						<div class="flex-shrink-0 w-64 h-48 rounded-2xl bg-gray-100 border border-gray-200 flex items-center justify-center">
+							<span class="text-xs text-gray-400 font-medium">Photo {i}</span>
+						</div>
+					))}
 				</div>
 			</div>
+		</section>
 
-			<!-- Photo collage -->
-			<div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
-				<div class="rounded-xl overflow-hidden shadow-sm border border-gray-100" style="aspect-ratio: 1;">
-					<img src="/images/IMG_6871.jpeg" alt="Beach sunset" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
-				</div>
-				<div class="rounded-xl overflow-hidden shadow-sm border border-gray-100" style="aspect-ratio: 1;">
-					<img src="/images/favorite-photo.jpg" alt="Favorite photo" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
-				</div>
-				<div class="rounded-xl overflow-hidden shadow-sm border border-gray-100" style="aspect-ratio: 1;">
-					<img src="/images/fleetwood.jpg" alt="Fleetwood Mac album" class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+		<!-- ========== IN MY HEADPHONES ========== -->
+		<section class="mb-16">
+			<h2 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-6 text-center">In My Headphones</h2>
+
+			<div class="flex flex-col items-center gap-4">
+				<!-- Song card -->
+				<div class="flex items-center gap-4 bg-white rounded-2xl shadow-sm border border-gray-100 p-4 max-w-sm w-full">
+					<!-- Album art placeholder -->
+					<div class="flex-shrink-0 w-16 h-16 rounded-xl overflow-hidden bg-gray-100 border border-gray-200">
+						<img src="/images/fleetwood.jpg" alt="Album art" class="w-full h-full object-cover" />
+					</div>
+					<div class="flex-1 min-w-0">
+						<p class="text-base font-bold text-gray-800 truncate" style="margin-bottom: 0.1rem;">You Make Loving Fun</p>
+						<p class="text-sm text-gray-400 truncate" style="margin-bottom: 0;">Fleetwood Mac</p>
+					</div>
+					<!-- Spotify button -->
+					<a
+						href={spotifyLink}
+						target="_blank"
+						rel="noopener noreferrer"
+						class="flex-shrink-0 flex items-center gap-1.5 bg-green-500 hover:bg-green-600 text-white text-xs font-bold px-3 py-1.5 rounded-full transition-colors duration-200"
+					>
+						<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm4.535 14.507a.625.625 0 01-.856.186c-2.372-1.411-5.35-1.731-8.883-.949a.625.625 0 01-.748-.469.625.625 0 01.469-.748c3.85-.882 7.147-.518 9.83 1.096a.625.625 0 01.188.883zm1.206-2.68a.781.781 0 01-1.069.235c-2.711-1.666-6.851-2.148-10.072-1.175a.781.781 0 01-.954-.51.781.781 0 01.51-.955c3.538-1.081 7.975-.556 11.035 1.291a.781.781 0 01.234 1.067zm.11-2.789a.938.938 0 01-1.285.281c-3.072-1.888-8.066-2.441-11.886-1.333a.937.937 0 01-1.147-.608.937.937 0 01.609-1.148c4.167-1.272 9.584-.652 13.003 1.482a.938.938 0 01.288 1.28z"/></svg>
+						Spotify
+					</a>
 				</div>
 			</div>
 		</section>
@@ -188,4 +182,20 @@ import { siteConfig } from '../data/siteConfig.js';
 			<div class="mt-3 w-12 h-0.5 bg-gradient-to-r from-transparent via-muted-rose to-transparent mx-auto opacity-50"></div>
 		</div>
 	</div>
+
+	<!-- ========== GALLERY SCROLL ANIMATION ========== -->
+	<style is:global>
+		@keyframes scrollLeft {
+			0% {
+				transform: translateX(0);
+			}
+			100% {
+				transform: translateX(-50%);
+			}
+		}
+
+		.gallery-track {
+			animation: scrollLeft 30s linear infinite;
+		}
+	</style>
 </MainLayout>

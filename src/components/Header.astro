@@ -1,44 +1,29 @@
 ---
-import { navItems } from '../data/navigation.js';
-import { siteConfig } from '../data/siteConfig.js';
-import { Icon } from 'astro-icon/components';
-
 const currentPath = Astro.url.pathname;
+
+const googleDriveResumeLink = "https://drive.google.com/file/d/1vMcm1Vrld1HCFTy2rBo5zAO5CgFo5NxH/view?usp=sharing";
+
+const navItems = [
+  { href: '/', text: 'Home', isExternal: false },
+  { href: '/about', text: 'About', isExternal: false },
+  { href: googleDriveResumeLink, text: 'Resume', isExternal: true },
+];
 ---
 
-<header
-	class="bg-light-pink bg-opacity-80 backdrop-blur-sm sticky top-0 z-10 shadow-md transition-all duration-300"
->
-	<div
-		class="container py-4 flex flex-col md:flex-row justify-between items-center"
-	>
-		<div class="mb-4 md:mb-0">
-			<a
-				href="/"
-				class="flex items-center group transition-all duration-300"
-			>
-				<span class="text-2xl font-bold group-hover:text-muted-rose transition-all duration-300">{siteConfig.name}</span>
-			</a>
-		</div>
-		<nav>
-			<ul class="flex space-x-1 md:space-x-6">
-				{
-					navItems.map(item => (
-						<li>
-							<a
-								href={item.href}
-								class={`px-3 py-2 rounded-lg transition-all duration-300 ${
-									(currentPath === item.href) || (item.href !== '/' && currentPath.startsWith(item.href))
-										? 'bg-soft-blue text-white font-medium shadow-sm'
-										: 'hover:bg-soft-blue hover:bg-opacity-20 text-gray-800 hover:text-gray-800'
-								}`}
-							>
-								{item.text}
-							</a>
-						</li>
-					))
-				}
-			</ul>
-		</nav>
-	</div>
+<header class="sticky top-0 z-10 pt-6 pb-2">
+  <nav class="flex justify-center gap-8">
+    {navItems.map(item => (
+      <a
+        href={item.href}
+        {...(item.isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        class={`text-sm tracking-widest uppercase transition-all duration-300 pb-1 ${
+          !item.isExternal && ((currentPath === item.href) || (item.href !== '/' && currentPath.startsWith(item.href)))
+            ? 'text-gray-800 border-b border-gray-800'
+            : 'text-gray-400 border-b border-transparent hover:text-gray-800 hover:border-gray-300'
+        }`}
+      >
+        {item.text}
+      </a>
+    ))}
+  </nav>
 </header>
