@@ -25,25 +25,32 @@ export const homeContent = {
 
   projects: [
     {
+      slug: "optical-illusions-clip",
+      title: "Optical Illusions in CLIP",
+      description: "Analyzed how CLIP encodes perceptual ambiguity using the rabbit-duck illusion, designed systematic image perturbations to evaluate model bias, and compared outputs against human perception data.",
+      fields: ["Computer Vision", "Machine Learning", "Perceptual AI", "Experimental Design"],
+      image: "/projects/optical-illusions-clip.png"
+    },
+    {
+      slug: "biobehavioral-phenotyping",
+      title: "Biobehavioral Phenotyping in Classrooms",
+      description: "Time-locked physiology to classroom events, compared autonomic responses across tasks, and used biometrics to quantify engagement, stress regulation, and individual differences.",
+      fields: ["Behavioral Research", "Autonomic Physiology", "Data Analysis", "Child Development"],
+      image: "/projects/biobehavioral-phenotyping.png"
+    },
+    {
+      slug: "biosignal-pipeline",
+      title: "Biosignal Processing Pipeline",
+      description: "Developed a Python pipeline for cleaning and extracting physiological features from noisy wearable data, including motion artifact removal and PPG/EDA filtering for HR and HRV extraction.",
+      fields: ["Signal Processing", "Wearables", "Data Engineering", "Python"],
+      image: "/projects/biosignal-pipeline.png"
+    },
+    {
       slug: "eeg-attention",
-      title: "EEG-based Attention Analysis",
-      description: "Designed EEG experiments to examine attentional fluctuations, applied frequency domain analysis, and identified attention-related brainwave patterns.",
-      fields: ["Neuroscience", "Signal Processing", "EEG Analysis", "Cognitive Science"],
+      title: "EEG-based Attention Classification",
+      description: "Designed an EEG-based attention classification pipeline for an adaptive neurofeedback system using real-time OpenBCI data, signal preprocessing, and frequency-domain analysis.",
+      fields: ["Neuroscience", "Signal Processing", "BCI", "Real-time Systems"],
       image: "/projects/eeg-attention.png"
-    },
-    {
-      slug: "biometric-integration",
-      title: "Biometric Integration",
-      description: "Integrated multimodal biometric data to characterize behavioral patterns and developmental trajectories in young children.",
-      fields: ["Sensor Networks", "Data Fusion", "Behavioral Analysis", "Embedded Systems"],
-      image: "/projects/biometric-integration.png"
-    },
-    {
-      slug: "zebrafish-dynamics",
-      title: "Zebrafish Multiscale Dynamics",
-      description: "Implemented the Iterative Coarse Graining algorithm to uncover multiscale spatial structure across larval zebrafish brain regions.",
-      fields: ["Computational Biology", "Neural Dynamics", "Algorithm Design", "Neuroscience"],
-      image: null
     },
     {
       slug: "sarcastic-headlines",
@@ -51,29 +58,15 @@ export const homeContent = {
       description: "Explored whether character-level RNNs can learn sarcasm using The Onion dataset with RNN, LSTM, and GRU architectures.",
       fields: ["NLP", "Deep Learning", "RNN / LSTM", "Text Generation"],
       image: null
+    },
+    {
+      slug: "supervised-learning-comparison",
+      title: "Comparing Supervised Learning Algorithms",
+      description: "Built and evaluated logistic regression, KNN, and SVM classifiers on multiple datasets using cross-validation, confusion matrices, and performance visualizations.",
+      fields: ["Machine Learning", "Classification", "Model Evaluation", "Python"],
+      image: null
     }
   ],
-
-  interests: {
-    title: "My Interests",
-    items: [
-      {
-        title: "Brain-Computer Interfaces",
-        description: "Example",
-        icon: "brain"
-      },
-      {
-        title: "Science of Learning",
-        description: "Example",
-        icon: "beaker"
-      },
-      {
-        title: "Computational Neuroscience",
-        description: "Example",
-        icon: "chip"
-      }
-    ]
-  },
 
   favorites: {
     song: {

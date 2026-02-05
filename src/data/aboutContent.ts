@@ -6,7 +6,7 @@ export const aboutContent = {
     name: "Seema Rida",
     title: "Cognitive Science Student",
     bio: [
-      "I'm a Cognitive Science student at UC San Diego, specializing in Machine Learning and Neural Computation. I'm currently a research assistant at the Chiba Lab, where I explore brain-computer interfaces and real-time neurotechnology for behavior analysis. I'm especially interested in building tools that help us understand the brain and behavior—blending neuroscience, AI, and human-computer interaction.",
+      "Hi! I'm Seema, a Cognitive Science student at UC San Diego specializing in Machine Learning and Neural Computation with a minor in Computer Science. I work as an undergrad researcher at the Chiba Lab, where I collect and analyze biometric data to understand how the autonomic nervous system shapes behavior in children. I've never been satisfied studying any discipline in isolation. While learning about the brain and behavior, I've also been on a parallel journey learning about myself and how my own brain works. That's what drew me to neurotech and wearables; I'm fascinated by tools that bridge the gap between technology and the human experience, especially when they help us quantify abstract concepts that usually feel impossible to measure. My work is driven by curiosity about human behavior, the systems that shape it, and the belief that the best tools are the ones that help us understand ourselves better.",
     ],
     imagePlaceholder: "SR",
     email: "srida@ucsd.edu",
@@ -42,29 +42,18 @@ export const aboutContent = {
     techniques: {
       title: "Technical",
       items: [
-        "Python (NumPy, SciPy, Pandas, scikit-learn, Matplotlib) & Jupyter Notebooks",
-        "EEG Data Collection & Analysis",
-        "Machine Learning & Signal Processing",
-        "Network Configuration & Synchronization (PTP, LSL)",
-        "Embedded Systems (ESP32, Arduino, EmotiBit, PlatformIO)",
-        "Real-Time Data Logging & Parsing",
-        "Sensor Network Integration (EmotiBit, Cameras, Mics)",
-      ]
-    },
-    technologies: {
-      title: "Research",
-      items: [
-        "Brain-Computer Interface (BCI) & EEG Experiment Design",
-        "Cognitive Task Implementation",
-        "Data Visualization",
-        "Technical Writing & Presentations",
+        "Python",
+        "Signal Processing",
+        "Machine Learning",
+        "Biosensors",
+        "C++",
+        "Java",
+        "Embedded Systems",
+        "Git/GitHub",
+        "Experimental Design",
+        "BCIs",
+        "LSL",
       ]
     }
-  },
-
-  philosophy: {
-    title: "Personal Philosophy",
-    quote: "I believe that understanding the brain is not just about mapping neurons and circuits—it's about understanding what makes us human. The mysteries of consciousness, perception, and cognition are puzzles I'm determined to help solve, one synapse at a time.",
-    collaborationMessage: "I'm always looking for collaboration opportunities with fellow researchers. If you share similar interests, let's connect!"
   }
 };
