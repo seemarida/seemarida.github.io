@@ -136,13 +136,13 @@ const spotifyLink = "https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz?si=
 
 		<!-- ========== PROOF OF WORK-LIFE BALANCE + IN MY HEADPHONES (one section) ========== -->
 		<section class="mb-16">
-			<hr class="border-gray-200 mb-3" />
-			<p class="text-xs text-gray-800 uppercase tracking-widest mb-4" style="font-weight: 400; letter-spacing: 0.2em;">Proof of Work-Life Balance</p>
+			<p class="text-xs text-gray-800 uppercase tracking-widest mb-2" style="font-weight: 400; letter-spacing: 0.2em;">Proof of Work-Life Balance</p>
+			<hr class="border-gray-200 mb-5" />
 
-			<!-- Photos: ~1.5x wider, ~3x taller — use grid-cols-4 on sm+ and tall aspect ratio -->
-			<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-				{[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-					<div class={`photo-tilt photo-tilt-${i % 2 === 0 ? 'right' : 'left'} rounded-lg overflow-hidden bg-gray-100 border border-gray-200 flex items-center justify-center`} style="aspect-ratio: 3/4;">
+			<!-- Photos: 7 in a single row, slightly smaller -->
+			<div class="flex gap-2" style="overflow-x: auto;">
+				{[1, 2, 3, 4, 5, 6, 7].map((i) => (
+					<div class={`photo-tilt photo-tilt-${i % 2 === 0 ? 'right' : 'left'} rounded-lg overflow-hidden bg-gray-100 border border-gray-200 flex items-center justify-center flex-shrink-0`} style="width: calc((100% - 6 * 0.5rem) / 7); aspect-ratio: 3/4;">
 						<span class="text-xs text-gray-400 font-medium">Photo {i}</span>
 					</div>
 				))}
@@ -150,7 +150,8 @@ const spotifyLink = "https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz?si=
 
 			<!-- In My Headphones — same section, no divider -->
 			<div class="mt-10">
-				<p class="text-xs text-gray-800 uppercase tracking-widest mb-4" style="font-weight: 400; letter-spacing: 0.2em;">In My Headphones</p>
+				<p class="text-xs text-gray-800 uppercase tracking-widest mb-2" style="font-weight: 400; letter-spacing: 0.2em;">In My Headphones</p>
+				<hr class="border-gray-200 mb-5" />
 
 				<div class="flex flex-col items-start gap-4">
 					<!-- Song card -->
