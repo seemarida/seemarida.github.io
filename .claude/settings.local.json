@@ -3,7 +3,8 @@
     "allow": [
       "WebFetch(domain:github.com)",
       "Bash(npx astro build:*)",
-      "Bash(wc:*)"
+      "Bash(wc:*)",
+      "Bash(tree:*)"
     ],
     "deny": []
   }

@@ -24,7 +24,8 @@
   }
   
   body {
-    @apply bg-creamy-white text-gray-800 font-sans min-h-screen;
+    font-family: 'Inter', sans-serif;
+    @apply bg-creamy-white text-gray-800 min-h-screen;
   }
   
   h1, h2, h3, h4, h5, h6 {

@@ -17,7 +17,7 @@ const spotifyLink = "https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz?si=
 		<section class="flex flex-col md:flex-row gap-10 items-start mb-16">
 			<!-- Headshot -->
 			<div class="flex-shrink-0 flex flex-col items-center">
-				<div class="w-56 h-56 md:w-64 md:h-64 rounded-2xl overflow-hidden" style="box-shadow: 0 6px 10px rgba(0,0,0,0.07);">
+				<div class="w-72 h-72 md:w-80 md:h-80 rounded-2xl overflow-hidden" style="box-shadow: 0 6px 10px rgba(0,0,0,0.07);">
 					<img src="/headshot.png" alt="Seema Rida" class="w-full h-full object-cover" />
 				</div>
 			</div>
@@ -30,118 +30,111 @@ const spotifyLink = "https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz?si=
 			</div>
 		</section>
 
-		<!-- ========== EXPERIENCE ========== -->
+		<!-- ========== EXPERIENCE + SKILLS (side by side) ========== -->
 		<section class="mb-16">
-			<h2 class="text-2xl font-bold text-gray-800 mb-6" style="margin-bottom: 1.5rem;">Experience</h2>
+			<div class="flex flex-col lg:flex-row gap-12">
 
-			<div class="space-y-6">
-				<!-- Research Assistant — Chiba Lab -->
-				<div class="flex items-start gap-5">
-					<!-- Logo placeholder -->
-					<div class="flex-shrink-0 w-14 h-14 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center">
-						<span class="text-xs font-bold text-gray-400 text-center leading-tight">LOGO</span>
-					</div>
-					<div class="flex-1">
-						<h3 class="text-lg font-bold text-gray-800" style="margin-bottom: 0.15rem;">Research Assistant</h3>
-						<p class="text-sm text-gray-400" style="margin-bottom: 0;">Chiba Lab · UC San Diego · Summer 2025 – Present</p>
+				<!-- LEFT: Experience -->
+				<div class="flex-1">
+					<h2 class="text-2xl font-bold text-gray-800" style="margin-bottom: 1.5rem;">Experience</h2>
+					<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+						<!-- Research Assistant — Chiba Lab -->
+						<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
+							<div class="w-12 h-12 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center mb-3">
+								<span class="text-xs font-bold text-gray-400 text-center leading-tight">LOGO</span>
+							</div>
+							<h3 class="text-base font-bold text-gray-800" style="margin-bottom: 0.2rem;">Research Assistant</h3>
+							<p class="text-sm text-gray-400" style="margin-bottom: 0;">Chiba Lab · UC San Diego</p>
+							<p class="text-xs text-gray-300 mt-1" style="margin-bottom: 0;">Summer 2025 – Present</p>
+						</div>
+
+						<!-- Empty placeholder 1 -->
+						<div class="bg-gray-50 rounded-2xl border border-dashed border-gray-200 p-5 flex flex-col justify-center">
+							<div class="w-12 h-12 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center mb-3">
+								<span class="text-xs font-bold text-gray-300 text-center leading-tight">LOGO</span>
+							</div>
+							<h3 class="text-base font-bold text-gray-300" style="margin-bottom: 0.2rem;">Coming soon</h3>
+							<p class="text-sm text-gray-300" style="margin-bottom: 0;">—</p>
+						</div>
+
+						<!-- Empty placeholder 2 -->
+						<div class="bg-gray-50 rounded-2xl border border-dashed border-gray-200 p-5 flex flex-col justify-center">
+							<div class="w-12 h-12 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center mb-3">
+								<span class="text-xs font-bold text-gray-300 text-center leading-tight">LOGO</span>
+							</div>
+							<h3 class="text-base font-bold text-gray-300" style="margin-bottom: 0.2rem;">Coming soon</h3>
+							<p class="text-sm text-gray-300" style="margin-bottom: 0;">—</p>
+						</div>
+
+						<!-- Empty placeholder 3 -->
+						<div class="bg-gray-50 rounded-2xl border border-dashed border-gray-200 p-5 flex flex-col justify-center">
+							<div class="w-12 h-12 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center mb-3">
+								<span class="text-xs font-bold text-gray-300 text-center leading-tight">LOGO</span>
+							</div>
+							<h3 class="text-base font-bold text-gray-300" style="margin-bottom: 0.2rem;">Coming soon</h3>
+							<p class="text-sm text-gray-300" style="margin-bottom: 0;">—</p>
+						</div>
 					</div>
 				</div>
 
-				<!-- B.S. Cognitive Science -->
-				<div class="flex items-start gap-5">
-					<!-- Logo placeholder -->
-					<div class="flex-shrink-0 w-14 h-14 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center">
-						<span class="text-xs font-bold text-gray-400 text-center leading-tight">LOGO</span>
+				<!-- RIGHT: Skills -->
+				<div class="lg:w-72 flex-shrink-0">
+					<h2 class="text-2xl font-bold text-gray-800" style="margin-bottom: 1.5rem;">Skills</h2>
+
+					<!-- Technical -->
+					<div class="mb-5">
+						<h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Technical</h3>
+						<div class="flex flex-wrap gap-2">
+							{aboutContent.skills.techniques.items.map(skill => (
+								<span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm border border-gray-200">{skill}</span>
+							))}
+						</div>
 					</div>
-					<div class="flex-1">
-						<h3 class="text-lg font-bold text-gray-800" style="margin-bottom: 0.15rem;">B.S. Cognitive Science</h3>
-						<p class="text-sm text-gray-400" style="margin-bottom: 0;">UC San Diego · 2022 – Present</p>
+
+					<!-- Research -->
+					<div>
+						<h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Research</h3>
+						<div class="flex flex-wrap gap-2">
+							{aboutContent.skills.technologies.items.map(skill => (
+								<span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm border border-gray-200">{skill}</span>
+							))}
+						</div>
 					</div>
 				</div>
 			</div>
 		</section>
 
-		<!-- ========== SKILLS ========== -->
+		<!-- ========== LEADERSHIP & COMMUNITY ========== -->
 		<section class="mb-16">
-			<h2 class="text-2xl font-bold text-gray-800 mb-6" style="margin-bottom: 1.5rem;">Skills</h2>
-
-			<!-- Technical -->
-			<div class="mb-6">
-				<h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Technical</h3>
-				<div class="flex flex-wrap gap-2">
-					{aboutContent.skills.techniques.items.map(skill => (
-						<span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm border border-gray-200">{skill}</span>
-					))}
-				</div>
-			</div>
-
-			<!-- Research -->
-			<div>
-				<h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Research</h3>
-				<div class="flex flex-wrap gap-2">
-					{aboutContent.skills.technologies.items.map(skill => (
-						<span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm border border-gray-200">{skill}</span>
-					))}
-				</div>
-			</div>
-		</section>
-
-		<!-- ========== LEADERSHIP ========== -->
-		<section class="mb-16">
-			<h2 class="text-2xl font-bold text-gray-800 mb-6" style="margin-bottom: 1.5rem;">Leadership</h2>
+			<h2 class="text-2xl font-bold text-gray-800" style="margin-bottom: 1.5rem;">Leadership &amp; Community</h2>
 			<div class="space-y-3">
-				<div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 bg-white rounded-xl p-4 shadow-sm border border-gray-100">
-					<div class="flex flex-col sm:flex-row sm:items-center gap-2">
-						<span class="font-semibold text-gray-800">Tritons Prosthetics Society</span>
-						<span class="text-gray-300 hidden sm:inline">|</span>
-						<span class="text-gray-600">Co-President</span>
-					</div>
-					<span class="text-sm text-gray-400">2023 – Present</span>
-				</div>
+				<p class="text-base text-gray-700" style="margin-bottom: 0;">Tritons Prosthetics Society <span class="text-gray-300 mx-2">|</span> Co-President</p>
 			</div>
 		</section>
 
 		<!-- ========== WANT TO SEE MORE? ========== -->
 		<section class="mb-16 text-center">
 			<h2 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-4">Want to see more?</h2>
-			<div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-				<a
-					href={googleDriveResumeLink}
-					target="_blank"
-					rel="noopener noreferrer"
-					class="inline-block bg-gray-800 text-white font-semibold px-6 py-2.5 rounded-xl shadow-sm hover:shadow-md hover:bg-gray-700 transition-all duration-300 text-sm"
-				>
-					View Resume
-				</a>
-				<a
-					href="/resume"
-					class="text-sm text-gray-500 hover:text-gray-800 transition-colors underline underline-offset-4"
-				>
-					Resume &amp; Links page →
-				</a>
-			</div>
+			<a
+				href={googleDriveResumeLink}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="inline-block bg-gray-800 text-white font-semibold px-6 py-2.5 rounded-xl shadow-sm hover:shadow-md hover:bg-gray-700 transition-all duration-300 text-sm"
+			>
+				View Resume
+			</a>
 		</section>
 
-		<!-- ========== PROOF OF WORK-LIFE BALANCE (auto-scroll gallery) ========== -->
+		<!-- ========== PROOF OF MY WORK-LIFE BALANCE (static grid, vertical, tilt on hover) ========== -->
 		<section class="mb-16">
-			<h2 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-6 text-center">Proof of Work-Life Balance</h2>
+			<h2 class="text-sm text-gray-500 mb-8 text-center" style="margin-bottom: 2rem; font-weight: 400; font-size: 1rem;">proof of my work-life balance</h2>
 
-			<!-- Scrolling gallery wrapper -->
-			<div class="overflow-hidden">
-				<div class="gallery-track flex gap-4" style="width: max-content;">
-					<!-- Placeholder image slots — replace src with real images later -->
-					{[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-						<div class="flex-shrink-0 w-64 h-48 rounded-2xl bg-gray-100 border border-gray-200 flex items-center justify-center">
-							<span class="text-xs text-gray-400 font-medium">Photo {i}</span>
-						</div>
-					))}
-					<!-- Duplicate set for seamless loop -->
-					{[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-						<div class="flex-shrink-0 w-64 h-48 rounded-2xl bg-gray-100 border border-gray-200 flex items-center justify-center">
-							<span class="text-xs text-gray-400 font-medium">Photo {i}</span>
-						</div>
-					))}
-				</div>
+			<div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-4">
+				{[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
+					<div class={`photo-tilt photo-tilt-${i % 2 === 0 ? 'right' : 'left'} rounded-xl overflow-hidden bg-gray-100 border border-gray-200 flex items-center justify-center`} style="aspect-ratio: 3/4;">
+						<span class="text-xs text-gray-400 font-medium">Photo {i}</span>
+					</div>
+				))}
 			</div>
 		</section>
 
@@ -183,19 +176,29 @@ const spotifyLink = "https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz?si=
 		</div>
 	</div>
 
-	<!-- ========== GALLERY SCROLL ANIMATION ========== -->
+	<!-- ========== PHOTO TILT HOVER STYLES ========== -->
 	<style is:global>
-		@keyframes scrollLeft {
-			0% {
-				transform: translateX(0);
-			}
-			100% {
-				transform: translateX(-50%);
-			}
+		.photo-tilt {
+			transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+			cursor: pointer;
 		}
 
-		.gallery-track {
-			animation: scrollLeft 30s linear infinite;
+		.photo-tilt-left {
+			transform: rotate(-1.5deg);
+		}
+
+		.photo-tilt-right {
+			transform: rotate(1.5deg);
+		}
+
+		.photo-tilt-left:hover {
+			transform: rotate(2.5deg) translateY(-4px);
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+		}
+
+		.photo-tilt-right:hover {
+			transform: rotate(-2.5deg) translateY(-4px);
+			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 		}
 	</style>
 </MainLayout>
