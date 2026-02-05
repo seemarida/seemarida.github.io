@@ -16,74 +16,85 @@ const spotifyLink = "https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz?si=
 		<!-- ========== HERO: Headshot left, bio right ========== -->
 		<section class="flex flex-col md:flex-row gap-10 items-start mb-16">
 			<!-- Headshot -->
-			<div class="flex-shrink-0 flex flex-col items-center">
-				<div class="w-72 h-72 md:w-80 md:h-80 rounded-2xl overflow-hidden" style="box-shadow: 0 6px 10px rgba(0,0,0,0.07);">
+			<div class="flex-shrink-0">
+				<div class="w-80 h-80 md:w-96 md:h-96 rounded-2xl overflow-hidden" style="box-shadow: 0 6px 10px rgba(0,0,0,0.07);">
 					<img src="/headshot.png" alt="Seema Rida" class="w-full h-full object-cover" />
 				</div>
 			</div>
 
 			<!-- Bio -->
-			<div class="flex-1">
+			<div class="flex-1 max-w-2xl">
 				<p class="text-base md:text-lg text-gray-700 leading-relaxed" style="margin-bottom: 0;">
 					{aboutContent.profile.bio[0]}
 				</p>
 			</div>
 		</section>
 
-		<!-- ========== EXPERIENCE + SKILLS (side by side) ========== -->
+		<!-- ========== SKILLS & EXPERIENCE ========== -->
 		<section class="mb-16">
+			<hr class="border-gray-200 mb-3" />
+			<p class="text-xs font-semibold text-gray-300 uppercase tracking-widest mb-4">Skills &amp; Experience</p>
+
 			<div class="flex flex-col lg:flex-row gap-12">
 
 				<!-- LEFT: Experience -->
 				<div class="flex-1">
-					<h2 class="text-2xl font-bold text-gray-800" style="margin-bottom: 1.5rem;">Experience</h2>
-					<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+					<h2 class="text-lg font-bold text-gray-800" style="margin-bottom: 1rem;">Experience</h2>
+					<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
 						<!-- Research Assistant — Chiba Lab -->
-						<div class="bg-white rounded-2xl border border-gray-100 shadow-sm p-5">
-							<div class="w-12 h-12 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center mb-3">
+						<div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden" style="aspect-ratio: 1;">
+							<div class="w-full h-2/5 bg-gray-100 border-b border-gray-200 flex items-center justify-center">
 								<span class="text-xs font-bold text-gray-400 text-center leading-tight">LOGO</span>
 							</div>
-							<h3 class="text-base font-bold text-gray-800" style="margin-bottom: 0.2rem;">Research Assistant</h3>
-							<p class="text-sm text-gray-400" style="margin-bottom: 0;">Chiba Lab · UC San Diego</p>
-							<p class="text-xs text-gray-300 mt-1" style="margin-bottom: 0;">Summer 2025 – Present</p>
+							<div class="p-3 flex flex-col justify-center h-3/5">
+								<h3 class="text-sm font-bold text-gray-800" style="margin-bottom: 0.15rem;">Research Assistant</h3>
+								<p class="text-xs text-gray-400" style="margin-bottom: 0;">Chiba Lab · UCSD</p>
+								<p class="text-xs text-gray-300 mt-0.5" style="margin-bottom: 0;">Summer 2025</p>
+							</div>
 						</div>
 
 						<!-- Empty placeholder 1 -->
-						<div class="bg-gray-50 rounded-2xl border border-dashed border-gray-200 p-5 flex flex-col justify-center">
-							<div class="w-12 h-12 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center mb-3">
+						<div class="bg-gray-50 rounded-xl border border-dashed border-gray-200 overflow-hidden" style="aspect-ratio: 1;">
+							<div class="w-full h-2/5 bg-gray-100 border-b border-gray-200 flex items-center justify-center">
 								<span class="text-xs font-bold text-gray-300 text-center leading-tight">LOGO</span>
 							</div>
-							<h3 class="text-base font-bold text-gray-300" style="margin-bottom: 0.2rem;">Coming soon</h3>
-							<p class="text-sm text-gray-300" style="margin-bottom: 0;">—</p>
+							<div class="p-3 flex flex-col justify-center h-3/5">
+								<h3 class="text-sm font-bold text-gray-300" style="margin-bottom: 0.15rem;">Coming soon</h3>
+								<p class="text-xs text-gray-300" style="margin-bottom: 0;">—</p>
+							</div>
 						</div>
 
 						<!-- Empty placeholder 2 -->
-						<div class="bg-gray-50 rounded-2xl border border-dashed border-gray-200 p-5 flex flex-col justify-center">
-							<div class="w-12 h-12 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center mb-3">
+						<div class="bg-gray-50 rounded-xl border border-dashed border-gray-200 overflow-hidden" style="aspect-ratio: 1;">
+							<div class="w-full h-2/5 bg-gray-100 border-b border-gray-200 flex items-center justify-center">
 								<span class="text-xs font-bold text-gray-300 text-center leading-tight">LOGO</span>
 							</div>
-							<h3 class="text-base font-bold text-gray-300" style="margin-bottom: 0.2rem;">Coming soon</h3>
-							<p class="text-sm text-gray-300" style="margin-bottom: 0;">—</p>
+							<div class="p-3 flex flex-col justify-center h-3/5">
+								<h3 class="text-sm font-bold text-gray-300" style="margin-bottom: 0.15rem;">Coming soon</h3>
+								<p class="text-xs text-gray-300" style="margin-bottom: 0;">—</p>
+							</div>
 						</div>
 
 						<!-- Empty placeholder 3 -->
-						<div class="bg-gray-50 rounded-2xl border border-dashed border-gray-200 p-5 flex flex-col justify-center">
-							<div class="w-12 h-12 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center mb-3">
+						<div class="bg-gray-50 rounded-xl border border-dashed border-gray-200 overflow-hidden" style="aspect-ratio: 1;">
+							<div class="w-full h-2/5 bg-gray-100 border-b border-gray-200 flex items-center justify-center">
 								<span class="text-xs font-bold text-gray-300 text-center leading-tight">LOGO</span>
 							</div>
-							<h3 class="text-base font-bold text-gray-300" style="margin-bottom: 0.2rem;">Coming soon</h3>
-							<p class="text-sm text-gray-300" style="margin-bottom: 0;">—</p>
+							<div class="p-3 flex flex-col justify-center h-3/5">
+								<h3 class="text-sm font-bold text-gray-300" style="margin-bottom: 0.15rem;">Coming soon</h3>
+								<p class="text-xs text-gray-300" style="margin-bottom: 0;">—</p>
+							</div>
 						</div>
 					</div>
 				</div>
 
 				<!-- RIGHT: Skills -->
 				<div class="lg:w-72 flex-shrink-0">
-					<h2 class="text-2xl font-bold text-gray-800" style="margin-bottom: 1.5rem;">Skills</h2>
+					<h2 class="text-lg font-bold text-gray-800" style="margin-bottom: 1rem;">Skills</h2>
 
 					<!-- Technical -->
-					<div class="mb-5">
-						<h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Technical</h3>
+					<div class="mb-4">
+						<h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Technical</h3>
 						<div class="flex flex-wrap gap-2">
 							{aboutContent.skills.techniques.items.map(skill => (
 								<span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm border border-gray-200">{skill}</span>
@@ -92,24 +103,24 @@ const spotifyLink = "https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz?si=
 					</div>
 
 					<!-- Research -->
-					<div>
-						<h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-3">Research</h3>
+					<div class="mb-4">
+						<h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Research</h3>
 						<div class="flex flex-wrap gap-2">
 							{aboutContent.skills.technologies.items.map(skill => (
 								<span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm border border-gray-200">{skill}</span>
 							))}
 						</div>
 					</div>
+
+					<!-- Leadership -->
+					<div>
+						<h3 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-2">Leadership</h3>
+						<p class="text-sm text-gray-700" style="margin-bottom: 0;">Tritons Prosthetics Society <span class="text-gray-300 mx-1">|</span> Co-President</p>
+					</div>
 				</div>
 			</div>
-		</section>
 
-		<!-- ========== LEADERSHIP & COMMUNITY ========== -->
-		<section class="mb-16">
-			<h2 class="text-2xl font-bold text-gray-800" style="margin-bottom: 1.5rem;">Leadership &amp; Community</h2>
-			<div class="space-y-3">
-				<p class="text-base text-gray-700" style="margin-bottom: 0;">Tritons Prosthetics Society <span class="text-gray-300 mx-2">|</span> Co-President</p>
-			</div>
+			<hr class="border-gray-200 mt-6" />
 		</section>
 
 		<!-- ========== WANT TO SEE MORE? ========== -->
@@ -125,24 +136,28 @@ const spotifyLink = "https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz?si=
 			</a>
 		</section>
 
-		<!-- ========== PROOF OF MY WORK-LIFE BALANCE (static grid, vertical, tilt on hover) ========== -->
+		<!-- ========== PROOF OF MY WORK-LIFE BALANCE ========== -->
 		<section class="mb-16">
-			<h2 class="text-sm text-gray-500 mb-8 text-center" style="margin-bottom: 2rem; font-weight: 400; font-size: 1rem;">proof of my work-life balance</h2>
+			<hr class="border-gray-200 mb-3" />
+			<p class="text-xs font-semibold text-gray-300 uppercase tracking-widest mb-4">Proof of Work-Life Balance</p>
 
-			<div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-4">
+			<div class="grid grid-cols-4 sm:grid-cols-8 gap-3">
 				{[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-					<div class={`photo-tilt photo-tilt-${i % 2 === 0 ? 'right' : 'left'} rounded-xl overflow-hidden bg-gray-100 border border-gray-200 flex items-center justify-center`} style="aspect-ratio: 3/4;">
+					<div class={`photo-tilt photo-tilt-${i % 2 === 0 ? 'right' : 'left'} rounded-lg overflow-hidden bg-gray-100 border border-gray-200 flex items-center justify-center`} style="aspect-ratio: 4/3;">
 						<span class="text-xs text-gray-400 font-medium">Photo {i}</span>
 					</div>
 				))}
 			</div>
+
+			<hr class="border-gray-200 mt-6" />
 		</section>
 
 		<!-- ========== IN MY HEADPHONES ========== -->
 		<section class="mb-16">
-			<h2 class="text-xs font-semibold text-gray-400 uppercase tracking-widest mb-6 text-center">In My Headphones</h2>
+			<hr class="border-gray-200 mb-3" />
+			<p class="text-xs font-semibold text-gray-300 uppercase tracking-widest mb-4">In My Headphones</p>
 
-			<div class="flex flex-col items-center gap-4">
+			<div class="flex flex-col items-start gap-4">
 				<!-- Song card -->
 				<div class="flex items-center gap-4 bg-white rounded-2xl shadow-sm border border-gray-100 p-4 max-w-sm w-full">
 					<!-- Album art placeholder -->
@@ -165,15 +180,10 @@ const spotifyLink = "https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz?si=
 					</a>
 				</div>
 			</div>
+
+			<hr class="border-gray-200 mt-6" />
 		</section>
 
-		<!-- ========== BOTTOM QUOTE ========== -->
-		<div class="text-center py-10 border-t border-gray-100">
-			<p class="text-sm text-gray-400 italic">
-				This little corner of the internet is where I collect my thoughts about brains, code, and everything in between.
-			</p>
-			<div class="mt-3 w-12 h-0.5 bg-gradient-to-r from-transparent via-muted-rose to-transparent mx-auto opacity-50"></div>
-		</div>
 	</div>
 
 	<!-- ========== PHOTO TILT HOVER STYLES ========== -->
@@ -181,23 +191,16 @@ const spotifyLink = "https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz?si=
 		.photo-tilt {
 			transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
 			cursor: pointer;
-		}
-
-		.photo-tilt-left {
-			transform: rotate(-1.5deg);
-		}
-
-		.photo-tilt-right {
-			transform: rotate(1.5deg);
+			transform: rotate(0deg);
 		}
 
 		.photo-tilt-left:hover {
-			transform: rotate(2.5deg) translateY(-4px);
+			transform: rotate(-2.5deg) translateY(-3px);
 			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 		}
 
 		.photo-tilt-right:hover {
-			transform: rotate(-2.5deg) translateY(-4px);
+			transform: rotate(2.5deg) translateY(-3px);
 			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 		}
 	</style>
