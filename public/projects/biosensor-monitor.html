@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biosensor Monitor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:            #040610;
+      --panel:         #060912;
+      --border:        #0d1226;
+      --imu-x:         #4169E1;
+      --imu-y:         #009999;
+      --imu-z:         #C8941A;
+      --ppg:           #e03268;
+      --clean:         #38f090;
+      --dirty:         #ff4030;
+      --text-muted:    #2e3a58;
+      --text-dim:      #52607e;
+      --text-main:     #8898bb;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      font-family: 'Space Mono', monospace;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    /* Scan-line atmosphere */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent, transparent 3px,
+        rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px
+      );
+      pointer-events: none;
+      z-index: 200;
+    }
+
+    /* Subtle vignette */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.55) 100%);
+      pointer-events: none;
+      z-index: 200;
+    }
+
+    #app {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      padding: 14px 18px 12px;
+      gap: 10px;
+    }
+
+    /* ── TOP BAR ── */
+    #topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+
+    #title-group { display: flex; align-items: center; gap: 12px; }
+
+    .live-indicator {
+      position: relative;
+      width: 9px;
+      height: 9px;
+      flex-shrink: 0;
+    }
+    .live-indicator::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: var(--clean);
+      animation: corePulse 2.2s ease-in-out infinite;
+    }
+    .live-indicator::after {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      border: 1.5px solid var(--clean);
+      animation: ringOut 2.2s ease-out infinite;
+    }
+    @keyframes corePulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(0.85); opacity: 0.65; }
+    }
+    @keyframes ringOut {
+      0% { transform: scale(0.4); opacity: 0.7; }
+      100% { transform: scale(2.0); opacity: 0; }
+    }
+
+    #title-text {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    #title-text strong { color: var(--text-main); font-weight: 700; }
+
+    #status-badge {
+      font-size: 9px;
+      letter-spacing: 0.16em;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .badge-clean {
+      background: rgba(56,240,144,0.08);
+      color: var(--clean);
+      border: 1px solid rgba(56,240,144,0.25);
+    }
+    .badge-artifact {
+      background: rgba(255,64,48,0.14);
+      color: var(--dirty);
+      border: 1px solid rgba(255,64,48,0.38);
+      animation: badgeFlash 0.25s ease;
+    }
+    @keyframes badgeFlash {
+      0%   { background: rgba(255,64,48,0.45); }
+      100% { background: rgba(255,64,48,0.14); }
+    }
+
+    /* ── PANELS ── */
+    #panels {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+      min-height: 0;
+    }
+
+    .panel {
+      flex: 1;
+      min-height: 0;
+      position: relative;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    /* Subtle corner accents */
+    .panel::before, .panel::after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .panel::before {
+      top: -1px; left: -1px;
+      border-top: 2px solid var(--text-dim);
+      border-left: 2px solid var(--text-dim);
+    }
+    .panel::after {
+      bottom: -1px; right: -1px;
+      border-bottom: 2px solid var(--text-dim);
+      border-right: 2px solid var(--text-dim);
+    }
+
+    .panel-label {
+      position: absolute;
+      top: 9px;
+      left: 12px;
+      font-size: 8px;
+      letter-spacing: 0.2em;
+      color: var(--text-muted);
+      z-index: 5;
+      font-weight: 700;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+
+    #imu-legend {
+      position: absolute;
+      top: 7px;
+      right: 10px;
+      display: flex;
+      gap: 14px;
+      z-index: 5;
+      pointer-events: none;
+    }
+    .leg-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 8px;
+      color: var(--text-muted);
+      letter-spacing: 0.1em;
+    }
+    .leg-line { width: 16px; height: 2px; border-radius: 1px; }
+
+    .panel canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ── BOTTOM BAR ── */
+    #bottombar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      padding: 0 2px;
+    }
+
+    .stat-group {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .stat-label {
+      font-size: 8px;
+      color: var(--text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .stat-value {
+      font-size: 8px;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+    }
+
+    #quality-track {
+      width: 100px;
+      height: 3px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    #quality-fill {
+      height: 100%;
+      border-radius: 2px;
+      transition: width 0.4s ease, background-color 0.4s ease;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app">
+
+  <div id="topbar">
+    <div id="title-group">
+      <div class="live-indicator"></div>
+      <div id="title-text"><strong>Motion Artifact Detection</strong> · Biosensor Monitor</div>
+    </div>
+    <div id="status-badge" class="badge-clean">CLEAN SIGNAL</div>
+  </div>
+
+  <div id="panels">
+
+    <div class="panel" id="imu-panel">
+      <div class="panel-label">IMU · Accelerometer [g]</div>
+      <div id="imu-legend">
+        <div class="leg-item"><div class="leg-line" style="background:var(--imu-x)"></div>X</div>
+        <div class="leg-item"><div class="leg-line" style="background:var(--imu-y)"></div>Y</div>
+        <div class="leg-item"><div class="leg-line" style="background:var(--imu-z)"></div>Z</div>
+      </div>
+      <canvas id="imu-canvas"></canvas>
+    </div>
+
+    <div class="panel" id="ppg-panel">
+      <div class="panel-label">PPG · Photoplethysmography [a.u.]</div>
+      <div id="imu-legend" style="right:10px">
+        <div class="leg-item"><div class="leg-line" style="background:var(--ppg)"></div>PG</div>
+        <div class="leg-item">
+          <div style="width:14px;height:10px;border-radius:1px;background:rgba(255,60,40,0.25);border:1px solid rgba(255,60,40,0.4)"></div>
+          Artifact
+        </div>
+      </div>
+      <canvas id="ppg-canvas"></canvas>
+    </div>
+
+  </div>
+
+  <div id="bottombar">
+    <div class="stat-group">
+      <div class="stat-label">Threshold</div>
+      <div class="stat-value">±1.5 g</div>
+    </div>
+    <div class="stat-group">
+      <div class="stat-label">Signal Quality</div>
+      <div id="quality-track"><div id="quality-fill" style="width:100%"></div></div>
+      <div class="stat-value" id="quality-pct">100%</div>
+    </div>
+    <div class="stat-group">
+      <div class="stat-label">Sample Rate</div>
+      <div class="stat-value">25 Hz</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  // ─── Constants ───────────────────────────────────────────────────────────
+  const BUF  = 600;   // display buffer length
+  const SR   = 25;    // simulated sample rate (Hz)
+  const UPPER = 1.5;
+  const LOWER = -1.5;
+  const HR_HZ = 1.1;  // heart rate in Hz (~66 bpm)
+
+  // ─── Buffers ─────────────────────────────────────────────────────────────
+  const ax   = new Float32Array(BUF);
+  const ay   = new Float32Array(BUF);
+  const az   = new Float32Array(BUF).fill(1.0);
+  const ppg  = new Float32Array(BUF);
+  const flag = new Uint8Array(BUF).fill(1);  // 1 = clean, 0 = artifact
+
+  // ─── Simulation state ────────────────────────────────────────────────────
+  let t            = 0;
+  let cardiacPhase = Math.random(); // start at random phase
+  let bangActive   = false;
+  let bangTimer    = 0;
+  let bangDuration = 0;
+  let bangAmp      = 0;
+  let quietCountdown = 180 + Math.floor(Math.random() * 180);
+
+  // Realistic PPG morphology (systolic + dicrotic components)
+  function ppgWaveform(phase) {
+    const p = phase % 1.0;
+    const sys  = Math.exp(-0.5 * ((p - 0.17) / 0.09) ** 2);
+    const dic  = 0.32 * Math.exp(-0.5 * ((p - 0.53) / 0.065) ** 2);
+    return sys + dic - 0.14;
+  }
+
+  function generateSample() {
+    const dt = 1 / SR;
+    t += dt;
+    cardiacPhase = (cardiacPhase + HR_HZ * dt) % 1.0;
+
+    // Bang scheduling
+    if (!bangActive) {
+      quietCountdown--;
+      if (quietCountdown <= 0) {
+        bangActive   = true;
+        bangDuration = 25 + Math.floor(Math.random() * 65);
+        bangTimer    = 0;
+        bangAmp      = (Math.random() > 0.5 ? 1 : -1) * (2.0 + Math.random() * 1.6);
+        quietCountdown = 220 + Math.floor(Math.random() * 280);
+      }
+    }
+
+    let axV, ayV, azV, ppgV, flagV;
+
+    if (bangActive) {
+      bangTimer++;
+      if (bangTimer >= bangDuration) bangActive = false;
+
+      // Smooth envelope so bang ramps up and fades
+      const env = Math.min(bangTimer / 12, 1.0, (bangDuration - bangTimer) / 12);
+      axV  = env * bangAmp * (0.65 + 0.35 * Math.sin(t * 13.7))  + (Math.random() - 0.5) * 0.9;
+      ayV  = env * -bangAmp * 0.7 * Math.cos(t * 10.8)            + (Math.random() - 0.5) * 0.7;
+      azV  = 1.0 + env * bangAmp * 0.35 * Math.sin(t * 16.4)      + (Math.random() - 0.5) * 0.35;
+      ppgV = ppgWaveform(cardiacPhase) * 0.25 + (Math.random() - 0.5) * 1.8;
+      flagV = 0;
+    } else {
+      // Quiet baseline — tiny physiological drift
+      axV  = 0.025 * Math.sin(t * 0.4)  + (Math.random() - 0.5) * 0.12;
+      ayV  = 0.018 * Math.cos(t * 0.28) + (Math.random() - 0.5) * 0.10;
+      azV  = 1.0  + 0.012 * Math.sin(t * 0.6) + (Math.random() - 0.5) * 0.07;
+      ppgV = ppgWaveform(cardiacPhase)   + (Math.random() - 0.5) * 0.07;
+      flagV = 1;
+    }
+
+    // Shift + push
+    ax.copyWithin(0, 1);  ax[BUF - 1]  = axV;
+    ay.copyWithin(0, 1);  ay[BUF - 1]  = ayV;
+    az.copyWithin(0, 1);  az[BUF - 1]  = azV;
+    ppg.copyWithin(0, 1); ppg[BUF - 1] = ppgV;
+    flag.copyWithin(0, 1); flag[BUF - 1] = flagV;
+  }
+
+  // ─── Canvas / rendering ──────────────────────────────────────────────────
+  const imuCanvas = document.getElementById('imu-canvas');
+  const ppgCanvas = document.getElementById('ppg-canvas');
+  const imuCtx    = imuCanvas.getContext('2d');
+  const ppgCtx    = ppgCanvas.getContext('2d');
+
+  function resizeCanvases() {
+    const ip = document.getElementById('imu-panel');
+    const pp = document.getElementById('ppg-panel');
+    imuCanvas.width  = ip.offsetWidth;
+    imuCanvas.height = ip.offsetHeight;
+    ppgCanvas.width  = pp.offsetWidth;
+    ppgCanvas.height = pp.offsetHeight;
+  }
+  window.addEventListener('resize', resizeCanvases);
+  resizeCanvases();
+
+  // Translates a data value to canvas Y coordinate
+  function toY(val, h, yMin, yMax) {
+    return h - ((val - yMin) / (yMax - yMin)) * h;
+  }
+
+  // Draw faint grid
+  function drawGrid(ctx, w, h) {
+    ctx.strokeStyle = 'rgba(255,255,255,0.028)';
+    ctx.lineWidth = 1;
+    const rows = 4, cols = 10;
+    for (let r = 1; r < rows; r++) {
+      const y = (r / rows) * h;
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke();
+    }
+    for (let c = 1; c < cols; c++) {
+      const x = (c / cols) * w;
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+    }
+  }
+
+  // Artifact shading behind signals
+  function drawArtifacts(ctx, w, h) {
+    let inArt = false, startX = 0;
+    for (let i = 0; i < BUF; i++) {
+      const px = (i / (BUF - 1)) * w;
+      if (flag[i] === 0 && !inArt) { inArt = true; startX = px; }
+      if (flag[i] === 1 &&  inArt) {
+        inArt = false;
+        _fillArtifact(ctx, startX, px, h);
+      }
+    }
+    if (inArt) _fillArtifact(ctx, startX, w, h);
+  }
+
+  function _fillArtifact(ctx, x0, x1, h) {
+    const g = ctx.createLinearGradient(x0, 0, x1, 0);
+    g.addColorStop(0,    'rgba(255,55,35,0)');
+    g.addColorStop(0.08, 'rgba(255,55,35,0.11)');
+    g.addColorStop(0.92, 'rgba(255,55,35,0.11)');
+    g.addColorStop(1,    'rgba(255,55,35,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(x0, 0, x1 - x0, h);
+    // top/bottom edge glow
+    ctx.strokeStyle = 'rgba(255,55,35,0.22)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([3, 5]);
+    ctx.beginPath(); ctx.moveTo(x0, 1);     ctx.lineTo(x1, 1);     ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(x0, h - 1); ctx.lineTo(x1, h - 1); ctx.stroke();
+    ctx.setLineDash([]);
+  }
+
+  // Threshold dashed lines (IMU panel only)
+  function drawThresholds(ctx, w, h, yMin, yMax) {
+    const uy = toY(UPPER, h, yMin, yMax);
+    const ly = toY(LOWER, h, yMin, yMax);
+
+    ctx.strokeStyle = 'rgba(255,80,55,0.30)';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([3, 6]);
+    ctx.beginPath(); ctx.moveTo(0, uy); ctx.lineTo(w, uy); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(0, ly); ctx.lineTo(w, ly); ctx.stroke();
+    ctx.setLineDash([]);
+
+    ctx.fillStyle = 'rgba(255,80,55,0.45)';
+    ctx.font = '8px Space Mono';
+    ctx.fillText('+1.5g', 5, uy - 4);
+    ctx.fillText('-1.5g', 5, ly + 10);
+  }
+
+  // Zero-reference line
+  function drawZeroLine(ctx, w, h, yMin, yMax) {
+    const zy = toY(0, h, yMin, yMax);
+    ctx.strokeStyle = 'rgba(255,255,255,0.055)';
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(0, zy); ctx.lineTo(w, zy); ctx.stroke();
+  }
+
+  // Draw signal with optional glow
+  function drawSignal(ctx, w, h, data, yMin, yMax, color, lw, glowRadius) {
+    ctx.strokeStyle = color;
+    ctx.lineWidth = lw;
+    if (glowRadius) {
+      ctx.shadowBlur  = glowRadius;
+      ctx.shadowColor = color;
+    }
+    ctx.beginPath();
+    let first = true;
+    for (let i = 0; i < BUF; i++) {
+      const px = (i / (BUF - 1)) * w;
+      const py = toY(Math.max(yMin, Math.min(yMax, data[i])), h, yMin, yMax);
+      if (first) { ctx.moveTo(px, py); first = false; }
+      else        { ctx.lineTo(px, py); }
+    }
+    ctx.stroke();
+    if (glowRadius) ctx.shadowBlur = 0;
+  }
+
+  // ─── Render functions ────────────────────────────────────────────────────
+  const BG = '#060912';
+
+  function renderIMU() {
+    const w = imuCanvas.width, h = imuCanvas.height;
+    imuCtx.fillStyle = BG;
+    imuCtx.fillRect(0, 0, w, h);
+    drawGrid(imuCtx, w, h);
+    drawZeroLine(imuCtx, w, h, -3.6, 3.6);
+    drawThresholds(imuCtx, w, h, -3.6, 3.6);
+    drawArtifacts(imuCtx, w, h);
+    drawSignal(imuCtx, w, h, ax, -3.6, 3.6, '#4169E1', 1.4, 5);
+    drawSignal(imuCtx, w, h, ay, -3.6, 3.6, '#009999', 1.4, 5);
+    drawSignal(imuCtx, w, h, az, -3.6, 3.6, '#C8941A', 1.4, 5);
+  }
+
+  function renderPPG() {
+    const w = ppgCanvas.width, h = ppgCanvas.height;
+    ppgCtx.fillStyle = BG;
+    ppgCtx.fillRect(0, 0, w, h);
+    drawGrid(ppgCtx, w, h);
+    drawZeroLine(ppgCtx, w, h, -2.1, 2.1);
+    drawArtifacts(ppgCtx, w, h);
+    drawSignal(ppgCtx, w, h, ppg, -2.1, 2.1, '#e03268', 2.0, 8);
+  }
+
+  // ─── HUD updates ─────────────────────────────────────────────────────────
+  const statusBadge = document.getElementById('status-badge');
+  const qualityFill = document.getElementById('quality-fill');
+  const qualityPct  = document.getElementById('quality-pct');
+  let lastFlagState = 1;
+
+  function updateHUD() {
+    const cur = flag[BUF - 1];
+    if (cur !== lastFlagState) {
+      lastFlagState = cur;
+      if (cur === 1) {
+        statusBadge.className   = 'badge-clean';
+        statusBadge.textContent = 'CLEAN SIGNAL';
+      } else {
+        statusBadge.className   = 'badge-artifact';
+        statusBadge.textContent = 'MOTION ARTIFACT';
+      }
+    }
+
+    // Signal quality: fraction of clean samples in trailing 100-sample window
+    let clean = 0;
+    const start = Math.max(0, BUF - 100);
+    for (let i = start; i < BUF; i++) if (flag[i] === 1) clean++;
+    const pct = clean;  // 0–100
+
+    qualityFill.style.width = pct + '%';
+    qualityFill.style.backgroundColor =
+      pct > 72 ? '#38f090' : pct > 42 ? '#f0a830' : '#ff4030';
+    qualityPct.textContent = pct + '%';
+  }
+
+  // ─── Animation loop ───────────────────────────────────────────────────────
+  let lastTime = performance.now();
+  let accumSamples = 0;
+
+  function frame(now) {
+    requestAnimationFrame(frame);
+
+    const dt = Math.min(now - lastTime, 100) / 1000;  // cap at 100 ms
+    lastTime = now;
+
+    accumSamples += dt * SR;
+    const n = Math.floor(accumSamples);
+    accumSamples -= n;
+    for (let i = 0; i < n; i++) generateSample();
+
+    renderIMU();
+    renderPPG();
+    updateHUD();
+  }
+
+  requestAnimationFrame(frame);
+})();
+</script>
+</body>
+</html>

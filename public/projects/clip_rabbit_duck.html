@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CLIP × Rabbit-Duck Illusion</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    background: #e8e2d8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  canvas {
+    display: block;
+    border-radius: 16px;
+    box-shadow:
+      0 2px 4px rgba(60,40,10,0.07),
+      0 8px 28px rgba(60,40,10,0.10),
+      0 40px 80px rgba(60,40,10,0.09);
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+const c   = document.getElementById('c');
+const ctx = c.getContext('2d');
+c.width   = 800;
+c.height  = 480;
+
+// ── Palette ──────────────────────────────────────────────────────────────────
+const BG     = '#faf6ef';   // warm cream
+const DUCK   = '#2d7d46';   // forest green
+const RABBIT = '#6d3fa0';   // rich purple
+const INK    = '#000000';   // black
+const MID    = '#555555';   // mid gray
+const SOFT   = '#d9d0c3';   // soft border
+const TRACK  = '#ece6da';   // bar track
+
+function lerp(a,b,t)  { return a+(b-a)*t; }
+function clamp(v,l,h) { return Math.max(l,Math.min(h,v)); }
+function smooth(t)    { return t*t*(3-2*t); }
+function easeOut(t)   { return 1-(1-t)*(1-t); }
+
+const FPS = 60, CYCLE = FPS*7;
+let frame = 0;
+
+function rr(x,y,w,h,r) {
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.lineTo(x+w-r,y); ctx.arcTo(x+w,y,x+w,y+r,r);
+  ctx.lineTo(x+w,y+h-r); ctx.arcTo(x+w,y+h,x+w-r,y+h,r);
+  ctx.lineTo(x+r,y+h); ctx.arcTo(x,y+h,x,y+h-r,r);
+  ctx.lineTo(x,y+r); ctx.arcTo(x,y,x+r,y,r);
+  ctx.closePath();
+}
+
+// ── Duck ─────────────────────────────────────────────────────────────────────
+function drawDuck(cx,cy,alpha) {
+  ctx.save();
+  ctx.translate(cx,cy);
+  ctx.globalAlpha = alpha;
+
+  // soft halo
+  const g=ctx.createRadialGradient(0,0,5,0,0,150);
+  g.addColorStop(0,DUCK+'18'); g.addColorStop(1,'transparent');
+  ctx.fillStyle=g; ctx.beginPath(); ctx.ellipse(0,0,150,130,0,0,Math.PI*2); ctx.fill();
+
+  ctx.strokeStyle=DUCK; ctx.lineWidth=2; ctx.lineCap='round'; ctx.lineJoin='round';
+  ctx.fillStyle=DUCK+'10';
+
+  ctx.beginPath(); ctx.ellipse(30,20,72,52,0.15,0,Math.PI*2); ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.ellipse(-48,-28,34,30,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(-78,-36);
+  ctx.bezierCurveTo(-110,-34,-120,-22,-108,-18);
+  ctx.bezierCurveTo(-100,-16,-82,-22,-78,-22);
+  ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(-78,-22);
+  ctx.bezierCurveTo(-100,-16,-108,-6,-98,-4);
+  ctx.bezierCurveTo(-88,-2,-78,-10,-78,-14);
+  ctx.closePath(); ctx.fill(); ctx.stroke();
+  ctx.setLineDash([4,5]); ctx.lineWidth=1;
+  ctx.beginPath(); ctx.ellipse(35,18,45,28,0.2,Math.PI*0.1,Math.PI*0.9); ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.lineWidth=2;
+  ctx.beginPath(); ctx.arc(-56,-36,5.5,0,Math.PI*2); ctx.fillStyle=DUCK; ctx.fill();
+  ctx.beginPath(); ctx.arc(-55,-37.5,2,0,Math.PI*2); ctx.fillStyle=BG; ctx.fill();
+
+  ctx.restore();
+}
+
+// ── Rabbit ───────────────────────────────────────────────────────────────────
+function drawRabbit(cx,cy,alpha) {
+  ctx.save();
+  ctx.translate(cx,cy);
+  ctx.globalAlpha=alpha;
+
+  const g=ctx.createRadialGradient(0,0,5,0,0,150);
+  g.addColorStop(0,RABBIT+'18'); g.addColorStop(1,'transparent');
+  ctx.fillStyle=g; ctx.beginPath(); ctx.ellipse(0,0,150,140,0,0,Math.PI*2); ctx.fill();
+
+  ctx.strokeStyle=RABBIT; ctx.lineWidth=2; ctx.lineCap='round'; ctx.lineJoin='round';
+  ctx.fillStyle=RABBIT+'10';
+
+  ctx.beginPath(); ctx.ellipse(-25,22,70,50,-0.1,0,Math.PI*2); ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.ellipse(50,-22,33,30,0,0,Math.PI*2); ctx.fill(); ctx.stroke();
+  ctx.beginPath(); ctx.ellipse(36,-82,13,38,-0.18,0,Math.PI*2); ctx.fill(); ctx.stroke();
+  ctx.fillStyle=RABBIT+'09'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.ellipse(36,-82,7,27,-0.18,0,Math.PI*2); ctx.fill(); ctx.stroke();
+  ctx.fillStyle=RABBIT+'10'; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.ellipse(60,-88,13,38,0.18,0,Math.PI*2); ctx.fill(); ctx.stroke();
+  ctx.fillStyle=RABBIT+'09'; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.ellipse(60,-88,7,27,0.18,0,Math.PI*2); ctx.fill(); ctx.stroke();
+  ctx.lineWidth=2;
+  ctx.beginPath(); ctx.arc(60,-28,5.5,0,Math.PI*2); ctx.fillStyle=RABBIT; ctx.fill();
+  ctx.beginPath(); ctx.arc(61,-29.5,2,0,Math.PI*2); ctx.fillStyle=BG; ctx.fill();
+  ctx.fillStyle=RABBIT;
+  ctx.beginPath(); ctx.ellipse(81,-16,4,3,0,0,Math.PI*2); ctx.fill();
+  ctx.strokeStyle=RABBIT+'55'; ctx.lineWidth=0.8;
+  [-1,1].forEach(s=>{
+    ctx.beginPath(); ctx.moveTo(81,-14+s*3); ctx.lineTo(106,-12+s*7); ctx.stroke();
+  });
+
+  ctx.restore();
+}
+
+// ── Embedding chart ───────────────────────────────────────────────────────────
+function drawEmbedding(x,y,w,h,t) {
+  ctx.save();
+  ctx.translate(x,y);
+
+  // panel
+  ctx.fillStyle='rgba(255,252,246,0.88)';
+  ctx.strokeStyle=SOFT; ctx.lineWidth=1;
+  rr(0,0,w,h,8); ctx.fill(); ctx.stroke();
+
+  ctx.fillStyle=MID; ctx.font='9px Inter, sans-serif';
+  ctx.fillText('EMBEDDING SPACE  (PCA)', 12, 18);
+
+  const dC=[w*0.22, h*0.68];
+  const rC=[w*0.74, h*0.28];
+
+  const dOff=[[0,0],[-14,8],[12,-10],[-8,-14],[17,12],[8,17],[-17,-5],[13,5]];
+  const rOff=[[0,0],[12,6],[-10,-8],[8,-12],[-13,10],[6,13],[-6,-10],[13,-6]];
+
+  dOff.forEach(([ox,oy],i)=>{
+    const p=0.45+0.55*Math.sin(t*Math.PI*2+i);
+    ctx.beginPath(); ctx.arc(dC[0]+ox,dC[1]+oy,5.5,0,Math.PI*2);
+    ctx.fillStyle=DUCK+Math.round(p*210).toString(16).padStart(2,'0'); ctx.fill();
+  });
+  rOff.forEach(([ox,oy],i)=>{
+    const p=0.45+0.55*Math.sin(t*Math.PI*2+i+1.6);
+    ctx.beginPath(); ctx.arc(rC[0]+ox,rC[1]+oy,5.5,0,Math.PI*2);
+    ctx.fillStyle=RABBIT+Math.round(p*210).toString(16).padStart(2,'0'); ctx.fill();
+  });
+
+  ctx.setLineDash([3,5]); ctx.lineWidth=1;
+  ctx.strokeStyle=DUCK+'38';
+  ctx.beginPath(); ctx.ellipse(dC[0],dC[1],44,32,-0.3,0,Math.PI*2); ctx.stroke();
+  ctx.strokeStyle=RABBIT+'38';
+  ctx.beginPath(); ctx.ellipse(rC[0],rC[1],44,30,0.2,0,Math.PI*2); ctx.stroke();
+  ctx.setLineDash([]);
+
+  ctx.font='10px Inter, sans-serif';
+  ctx.fillStyle=DUCK+'bb';  ctx.fillText('duck',   dC[0]-13,dC[1]+50);
+  ctx.fillStyle=RABBIT+'bb'; ctx.fillText('rabbit', rC[0]-16,rC[1]-38);
+
+  const wx=lerp(dC[0],rC[0],0.48)+Math.sin(t*Math.PI*2)*7;
+  const wy=lerp(dC[1],rC[1],0.48)+Math.cos(t*Math.PI*1.7)*5;
+
+  ctx.setLineDash([2,5]); ctx.lineWidth=0.8;
+  ctx.strokeStyle=DUCK+'40';
+  ctx.beginPath(); ctx.moveTo(wx,wy); ctx.lineTo(dC[0],dC[1]); ctx.stroke();
+  ctx.strokeStyle=RABBIT+'40';
+  ctx.beginPath(); ctx.moveTo(wx,wy); ctx.lineTo(rC[0],rC[1]); ctx.stroke();
+  ctx.setLineDash([]);
+
+  const rR=12+5*Math.sin(t*Math.PI*4);
+  const rAlpha=0.12+0.10*Math.sin(t*Math.PI*4);
+  ctx.beginPath(); ctx.arc(wx,wy,rR,0,Math.PI*2);
+  ctx.strokeStyle=`rgba(43,32,21,${rAlpha})`; ctx.lineWidth=1.5; ctx.stroke();
+
+  ctx.beginPath(); ctx.arc(wx,wy,5,0,Math.PI*2);
+  ctx.fillStyle=INK; ctx.fill();
+  ctx.fillStyle='rgba(255,252,246,0.9)';
+  ctx.font='bold 10px Inter, sans-serif';
+  ctx.fillText('?', wx+8,wy+4);
+
+  ctx.restore();
+}
+
+// ── Score bar ─────────────────────────────────────────────────────────────────
+function drawBar(x,y,w,h,label,score,maxS,color,brightness) {
+  ctx.save();
+  const filled = (score/maxS)*w;
+  const ta     = 0.28 + 0.72*brightness;
+
+  ctx.globalAlpha=ta;
+  ctx.fillStyle=INK;
+  ctx.font=brightness>0.5?'400 11px Inter, sans-serif':'300 11px Inter, sans-serif';
+  ctx.fillText(label,x,y-7);
+  ctx.globalAlpha=1;
+
+  ctx.fillStyle=TRACK; rr(x,y,w,h,4); ctx.fill();
+
+  if (filled>0) {
+    const g=ctx.createLinearGradient(x,0,x+filled,0);
+    const a1=Math.round(0x14+0x28*brightness).toString(16).padStart(2,'0');
+    const a2=Math.round(0x44+0x66*brightness).toString(16).padStart(2,'0');
+    g.addColorStop(0,color+a1); g.addColorStop(1,color+a2);
+    ctx.fillStyle=g; rr(x,y,filled,h,4); ctx.fill();
+    ctx.globalAlpha=0.4+0.55*brightness;
+    ctx.fillStyle=color; ctx.fillRect(x+filled-2,y,2,h);
+    ctx.globalAlpha=1;
+  }
+
+  ctx.globalAlpha=ta;
+  ctx.fillStyle=color;
+  ctx.font=brightness>0.5?'400 11px Inter, sans-serif':'300 11px Inter, sans-serif';
+  ctx.textAlign='right';
+  ctx.fillText(score.toFixed(4),x+w,y+h+15);
+  ctx.textAlign='left';
+  ctx.globalAlpha=1;
+
+  ctx.restore();
+}
+
+// ── MAIN ─────────────────────────────────────────────────────────────────────
+function draw() {
+  const t=(frame%CYCLE)/CYCLE;
+
+  let dA,rA;
+  if      (t<0.08)  { dA=easeOut(t/0.08);           rA=0; }
+  else if (t<0.44)  { dA=1;                           rA=0; }
+  else if (t<0.52)  { const x=(t-0.44)/0.08; dA=1-smooth(x); rA=smooth(x); }
+  else if (t<0.60)  { dA=0;                           rA=easeOut((t-0.52)/0.08); }
+  else if (t<0.92)  { dA=0;                           rA=1; }
+  else              { dA=0;                           rA=1-easeOut((t-0.92)/0.08); }
+
+  const isDuck  = dA>=rA;
+  const flipAmt = clamp(1-Math.abs(dA-rA)/0.8,0,1);
+
+  // Background
+  ctx.fillStyle=BG; ctx.fillRect(0,0,c.width,c.height);
+
+  // Subtle dot grid
+  for (let gx=30;gx<c.width;gx+=40)
+    for (let gy=30;gy<c.height;gy+=40) {
+      ctx.fillStyle='rgba(43,32,21,0.035)';
+      ctx.beginPath(); ctx.arc(gx,gy,1,0,Math.PI*2); ctx.fill();
+    }
+
+  // Outer border
+  ctx.strokeStyle=SOFT; ctx.lineWidth=1;
+  rr(16,16,c.width-32,c.height-32,12); ctx.stroke();
+
+  // ── Left ──
+  const ax=234, ay=248;
+  drawDuck(ax,ay,dA);
+  drawRabbit(ax,ay,rA);
+
+  // Perception text
+  const lc=isDuck?DUCK:RABBIT;
+  const lt=isDuck?'duck':'rabbit';
+  const lp=1+0.03*Math.sin(frame/22);
+  ctx.save();
+  ctx.globalAlpha=Math.max(dA,rA);
+  ctx.textAlign='center';
+  ctx.fillStyle=MID; ctx.font='300 10px Inter, sans-serif';
+  ctx.fillText('CLIP perceives', ax, 386);
+  ctx.fillStyle=lc;
+  ctx.font=`600 ${Math.round(28*lp)}px Inter, sans-serif`;
+  ctx.fillText(lt, ax, 416);
+  ctx.restore();
+
+  if (flipAmt>0.05) {
+    ctx.save();
+    ctx.globalAlpha=flipAmt*0.55;
+    ctx.textAlign='center';
+    ctx.fillStyle=MID;
+    ctx.font='300 11px Inter, sans-serif';
+    ctx.fillText('perceptual shift…', ax, 445);
+    ctx.restore();
+  }
+
+  // Left header
+  ctx.fillStyle=INK; ctx.textAlign='center';
+  ctx.font='600 18px Inter, sans-serif';
+  ctx.fillText('The Illusion', ax, 40);
+  ctx.fillStyle=MID; ctx.font='300 9px Inter, sans-serif';
+  ctx.fillText('rabbit 0.2822  ·  duck 0.2607', ax, 56);
+
+  // Divider
+  const divX=418;
+  ctx.strokeStyle=SOFT; ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(divX,34); ctx.lineTo(divX,c.height-34); ctx.stroke();
+
+  // ── Right ──
+  const rx=438, rw=c.width-rx-18;
+
+  ctx.fillStyle=INK; ctx.textAlign='left';
+  ctx.font='600 18px Inter, sans-serif';
+  ctx.fillText('CLIP × Rabbit-Duck', rx, 42);
+
+  ctx.fillStyle=MID; ctx.font='300 9px Inter, sans-serif';
+  ctx.fillText('COSINE SIMILARITY', rx, 70);
+
+  drawBar(rx, 78,  rw, 17, 'rabbit', 0.2822, 0.38, RABBIT, rA);
+  drawBar(rx, 136, rw, 17, 'duck',   0.2607, 0.38, DUCK,   dA);
+
+  drawEmbedding(rx, 185, rw, 272, t);
+
+  frame++;
+  requestAnimationFrame(draw);
+}
+
+draw();
+</script>
+</body>
+</html>

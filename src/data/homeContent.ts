@@ -23,50 +23,41 @@ export const homeContent = {
     ]
   },
 
-  projects: [
-    {
-      slug: "optical-illusions-clip",
-      title: "Optical Illusions in CLIP",
-      description: "Analyzed how CLIP encodes perceptual ambiguity using the rabbit-duck illusion, designed systematic image perturbations to evaluate model bias, and compared outputs against human perception data.",
-      fields: ["Computer Vision", "Machine Learning", "Perceptual AI", "Experimental Design"],
-      image: "/projects/optical-illusions-clip.png"
-    },
-    {
-      slug: "biobehavioral-phenotyping",
-      title: "Biobehavioral Phenotyping in Classrooms",
-      description: "Time-locked physiology to classroom events, compared autonomic responses across tasks, and used biometrics to quantify engagement, stress regulation, and individual differences.",
-      fields: ["Behavioral Research", "Autonomic Physiology", "Data Analysis", "Child Development"],
-      image: "/projects/biobehavioral-phenotyping.png"
-    },
-    {
-      slug: "biosignal-pipeline",
-      title: "Biosignal Processing Pipeline",
-      description: "Developed a Python pipeline for cleaning and extracting physiological features from noisy wearable data, including motion artifact removal and PPG/EDA filtering for HR and HRV extraction.",
-      fields: ["Signal Processing", "Wearables", "Data Engineering", "Python"],
-      image: "/projects/biosignal-pipeline.png"
-    },
-    {
-      slug: "eeg-attention",
-      title: "EEG-based Attention Classification",
-      description: "Designed an EEG-based attention classification pipeline for an adaptive neurofeedback system using real-time OpenBCI data, signal preprocessing, and frequency-domain analysis.",
-      fields: ["Neuroscience", "Signal Processing", "BCI", "Real-time Systems"],
-      image: "/projects/eeg-attention.png"
-    },
-    {
-      slug: "sarcastic-headlines",
-      title: "Sarcastic Headline Generator",
-      description: "Explored whether character-level RNNs can learn sarcasm using The Onion dataset with RNN, LSTM, and GRU architectures.",
-      fields: ["NLP", "Deep Learning", "RNN / LSTM", "Text Generation"],
-      image: null
-    },
-    {
-      slug: "supervised-learning-comparison",
-      title: "Comparing Supervised Learning Algorithms",
-      description: "Built and evaluated logistic regression, KNN, and SVM classifiers on multiple datasets using cross-validation, confusion matrices, and performance visualizations.",
-      fields: ["Machine Learning", "Classification", "Model Evaluation", "Python"],
-      image: null
+  resumeHighlights: {
+    title: "Quick Resume Highlights",
+    items: [
+      "Cognitive Science (ML & Neural Computation) + CS Minor at UCSD",
+      "UC Scholar & Research Assistant at Chiba Lab",
+      "Co-president, Tritons Prosthetics Society",
+      "Strong background in Python, signal processing, and machine learning",
+      "Hands-on experience with biosensors, EEG, and multimodal embedded systems"
+    ],
+    resumeLink: {
+      text: "View Full Resume",
+      href: "/Seema_Resume_Official.pdf"
     }
-  ],
+  },
+
+  interests: {
+    title: "My Interests",
+    items: [
+      {
+        title: "Brain-Computer Interfaces",
+        description: "Example",
+        icon: "brain"
+      },
+      {
+        title: "Science of Learning",
+        description: "Example",
+        icon: "beaker"
+      },
+      {
+        title: "Computational Neuroscience",
+        description: "Example",
+        icon: "chip"
+      }
+    ]
+  },
 
   favorites: {
     song: {

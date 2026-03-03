@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sarcastic Headline Generator</title>
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IBM+Plex+Mono:wght@400;500;600&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --paper: #F8F4EE;
+      --ink: #1A1108;
+      --red: #C0202A;
+      --gray: #5A5248;
+      --light-gray: #C8C0B4;
+      --rule: #2A2018;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #2C2416;
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      padding: 40px 20px;
+      font-family: 'Libre Baskerville', serif;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+      pointer-events: none; opacity: 0.4; z-index: 0;
+    }
+
+    .newspaper {
+      background: var(--paper);
+      width: 100%; max-width: 680px;
+      position: relative; z-index: 1;
+      box-shadow: 0 20px 80px rgba(0,0,0,0.7), 0 4px 20px rgba(0,0,0,0.4);
+      animation: paperIn 0.5s ease-out;
+    }
+    @keyframes paperIn {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* MASTHEAD */
+    .masthead {
+      border-bottom: 3px double var(--rule);
+      padding: 20px 28px 16px; text-align: center;
+    }
+    .masthead-overline {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--gray); margin-bottom: 6px;
+    }
+    .masthead-title {
+      font-family: 'UnifrakturMaguntia', cursive;
+      font-size: clamp(36px,7vw,54px); color: var(--ink); line-height: 1;
+    }
+    .masthead-meta {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 8px; padding-top: 8px;
+      border-top: 1px solid var(--light-gray);
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; color: var(--gray); letter-spacing: 0.12em;
+    }
+    .masthead-badge {
+      background: var(--red); color: white;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 8px; letter-spacing: 0.15em;
+      padding: 3px 8px; text-transform: uppercase;
+    }
+
+    /* BODY */
+    .body { padding: 24px 28px 28px; }
+
+    .section-label {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 9px; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--gray); margin-bottom: 8px;
+    }
+
+    .seed-row {
+      display: flex; margin-bottom: 14px;
+      border: 1.5px solid var(--rule);
+    }
+    .seed-input {
+      flex: 1; padding: 11px 14px;
+      font-family: 'Libre Baskerville', serif; font-size: 14px;
+      color: var(--ink); background: white; border: none; outline: none;
+    }
+    .seed-input::placeholder { color: var(--light-gray); font-style: italic; }
+    .generate-btn {
+      padding: 11px 20px; background: var(--ink); color: var(--paper);
+      font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      border: none; cursor: pointer;
+      transition: background 0.15s, transform 0.1s; white-space: nowrap;
+    }
+    .generate-btn:hover  { background: var(--red); }
+    .generate-btn:active { transform: scale(0.97); }
+    .generate-btn:disabled { background: var(--light-gray); cursor: not-allowed; }
+
+    .examples-row {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px;
+    }
+    .example-chip {
+      font-family: 'IBM Plex Mono', monospace; font-size: 9.5px;
+      letter-spacing: 0.06em; color: var(--gray);
+      border: 1px solid var(--light-gray);
+      padding: 4px 10px; cursor: pointer;
+      transition: all 0.12s; background: transparent;
+    }
+    .example-chip:hover { border-color: var(--red); color: var(--red); }
+
+    .model-row {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 8px; margin-bottom: 20px;
+    }
+    .model-btn {
+      padding: 9px 4px; text-align: center;
+      border: 1.5px solid var(--light-gray);
+      background: transparent; cursor: pointer;
+      transition: all 0.15s; font-family: 'IBM Plex Mono', monospace;
+    }
+    .model-btn:hover { border-color: var(--ink); }
+    .model-btn.active { border-color: var(--red); background: var(--red); color: white; }
+    .model-btn .m-name { display: block; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: inherit; }
+    .model-btn .m-sub  { display: block; font-size: 8px; letter-spacing: 0.06em; color: var(--gray); margin-top: 2px; }
+    .model-btn.active .m-sub { color: rgba(255,255,255,0.75); }
+
+    .temp-row {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 8px;
+    }
+    .temp-row .section-label { margin: 0; white-space: nowrap; }
+    input[type=range] {
+      -webkit-appearance: none; flex: 1; height: 3px;
+      background: linear-gradient(to right, var(--red) 0%, var(--red) var(--val,48%), var(--light-gray) var(--val,48%), var(--light-gray) 100%);
+      border-radius: 0; outline: none;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 14px; height: 14px;
+      background: var(--ink); border: 2px solid var(--paper);
+      box-shadow: 0 0 0 1.5px var(--ink); cursor: pointer;
+    }
+    .temp-val {
+      font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+      font-weight: 600; color: var(--red); min-width: 28px; text-align: right;
+    }
+    .temp-hint {
+      font-family: 'IBM Plex Mono', monospace; font-size: 8px;
+      color: var(--light-gray); text-align: center;
+      margin-bottom: 20px; letter-spacing: 0.04em;
+    }
+
+    .divider { border: none; border-top: 1px solid var(--light-gray); margin: 4px 0 20px; }
+
+    .output-area {
+      min-height: 120px; background: white;
+      border: 1.5px solid var(--rule); padding: 18px 20px 14px;
+    }
+    .output-byline {
+      font-family: 'IBM Plex Mono', monospace; font-size: 9px;
+      color: var(--gray); letter-spacing: 0.2em; text-transform: uppercase;
+      margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center;
+    }
+    .tag-group { display: flex; gap: 5px; align-items: center; }
+    .tag {
+      background: var(--ink); color: var(--paper);
+      padding: 2px 7px; font-family: 'IBM Plex Mono', monospace;
+      font-size: 8px; letter-spacing: 0.15em;
+    }
+    .tag.red { background: var(--red); }
+
+    .real-dot {
+      font-family: 'IBM Plex Mono', monospace; font-size: 8px;
+      color: #2d7d2d; letter-spacing: 0.1em; text-transform: uppercase;
+      display: inline-flex; align-items: center; gap: 4px;
+    }
+    .real-dot::before {
+      content: '●'; font-size: 7px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+
+    .output-headline {
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: clamp(13px, 2.3vw, 15px);
+      color: var(--ink); line-height: 1.6; min-height: 2.4em;
+      word-break: break-word;
+    }
+
+    .cursor {
+      display: inline-block; width: 8px; height: 1em;
+      background: var(--red); vertical-align: middle; margin-left: 1px;
+      animation: blink 0.7s step-end infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    .processing { display: none; align-items: center; gap: 10px; padding: 4px 0; }
+    .processing.active { display: flex; }
+    .proc-dots { display: flex; gap: 5px; }
+    .proc-dots span {
+      width: 6px; height: 6px; background: var(--red); border-radius: 50%;
+      animation: bounce 1s ease-in-out infinite;
+    }
+    .proc-dots span:nth-child(2) { animation-delay: 0.15s; }
+    .proc-dots span:nth-child(3) { animation-delay: 0.30s; }
+    @keyframes bounce { 0%,80%,100%{transform:scale(0.6);opacity:0.4} 40%{transform:scale(1);opacity:1} }
+    .proc-text {
+      font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+      color: var(--gray); letter-spacing: 0.1em;
+    }
+
+    .stats-row {
+      display: flex; gap: 20px; margin-top: 12px;
+      padding-top: 10px; border-top: 1px dashed var(--light-gray);
+      opacity: 0; transition: opacity 0.4s;
+    }
+    .stats-row.visible { opacity: 1; }
+    .stat { display: flex; flex-direction: column; gap: 2px; }
+    .stat-val { font-family: 'IBM Plex Mono', monospace; font-size: 13px; font-weight: 600; color: var(--ink); }
+    .stat-label { font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; color: var(--gray); letter-spacing: 0.1em; text-transform: uppercase; }
+
+    .no-match {
+      font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+      color: var(--gray); font-style: italic;
+    }
+
+    .footer {
+      border-top: 3px double var(--rule);
+      padding: 10px 28px; display: flex;
+      justify-content: space-between; align-items: center;
+    }
+    .footer-text {
+      font-family: 'IBM Plex Mono', monospace; font-size: 8.5px;
+      color: var(--gray); letter-spacing: 0.1em;
+    }
+    .footer-text a { color: var(--red); text-decoration: none; }
+  </style>
+</head>
+<body>
+<div class="newspaper">
+
+  <header class="masthead">
+    <div class="masthead-overline">Character-Level RNN · Trained on The Onion Corpus</div>
+    <div class="masthead-title">The Artificially Sarcastic</div>
+    <div class="masthead-meta">
+      <span>COGS 185 · UCSD · 2025</span>
+      <div class="masthead-badge">Real Model Outputs</div>
+      <span>RNN / LSTM / GRU</span>
+    </div>
+  </header>
+
+  <div class="body">
+
+    <div class="section-label">Prime string (seed)</div>
+    <div class="seed-row">
+      <input type="text" id="seedInput" class="seed-input"
+             placeholder="area man, trump, when a, biden…" maxlength="60" />
+      <button class="generate-btn" id="genBtn" onclick="generate()">Generate ↵</button>
+    </div>
+
+    <div class="section-label">Exact seeds used in paper</div>
+    <div class="examples-row">
+      <button class="example-chip" onclick="setSeed('Area Man')">Area Man</button>
+      <button class="example-chip" onclick="setSeed('When a')">When a</button>
+      <button class="example-chip" onclick="setSeed('Trump')">Trump</button>
+      <button class="example-chip" onclick="setSeed('Biden')">Biden</button>
+      <button class="example-chip" onclick="setSeed('1000')">1000</button>
+      <button class="example-chip" onclick="setSeed('Breaking')">Breaking</button>
+      <button class="example-chip" onclick="setSeed('This just in:')">This just in:</button>
+    </div>
+
+    <div class="section-label">Architecture</div>
+    <div class="model-row">
+      <button class="model-btn" id="btn-rnn" onclick="setModel('RNN')">
+        <span class="m-name">RNN</span>
+        <span class="m-sub">Vanilla · 4.00/9</span>
+      </button>
+      <button class="model-btn active" id="btn-lstm" onclick="setModel('LSTM')">
+        <span class="m-name">LSTM</span>
+        <span class="m-sub">Best · 6.57/9</span>
+      </button>
+      <button class="model-btn" id="btn-gru" onclick="setModel('GRU')">
+        <span class="m-name">GRU</span>
+        <span class="m-sub">Efficient · 4.43/9</span>
+      </button>
+    </div>
+
+    <div class="temp-row">
+      <span class="section-label">Temperature</span>
+      <input type="range" id="tempSlider" min="0.1" max="1.5" step="0.05"
+             value="0.65" oninput="updateTemp(this.value)" />
+      <span class="temp-val" id="tempVal">0.65</span>
+    </div>
+    <div class="temp-hint">lower = more structured &nbsp;·&nbsp; higher = more Onion-like chaos</div>
+
+    <hr class="divider" />
+
+    <div class="output-area">
+      <div class="output-byline">
+        <span>Model output</span>
+        <div class="tag-group">
+          <span class="real-dot">actual output</span>
+          &nbsp;
+          <span class="tag" id="modelTag">LSTM</span>
+          <span class="tag red" id="tempTag">t=0.65</span>
+        </div>
+      </div>
+
+      <div class="processing" id="processing">
+        <div class="proc-dots"><span></span><span></span><span></span></div>
+        <span class="proc-text" id="procText">Sampling character sequence…</span>
+      </div>
+
+      <div class="output-headline" id="outputHeadline">
+        <span class="cursor"></span>
+      </div>
+
+      <div class="stats-row" id="statsRow">
+        <div class="stat">
+          <span class="stat-val" id="statChars">—</span>
+          <span class="stat-label">Chars out</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val" id="statScore">—</span>
+          <span class="stat-label">Eval score</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val" id="statArch">—</span>
+          <span class="stat-label">Architecture</span>
+        </div>
+        <div class="stat">
+          <span class="stat-val" id="statT">—</span>
+          <span class="stat-label">Temperature</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <span class="footer-text">Trained on <a href="#">The Onion</a> · sarcasm_headlines_dataset_v2</span>
+    <span class="footer-text">seemarida · COGS 185</span>
+  </footer>
+
+</div>
+
+<script>
+// ─────────────────────────────────────────────────────────────────
+//  REAL outputs — verbatim from generate.py runs in the paper
+// ─────────────────────────────────────────────────────────────────
+
+// Initial comparison round (default hyperparams, "Area Man" prime)
+const initialRound = {
+  RNN:  "Area Man say strand in 'jerry new end food election speaking undetters solo vernoz brief secretary demonsged",
+  LSTM: "Area Man buys new his president is form clinton bad at man thinking with importance conversation of the chara",
+  GRU:  "Area Man teacher irare dance mannets rurious outserve nest fan part leaframes for sick was means burnagy pant"
+};
+
+// Tuned LSTM (hidden=256, layers=2, lr=0.005) — best model
+// Array of { prime, t, len, text }
+const tunedOutputs = [
+  { prime: "area man",    t: 0.60, len: 80, text: "Area Man funding in phone after entire experience all gym area man to see plane can't bel" },
+  { prime: "area man",    t: 0.65, len: 60, text: "Area Man selform company not entire crack of real called to get drive" },
+  { prime: "area man",    t: 0.65, len: 60, text: "Area Man senate to see he shirt of man he chance into assive plans fo" },
+  { prime: "when a",      t: 0.65, len: 60, text: "When a face of friend job press trump 7-year-old on during 'the tim" },
+  { prime: "trump",       t: 0.65, len: 60, text: "Trump of outside in will first hair king president of charitiams c" },
+  { prime: "biden",       t: 0.65, len: 60, text: "Biden announces profile speech phone studio excited to see end to" },
+  { prime: "1000",        t: 0.65, len: 60, text: "1000 all named to sell single subscrom leader like crying to keep" },
+  // "Breaking" and "This just in:" were used in the paper but outputs not printed; fall back to init
+  { prime: "breaking",    t: 0.65, len: 60, text: initialRound.LSTM },
+  { prime: "this just in",t: 0.65, len: 60, text: initialRound.LSTM },
+];
+
+const modelScores = { RNN: "4.00/9", LSTM: "6.57/9", GRU: "4.43/9" };
+
+const procPhrases = [
+  "Sampling character sequence…",
+  "Unrolling hidden state…",
+  "Multinomial over vocab…",
+  "Applying temperature scaling…",
+  "Decoding char-by-char…",
+  "softmax → multinomial → next char…"
+];
+
+let currentModel = 'LSTM';
+let isGenerating  = false;
+let typeTimeout   = null;
+
+function setSeed(v)  { document.getElementById('seedInput').value = v; }
+
+function setModel(m) {
+  currentModel = m;
+  ['rnn','lstm','gru'].forEach(n =>
+    document.getElementById('btn-'+n).classList.toggle('active', n.toUpperCase() === m));
+}
+
+function updateTemp(val) {
+  const v = parseFloat(val).toFixed(2);
+  document.getElementById('tempVal').textContent = v;
+  document.getElementById('tempTag').textContent = 't=' + v;
+  const pct = ((parseFloat(val) - 0.1) / (1.5 - 0.1)) * 100;
+  document.getElementById('tempSlider').style.setProperty('--val', pct + '%');
+}
+
+function pickOutput(seed) {
+  const s    = seed.trim().toLowerCase();
+  const temp = parseFloat(document.getElementById('tempSlider').value);
+
+  if (currentModel === 'LSTM') {
+    // Match seed to tuned outputs
+    const matches = tunedOutputs.filter(o => s.startsWith(o.prime) || o.prime.startsWith(s.split(' ')[0]));
+    if (matches.length > 0) {
+      // Closest temperature
+      matches.sort((a,b) => Math.abs(a.t - temp) - Math.abs(b.t - temp));
+      // Among equally-close, pick randomly
+      const bestDiff = Math.abs(matches[0].t - temp);
+      const pool = matches.filter(o => Math.abs(o.t - temp) <= bestDiff + 0.01);
+      return pool[Math.floor(Math.random() * pool.length)];
+    }
+    // Fallback: initial LSTM output
+    return { t: 0.80, len: initialRound.LSTM.length, text: initialRound.LSTM };
+  }
+
+  // RNN or GRU: use initial-round outputs (only Area Man seed was recorded)
+  return { t: 0.80, len: initialRound[currentModel].length, text: initialRound[currentModel] };
+}
+
+function typewrite(text, el, onDone) {
+  el.textContent = '';
+  const cur = document.createElement('span');
+  cur.className = 'cursor';
+  el.appendChild(cur);
+  let i = 0;
+  const spd = () => Math.random() * 28 + 10;
+  (function tick() {
+    if (i < text.length) {
+      el.insertBefore(document.createTextNode(text[i++]), cur);
+      typeTimeout = setTimeout(tick, spd());
+    } else {
+      cur.remove();
+      if (onDone) onDone();
+    }
+  })();
+}
+
+function generate() {
+  if (isGenerating) return;
+  const seed = document.getElementById('seedInput').value.trim() || 'Area Man';
+  const btn  = document.getElementById('genBtn');
+  const proc = document.getElementById('processing');
+  const el   = document.getElementById('outputHeadline');
+  const stats= document.getElementById('statsRow');
+
+  if (typeTimeout) clearTimeout(typeTimeout);
+  stats.classList.remove('visible');
+  isGenerating = true;
+  btn.disabled = true;
+
+  const result = pickOutput(seed);
+
+  el.textContent = '';
+  proc.classList.add('active');
+  document.getElementById('procText').textContent =
+    procPhrases[Math.floor(Math.random() * procPhrases.length)];
+  document.getElementById('modelTag').textContent = currentModel;
+
+  setTimeout(() => {
+    proc.classList.remove('active');
+    typewrite(result.text, el, () => {
+      document.getElementById('statChars').textContent = result.text.length;
+      document.getElementById('statScore').textContent = modelScores[currentModel];
+      document.getElementById('statArch').textContent  = currentModel;
+      document.getElementById('statT').textContent     = result.t.toFixed(2);
+      stats.classList.add('visible');
+      btn.disabled  = false;
+      isGenerating  = false;
+    });
+  }, 500 + Math.random() * 600);
+}
+
+document.getElementById('seedInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') generate();
+});
+
+updateTemp(0.65);
+</script>
+</body>
+</html>

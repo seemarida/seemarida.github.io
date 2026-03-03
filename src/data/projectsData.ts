@@ -4,6 +4,26 @@ export const projectsData = {
 
   projects: [
     {
+      title: "Optical Illusions in CLIP",
+      description: "Analyzed how CLIP encodes perceptual ambiguity using the rabbit-duck illusion, designed systematic image perturbations to evaluate model bias, and compared outputs against human perception data.",
+      abstract: "This computer vision project investigated how OpenAI's CLIP model processes and interprets perceptually ambiguous images, specifically using the famous rabbit-duck optical illusion. The research involved creating a controlled dataset of systematically perturbed versions of the illusion to probe the model's visual encoding strategies. By comparing CLIP's similarity scores for 'rabbit' vs 'duck' labels across different image manipulations, the analysis revealed insights into how vision-language models handle perceptual ambiguity differently from human observers. The findings contribute to understanding the limitations and biases in state-of-the-art multimodal AI systems.",
+      tags: ["Computer Vision", "Machine Learning", "CLIP", "Perceptual AI", "Python"],
+      links: [
+        { text: "Code", href: "https://github.com/seemarida/CLIP_optical_illusions" },
+        { text: "Demo", href: "/projects/optical-illusions-clip" }
+      ]
+    },
+    {
+      title: "Biosignal Processing Pipeline",
+      description: "Developed a Python pipeline for cleaning and extracting physiological features from noisy wearable data, including motion artifact removal and PPG/EDA filtering for HR and HRV extraction.",
+      abstract: "This signal processing project created a comprehensive computational pipeline for processing raw biosensor data from commercial wearable devices. The pipeline handles common challenges in physiological signal analysis including motion artifacts, baseline drift, and noise contamination. Key features include advanced filtering techniques for photoplethysmography (PPG) and electrodermal activity (EDA) signals, automatic peak detection for heart rate calculation, and time- and frequency-domain heart rate variability (HRV) metrics extraction. The modular design allows for easy integration with different sensor platforms and adaptation to various research protocols.",
+      tags: ["Signal Processing", "Python", "Wearables", "Biosensors", "Data Engineering"],
+      links: [
+        { text: "Code", href: "https://github.com/seemarida/biosignal-pipeline" },
+        { text: "Demo", href: "/projects/biosignal-pipeline" }
+      ]
+    },
+    {
       title: "Comparing Supervised Learning Algorithms",
       description: "A comparison of various supervised learning algorithms on different datasets to evaluate their performance and applicability.",
       abstract: "This project involved implementing and comparing multiple supervised learning algorithms including decision trees, random forests, support vector machines, and neural networks. Performance metrics such as accuracy, precision, recall, and F1-score were used to evaluate each algorithm across diverse datasets with varying characteristics. The analysis provided insights into the strengths and weaknesses of each approach and their suitability for different problem domains.",
@@ -43,7 +63,8 @@ export const projectsData = {
       tags: ["Python", "RNN", "Natural Language Processing", "Sequence Modeling"],
       links: [
         { text: "Code", href: "https://github.com/seemarida/cogs185_final_project" },
-        { text: "Report PDF", href: "/projects/cogs_185_final_report.pdf" }
+        { text: "Report PDF", href: "/projects/cogs_185_final_report.pdf" },
+        { text: "Demo", href: "/projects/sarcasm_demo.html" }
       ]
     }
   ]

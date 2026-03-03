@@ -6,7 +6,9 @@ export const aboutContent = {
     name: "Seema Rida",
     title: "Cognitive Science Student",
     bio: [
-      "Hi! I'm Seema, a Cognitive Science student at UC San Diego specializing in Machine Learning and Neural Computation with a minor in Computer Science. I work as an undergrad researcher at the Chiba Lab, where I collect and analyze biometric data to understand how the autonomic nervous system shapes behavior in children. I've never been satisfied studying any discipline in isolation. While learning about the brain and behavior, I've also been on a parallel journey learning about myself and how my own brain works. That's what drew me to neurotech and wearables; I'm fascinated by tools that bridge the gap between technology and the human experience, especially when they help us quantify abstract concepts that usually feel impossible to measure. My work is driven by curiosity about human behavior, the systems that shape it, and the belief that the best tools are the ones that help us understand ourselves better.",
+      "Hi! I'm Seema, a Cognitive Science student at UC San Diego specializing in Machine Learning and Neural Computation with a minor in Computer Science. I work as an undergrad researcher at the Chiba Lab, where I collect and analyze biometric data to understand how the autonomic nervous system shapes behavior in children.",
+      "While learning about the brain and behavior, I've also been on a parallel journey learning about myself and how my own brain works. That's what drew me to neurotech and wearables; I'm fascinated by tools that bridge the gap between technology and the human experience, especially when they help us quantify abstract concepts that usually feel impossible to measure.",
+      "My work is driven by curiosity about human behavior, the systems that shape it, and the belief that the best tools are the ones that help us understand ourselves better.",
     ],
     imagePlaceholder: "SR",
     email: "srida@ucsd.edu",
@@ -53,6 +55,17 @@ export const aboutContent = {
         "Experimental Design",
         "BCIs",
         "LSL",
+      ]
+    },
+    technologies: {
+      title: "Research",
+      items: [
+        "Data Analysis",
+        "Statistical Modeling",
+        "Experimental Design",
+        "Literature Review",
+        "Technical Writing",
+        "Biometric Data Collection",
       ]
     }
   }

@@ -2,10 +2,13 @@
   "permissions": {
     "allow": [
       "WebFetch(domain:github.com)",
-      "Bash(npx astro build:*)",
-      "Bash(wc:*)",
-      "Bash(tree:*)",
-      "Bash(cat:*)"
+      "Bash(git push:*)",
+      "Bash(npm run dev:*)",
+      "Read(//Users/seemarida/Downloads/**)",
+      "Bash(git checkout:*)",
+      "Bash(git ls-tree:*)",
+      "Bash(npm run build:*)",
+      "Bash(git add:*)"
     ],
     "deny": []
   }

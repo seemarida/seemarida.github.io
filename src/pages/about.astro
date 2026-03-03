@@ -11,86 +11,79 @@ const spotifyLink = "https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz?si=
 	title={`${siteConfig.name} | About`}
 	description={aboutContent.pageDescription}
 >
-	<div class="max-w-5xl mx-auto px-4 md:px-8 py-8">
+	<div class="max-w-7xl mx-auto px-4 md:px-12 py-8">
 
 		<!-- ========== HERO: Headshot left, bio right ========== -->
 		<section class="flex flex-col md:flex-row items-start mb-16" style="gap: 3rem;">
 			<!-- Headshot — pinned to left edge -->
 			<div class="flex-shrink-0" style="margin-left: -1rem;">
-				<div class="rounded-2xl overflow-hidden" style="width: 220px; aspect-ratio: 3/4; box-shadow: 0 6px 10px rgba(0,0,0,0.07);">
+				<div class="rounded-2xl overflow-hidden" style="width: 400px; aspect-ratio: 3/4; box-shadow: 0 6px 10px rgba(0,0,0,0.07);">
 					<img src="/headshot.png" alt="Seema Rida" class="w-full h-full object-cover" />
 				</div>
 			</div>
 
 			<!-- Bio -->
-			<div class="flex-1 max-w-2xl">
-				<p class="text-base md:text-lg text-gray-700 leading-relaxed" style="margin-bottom: 0;">
-					{aboutContent.profile.bio[0]}
-				</p>
+			<div class="flex-1">
+				{aboutContent.profile.bio.map((paragraph, index) => (
+					<p class="text-gray-700 leading-relaxed" style={index < aboutContent.profile.bio.length - 1 ? "margin-bottom: 1rem; font-size: 20px;" : "margin-bottom: 0; font-size: 20px;"}>
+						{paragraph}
+					</p>
+				))}
 			</div>
 		</section>
 
 		<!-- ========== SKILLS & EXPERIENCE ========== -->
 		<section class="mb-10">
-			<p class="text-xs text-gray-800 uppercase tracking-widest mb-2" style="font-weight: 400; letter-spacing: 0.2em;">Skills &amp; Experience</p>
+			<p class="text-gray-400 uppercase tracking-widest mb-2" style="font-weight: 400; letter-spacing: 0.2em; font-size: 14px;">Skills &amp; Experience</p>
 			<hr class="border-gray-200 mb-5" />
 
 			<div class="flex flex-col lg:flex-row gap-12">
 
 				<!-- LEFT: Experience -->
 				<div class="flex-1">
-					<h2 class="text-lg font-bold text-gray-800" style="margin-bottom: 1rem;">Experience</h2>
-					<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-						<!-- Research Assistant — Chiba Lab -->
-						<div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden" style="aspect-ratio: 1;">
-							<div class="w-full h-2/5 bg-gray-100 border-b border-gray-200 flex items-center justify-center">
-								<span class="text-xs font-bold text-gray-400 text-center leading-tight">LOGO</span>
+					<h2 class="text-gray-800" style="margin-bottom: 1rem; font-weight: 400; font-size: 28px;">Experience</h2>
+					<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+						<!-- Undergraduate Researcher -->
+						<div class="flex flex-col">
+							<div class="w-full aspect-square bg-white rounded-xl border border-gray-200 flex items-center justify-center mb-3 p-4">
+								<img src="https://cogsci.ucsd.edu/_images/department-images/brain-logo.png" alt="UCSD Cognitive Science" class="w-full h-full object-contain" />
 							</div>
-							<div class="p-3 flex flex-col justify-center h-3/5">
-								<h3 class="text-sm font-bold text-gray-800" style="margin-bottom: 0.15rem;">Research Assistant</h3>
-								<p class="text-xs text-gray-400" style="margin-bottom: 0;">Chiba Lab · UCSD</p>
-								<p class="text-xs text-gray-300 mt-0.5" style="margin-bottom: 0;">Summer 2025</p>
-							</div>
+							<h3 class="text-gray-800" style="margin-bottom: 0.35rem; font-size: 16px; font-weight: 300;">Undergraduate Researcher</h3>
+							<p class="text-gray-400" style="margin-bottom: 0; font-size: 14px; font-weight: 200;">Chiba Lab</p>
 						</div>
 
-						<!-- Empty placeholder 1 -->
-						<div class="bg-gray-50 rounded-xl border border-dashed border-gray-200 overflow-hidden" style="aspect-ratio: 1;">
-							<div class="w-full h-2/5 bg-gray-100 border-b border-gray-200 flex items-center justify-center">
-								<span class="text-xs font-bold text-gray-300 text-center leading-tight">LOGO</span>
+						<!-- UC Scholar Research Fellow -->
+						<div class="flex flex-col">
+							<div class="w-full aspect-square bg-white rounded-xl border border-gray-200 flex items-center justify-center mb-3 p-4">
+								<img src="https://ugresearch.ucsd.edu/_images/urh/UR_Design_Icon_Color_transparency.png" alt="Undergraduate Research Hub" class="w-full h-full object-contain" />
 							</div>
-							<div class="p-3 flex flex-col justify-center h-3/5">
-								<h3 class="text-sm font-bold text-gray-300" style="margin-bottom: 0.15rem;">Coming soon</h3>
-								<p class="text-xs text-gray-300" style="margin-bottom: 0;">—</p>
-							</div>
+							<h3 class="text-gray-800" style="margin-bottom: 0.35rem; font-size: 16px; font-weight: 300;">UC Scholar Research Fellow</h3>
+							<p class="text-gray-400" style="margin-bottom: 0; font-size: 14px; font-weight: 200;">Undergraduate Research Hub</p>
 						</div>
 
-						<!-- Empty placeholder 2 -->
-						<div class="bg-gray-50 rounded-xl border border-dashed border-gray-200 overflow-hidden" style="aspect-ratio: 1;">
-							<div class="w-full h-2/5 bg-gray-100 border-b border-gray-200 flex items-center justify-center">
-								<span class="text-xs font-bold text-gray-300 text-center leading-tight">LOGO</span>
+						<!-- Data Science Intern, Abwaab -->
+						<div class="flex flex-col">
+							<div class="w-full aspect-square bg-white rounded-xl border border-gray-200 flex items-center justify-center mb-3 p-4">
+								<img src="https://t4.education/wp-content/uploads/2025/07/abwaab-main.png" alt="Abwaab" class="w-full h-full object-contain" />
 							</div>
-							<div class="p-3 flex flex-col justify-center h-3/5">
-								<h3 class="text-sm font-bold text-gray-300" style="margin-bottom: 0.15rem;">Coming soon</h3>
-								<p class="text-xs text-gray-300" style="margin-bottom: 0;">—</p>
-							</div>
+							<h3 class="text-gray-800" style="margin-bottom: 0.35rem; font-size: 16px; font-weight: 300;">Data Science Intern</h3>
+							<p class="text-gray-400" style="margin-bottom: 0; font-size: 14px; font-weight: 200;">Abwaab</p>
 						</div>
 
-						<!-- Empty placeholder 3 -->
-						<div class="bg-gray-50 rounded-xl border border-dashed border-gray-200 overflow-hidden" style="aspect-ratio: 1;">
-							<div class="w-full h-2/5 bg-gray-100 border-b border-gray-200 flex items-center justify-center">
-								<span class="text-xs font-bold text-gray-300 text-center leading-tight">LOGO</span>
+						<!-- Robotics Instructor -->
+						<div class="flex flex-col">
+							<div class="w-full aspect-square bg-white rounded-xl border border-gray-200 flex items-center justify-center mb-3 p-4">
+								<img src="https://static1.squarespace.com/static/5901b9191b10e3a0176d6dc3/t/5919c1426a496322aac0c6f8/1494860100558/LogoDark.png?format=1500w" alt="International Robotics Academy" class="w-full h-full object-contain" />
 							</div>
-							<div class="p-3 flex flex-col justify-center h-3/5">
-								<h3 class="text-sm font-bold text-gray-300" style="margin-bottom: 0.15rem;">Coming soon</h3>
-								<p class="text-xs text-gray-300" style="margin-bottom: 0;">—</p>
-							</div>
+							<h3 class="text-gray-800" style="margin-bottom: 0.35rem; font-size: 16px; font-weight: 300;">Robotics Instructor</h3>
+							<p class="text-gray-400" style="margin-bottom: 0; font-size: 14px; font-weight: 200;">International Robotics Academy</p>
 						</div>
 					</div>
 				</div>
 
 				<!-- RIGHT: Skills -->
 				<div class="lg:w-72 flex-shrink-0">
-					<h2 class="text-lg font-bold text-gray-800" style="margin-bottom: 1rem;">Skills</h2>
+					<h2 class="text-gray-800" style="margin-bottom: 1rem; font-weight: 400; font-size: 28px;">Skills</h2>
 
 					<!-- Technical -->
 					<div class="mb-4">
@@ -114,10 +107,26 @@ const spotifyLink = "https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz?si=
 				</div>
 			</div>
 
-			<!-- Leadership — below Experience & Skills, black label, role name in grey -->
-			<div class="mt-6">
-				<h3 class="text-sm font-bold text-gray-800" style="margin-bottom: 0.35rem;">Leadership</h3>
-				<p class="text-sm text-gray-800" style="margin-bottom: 0;">Tritons Prosthetics Society <span class="text-gray-300 mx-1">|</span> <span class="text-gray-400">Co-President</span></p>
+			<!-- Leadership — below Experience & Skills -->
+			<div class="mt-8">
+				<h2 class="text-gray-800" style="margin-bottom: 1rem; font-weight: 400; font-size: 28px;">Leadership</h2>
+				<div class="space-y-3">
+					<!-- Co-President, TPS -->
+					<div class="flex justify-between items-start">
+						<div>
+							<p class="text-gray-800" style="margin-bottom: 0; font-size: 18px;">Tritons Prosthetic Society (TPS) <span class="text-gray-300 mx-1">|</span> <span class="text-gray-400">Co-President</span></p>
+						</div>
+						<p class="text-gray-300 flex-shrink-0 ml-4" style="font-size: 18px;">May 2025 - Present</p>
+					</div>
+
+					<!-- Peer Mentor, CSSA -->
+					<div class="flex justify-between items-start">
+						<div>
+							<p class="text-gray-800" style="margin-bottom: 0; font-size: 18px;">Cognitive Science Student Association (CSSA) <span class="text-gray-300 mx-1">|</span> <span class="text-gray-400">Peer Mentor</span></p>
+						</div>
+						<p class="text-gray-300 flex-shrink-0 ml-4" style="font-size: 18px;">Nov 2022 - Present</p>
+					</div>
+				</div>
 			</div>
 		</section>
 
@@ -136,7 +145,7 @@ const spotifyLink = "https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz?si=
 
 		<!-- ========== PROOF OF WORK-LIFE BALANCE + IN MY HEADPHONES (one section) ========== -->
 		<section class="mb-16">
-			<p class="text-xs text-gray-800 uppercase tracking-widest mb-2" style="font-weight: 400; letter-spacing: 0.2em;">Proof of Work-Life Balance</p>
+			<p class="text-gray-400 uppercase tracking-widest mb-2" style="font-weight: 400; letter-spacing: 0.2em; font-size: 14px;">Proof of MY Work-Life Balance</p>
 			<hr class="border-gray-200 mb-5" />
 
 			<!-- Photos: 7 in a single row, slightly smaller -->
@@ -150,7 +159,7 @@ const spotifyLink = "https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz?si=
 
 			<!-- In My Headphones — same section, no divider -->
 			<div class="mt-10">
-				<p class="text-xs text-gray-800 uppercase tracking-widest mb-2" style="font-weight: 400; letter-spacing: 0.2em;">In My Headphones</p>
+				<p class="text-gray-400 uppercase tracking-widest mb-2" style="font-weight: 400; letter-spacing: 0.2em; font-size: 14px;">In My Headphones</p>
 				<hr class="border-gray-200 mb-5" />
 
 				<div class="flex flex-col items-start gap-4">
