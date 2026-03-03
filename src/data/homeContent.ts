@@ -23,6 +23,51 @@ export const homeContent = {
     ]
   },
 
+  projects: [
+    {
+      slug: "optical-illusions-clip",
+      title: "Optical Illusions in CLIP",
+      description: "Analyzed how CLIP encodes perceptual ambiguity using the rabbit-duck illusion, designed systematic image perturbations to evaluate model bias, and compared outputs against human perception data.",
+      fields: ["Computer Vision", "Machine Learning", "Perceptual AI", "Experimental Design"],
+      image: "/optical-illusions-clip.png"
+    },
+    {
+      slug: "biosignal-pipeline",
+      title: "Biosignal Processing Pipeline",
+      description: "Developed a Python pipeline for cleaning and extracting physiological features from noisy wearable data, including motion artifact removal and PPG/EDA filtering for HR and HRV extraction.",
+      fields: ["Signal Processing", "Wearables", "Data Engineering", "Python"],
+      image: "/biosignal-pipeline.png"
+    },
+    {
+      slug: "eeg-attention",
+      title: "EEG-based Attention Classification",
+      description: "Designed an EEG-based attention classification pipeline for an adaptive neurofeedback system using real-time OpenBCI data, signal preprocessing, and frequency-domain analysis.",
+      fields: ["Neuroscience", "Signal Processing", "BCI", "Real-time Systems"],
+      image: "/eeg_light.gif"
+    },
+    {
+      slug: "sarcastic-headlines",
+      title: "Sarcastic Headline Generator",
+      description: "Explored whether character-level RNNs can learn sarcasm using The Onion dataset with RNN, LSTM, and GRU architectures.",
+      fields: ["NLP", "Deep Learning", "RNN / LSTM", "Text Generation"],
+      image: null
+    },
+    {
+      slug: "zebrafish-dynamics",
+      title: "Zebrafish Multiscale Dynamics Analysis",
+      description: "Translated mathematical formulations from a neuroscience paper into a working implementation of the Iterative Coarse Graining (ICG) algorithm.",
+      fields: ["Python", "Multiscale Analysis", "Computational Neuroscience"],
+      image: null
+    },
+    {
+      slug: "biometric-integration",
+      title: "Biometric Integration for Biobehavioral Phenotyping",
+      description: "Integrated multimodal biometric data to characterize behavioral patterns and developmental trajectories in young children.",
+      fields: ["Biometrics", "Signal Processing", "Childhood Development", "Data Integration"],
+      image: null
+    }
+  ],
+
   resumeHighlights: {
     title: "Quick Resume Highlights",
     items: [

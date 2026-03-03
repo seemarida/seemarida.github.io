@@ -143,69 +143,34 @@ const spotifyLink = "https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz?si=
 			</a>
 		</section>
 
-		<!-- ========== PROOF OF WORK-LIFE BALANCE + IN MY HEADPHONES (one section) ========== -->
-		<section class="mb-16">
-			<p class="text-gray-400 uppercase tracking-widest mb-2" style="font-weight: 400; letter-spacing: 0.2em; font-size: 14px;">Proof of MY Work-Life Balance</p>
-			<hr class="border-gray-200 mb-5" />
+	<!-- ========== IN MY HEADPHONES ========== -->
+	<section class="mb-16">
+		<p class="text-gray-400 uppercase tracking-widest mb-2" style="font-weight: 400; letter-spacing: 0.2em; font-size: 14px;">In My Headphones</p>
+		<hr class="border-gray-200 mb-5" />
 
-			<!-- Photos: 7 in a single row, slightly smaller -->
-			<div class="flex gap-2" style="overflow-x: auto;">
-				{[1, 2, 3, 4, 5, 6, 7].map((i) => (
-					<div class={`photo-tilt photo-tilt-${i % 2 === 0 ? 'right' : 'left'} rounded-lg overflow-hidden bg-gray-100 border border-gray-200 flex items-center justify-center flex-shrink-0`} style="width: calc((100% - 6 * 0.5rem) / 7); aspect-ratio: 3/4;">
-						<span class="text-xs text-gray-400 font-medium">Photo {i}</span>
-					</div>
-				))}
-			</div>
-
-			<!-- In My Headphones — same section, no divider -->
-			<div class="mt-10">
-				<p class="text-gray-400 uppercase tracking-widest mb-2" style="font-weight: 400; letter-spacing: 0.2em; font-size: 14px;">In My Headphones</p>
-				<hr class="border-gray-200 mb-5" />
-
-				<div class="flex flex-col items-start gap-4">
-					<!-- Song card -->
-					<div class="flex items-center gap-4 bg-white rounded-2xl shadow-sm border border-gray-100 p-4 max-w-sm w-full">
-						<!-- Album art placeholder -->
-						<div class="flex-shrink-0 w-16 h-16 rounded-xl overflow-hidden bg-gray-100 border border-gray-200">
-							<img src="/images/fleetwood.jpg" alt="Album art" class="w-full h-full object-cover" />
-						</div>
-						<div class="flex-1 min-w-0">
-							<p class="text-base font-bold text-gray-800 truncate" style="margin-bottom: 0.1rem;">You Make Loving Fun</p>
-							<p class="text-sm text-gray-400 truncate" style="margin-bottom: 0;">Fleetwood Mac</p>
-						</div>
-						<!-- Spotify button -->
-						<a
-							href={spotifyLink}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="flex-shrink-0 flex items-center gap-1.5 bg-green-500 hover:bg-green-600 text-white text-xs font-bold px-3 py-1.5 rounded-full transition-colors duration-200"
-						>
-							<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm4.535 14.507a.625.625 0 01-.856.186c-2.372-1.411-5.35-1.731-8.883-.949a.625.625 0 01-.748-.469.625.625 0 01.469-.748c3.85-.882 7.147-.518 9.83 1.096a.625.625 0 01.188.883zm1.206-2.68a.781.781 0 01-1.069.235c-2.711-1.666-6.851-2.148-10.072-1.175a.781.781 0 01-.954-.51.781.781 0 01.51-.955c3.538-1.081 7.975-.556 11.035 1.291a.781.781 0 01.234 1.067zm.11-2.789a.938.938 0 01-1.285.281c-3.072-1.888-8.066-2.441-11.886-1.333a.937.937 0 01-1.147-.608.937.937 0 01.609-1.148c4.167-1.272 9.584-.652 13.003 1.482a.938.938 0 01.288 1.28z"/></svg>
-							Spotify
-						</a>
-					</div>
+		<div class="flex flex-col items-start gap-4">
+			<!-- Song card -->
+			<div class="flex items-center gap-4 bg-white rounded-2xl shadow-sm border border-gray-100 p-4 max-w-sm w-full hover:shadow-md transition-all duration-300">
+				<!-- Album art placeholder -->
+				<div class="flex-shrink-0 w-16 h-16 rounded-xl overflow-hidden bg-gray-100 border border-gray-200">
+					<img src="/images/fleetwood.jpg" alt="Album art" class="w-full h-full object-cover" />
 				</div>
+				<div class="flex-1 min-w-0">
+					<p class="text-base font-bold text-gray-800 truncate" style="margin-bottom: 0.1rem;">You Make Loving Fun</p>
+					<p class="text-sm text-gray-400 truncate" style="margin-bottom: 0;">Fleetwood Mac</p>
+				</div>
+				<!-- Spotify button -->
+				<a
+					href={spotifyLink}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="flex-shrink-0 flex items-center gap-1.5 bg-green-500 hover:bg-green-600 text-white text-xs font-bold px-3 py-1.5 rounded-full transition-colors duration-200"
+				>
+					<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm4.535 14.507a.625.625 0 01-.856.186c-2.372-1.411-5.35-1.731-8.883-.949a.625.625 0 01-.748-.469.625.625 0 01.469-.748c3.85-.882 7.147-.518 9.83 1.096a.625.625 0 01.188.883zm1.206-2.68a.781.781 0 01-1.069.235c-2.711-1.666-6.851-2.148-10.072-1.175a.781.781 0 01-.954-.51.781.781 0 01.51-.955c3.538-1.081 7.975-.556 11.035 1.291a.781.781 0 01.234 1.067zm.11-2.789a.938.938 0 01-1.285.281c-3.072-1.888-8.066-2.441-11.886-1.333a.937.937 0 01-1.147-.608.937.937 0 01.609-1.148c4.167-1.272 9.584-.652 13.003 1.482a.938.938 0 01.288 1.28z"/></svg>
+					Spotify
+				</a>
 			</div>
-		</section>
+		</div>
+	</section>
 
-	</div>
-
-	<!-- ========== PHOTO TILT HOVER STYLES ========== -->
-	<style is:global>
-		.photo-tilt {
-			transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
-			cursor: pointer;
-			transform: rotate(0deg);
-		}
-
-		.photo-tilt-left:hover {
-			transform: rotate(-2.5deg) translateY(-3px);
-			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-		}
-
-		.photo-tilt-right:hover {
-			transform: rotate(2.5deg) translateY(-3px);
-			box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-		}
-	</style>
 </MainLayout>
