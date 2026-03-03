@@ -1,23 +1,47 @@
 ---
-import MainLayout from '../../layouts/MainLayout.astro';
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
 ---
 
-<MainLayout
-	title="Zebrafish Multiscale Dynamics | Seema Rida"
-	description="Zebrafish Multiscale Dynamics project — coming soon"
+<ProjectLayout
+  title="Zebrafish Multiscale Dynamics"
+  description="How do thousands of neurons coordinate across spatial scales?"
+  tags={["Computational Neuroscience", "Python", "Signal Processing", "Data Analysis"]}
 >
-	<div class="max-w-3xl mx-auto py-24 px-4 text-center">
-		<h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4" style="margin-bottom: 1rem;">Zebrafish Multiscale Dynamics</h1>
-		<div class="w-16 h-0.5 bg-muted-rose mx-auto mb-12"></div>
+  <p style="font-size: 0.82rem; color: var(--muted); margin-bottom: 32px;">
+    <a href="https://doi.org/10.1016/j.cell.2024.10.004" target="_blank" rel="noopener noreferrer" style="color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--border); transition: border-color 0.15s;" onmouseover="this.style.borderColor='var(--muted)'" onmouseout="this.style.borderColor='var(--border)'">
+      Munn et al., Cell 187, 7303–7313 (2024)
+    </a>
+  </p>
 
-		<div class="bg-white rounded-2xl shadow-md border border-gray-100 p-12 md:p-16">
-			<svg class="w-20 h-20 mx-auto mb-6 text-muted-rose opacity-60" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-			</svg>
-			<h2 class="text-2xl font-bold text-gray-700 mb-3">Coming Soon</h2>
-			<p class="text-gray-500 text-lg">This project page is under construction. Check back soon.</p>
-		</div>
+  <p style="font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 12px;">The question</p>
+  <p>
+    At the level of individual neurons, activity looks sparse and uncorrelated. At the population level, it looks correlated and redundant. Both have empirical support. Munn et al. (2024) argued these aren't contradictions, they're two views of the same multiscale structure. I wanted to understand it well enough to implement it from scratch.
+  </p>
 
-		<a href="/" class="inline-block mt-10 text-muted-rose hover:text-gray-800 transition-colors font-medium">&larr; Back to home</a>
-	</div>
-</MainLayout>
+  <p style="font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; margin-top: 48px;">The algorithm</p>
+  <p>
+    ICG works by repeatedly merging neurons into larger ensembles based on correlation. At each level, compute the full pairwise Pearson correlation matrix, greedily pair each unit with its highest-correlation partner, and sum their activity traces:
+  </p>
+
+  <pre style="background: #FAFAF9; border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; margin: 20px 0; font-family: 'Monaco', 'Menlo', 'Consolas', monospace; font-size: 0.85rem; color: var(--ink); display: inline-block;"><code>r^l_i = r^(l-1)_i + r^(l-1)_j</code></pre>
+
+  <p>
+    Each iteration doubles the ensemble size K. You go from individual neurons (K=1) to whole-brain population activity across 13+ scales.
+  </p>
+
+  <p style="font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; margin-top: 48px;">What I found</p>
+  <p>
+    At fine scales, pairwise correlations cluster around zero. As ensemble size grows, the distribution broadens. The same neurons that looked uncorrelated individually start to look coordinated at the population level. The multiscale structure is real and the algorithm surfaces it.
+  </p>
+
+  <div style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border); display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; color: var(--muted); font-size: 0.95rem;">
+    <div>
+      <div style="font-weight: 600; color: var(--ink); margin-bottom: 8px;">Tools</div>
+      <div>Python, NumPy, Pandas, Matplotlib</div>
+    </div>
+    <div>
+      <div style="font-weight: 600; color: var(--ink); margin-bottom: 8px;">Based on</div>
+      <div>Munn et al., Cell 2024</div>
+    </div>
+  </div>
+</ProjectLayout>

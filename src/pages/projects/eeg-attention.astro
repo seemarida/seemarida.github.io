@@ -1,78 +1,72 @@
 ---
-import MainLayout from '../../layouts/MainLayout.astro';
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
 ---
 
-<MainLayout
-	title="EEG-based Attention Classification | Seema Rida"
-	description="EEG-based attention classification pipeline for adaptive neurofeedback using real-time OpenBCI data"
+<ProjectLayout
+  title="EEG-based Attention Classification"
+  description="What does attention look like in EEG, and can you build a classifier around it?"
+  tags={["Neuroscience", "Signal Processing", "BCI", "Real-time Systems", "Python", "EEG"]}
+  codeLink="https://github.com/seemarida/cogs_189_project"
 >
-	<div class="max-w-6xl mx-auto py-12 px-4">
-		<div class="text-center mb-8">
-			<h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">EEG-based Attention Classification</h1>
-			<div class="w-16 h-0.5 bg-muted-rose mx-auto mb-6"></div>
-			<p class="text-gray-600 text-lg max-w-2xl mx-auto">
-				Designed an EEG-based attention classification pipeline for an adaptive neurofeedback system using real-time OpenBCI data, signal preprocessing, and frequency-domain analysis
-			</p>
-		</div>
+  <p style="font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 12px;">The motivation</p>
+  <p>
+    The Pomodoro technique assumes everyone focuses on the same schedule. 25 minutes on, 5 minutes off, fixed, regardless of whether you're in flow or already checked out. It never really worked for me consistently and so I wanted to explore that.
+  </p>
 
-		<!-- Project Image/GIF -->
-		<div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden mb-8 flex items-center justify-center" style="min-height: 400px;">
-			<img
-				src="/eeg_light.gif"
-				alt="EEG Attention Classification Demo"
-				class="w-full h-full object-contain"
-			/>
-		</div>
+  <p style="font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; margin-top: 48px;">The experiment</p>
 
-		<!-- Project Description -->
-		<div class="max-w-3xl mx-auto mb-8">
-			<div class="bg-white rounded-xl shadow-sm border border-gray-100 p-8">
-				<h2 class="text-2xl font-bold text-gray-800 mb-4">About This Project</h2>
-				<p class="text-gray-600 leading-relaxed mb-4">
-					This project developed a comprehensive EEG-based attention classification pipeline for an adaptive neurofeedback system. Using real-time data from OpenBCI headsets, I designed experiments to examine attentional fluctuations during cognitive task performance.
-				</p>
-				<p class="text-gray-600 leading-relaxed mb-4">
-					The pipeline includes signal preprocessing with bandpass filtering and epoching, frequency-domain analysis to identify attention-related brainwave patterns, and machine learning models to classify attention levels from EEG features with significant accuracy.
-				</p>
-				<div class="flex flex-wrap gap-2 mt-6">
-					<span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Neuroscience</span>
-					<span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Signal Processing</span>
-					<span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">BCI</span>
-					<span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Real-time Systems</span>
-					<span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">Python</span>
-					<span class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm font-medium">EEG</span>
-				</div>
-			</div>
-		</div>
+  <div style="display: grid; grid-template-columns: 1.2fr 32px 1fr; margin-bottom: 40px;">
+    <p style="font-size: 1.05rem; font-weight: 300; line-height: 2; color: var(--ink); grid-column: 1;">
+      Before building anything, we had to figure out what to actually measure. Eye movements artifact EEG badly, so a reading task was out. A listening task avoided that but couldn't capture visual attention.
+      <br /><br />
+      We landed on watching a lecture on a small screen. Participants watched for 10 minutes, took a 5-minute break, then another 10, while we recorded from 7 frontal channels using OpenBCI.
+      <br /><br />
+      They pressed keyboard buttons in real time to self-report when they lost focus and when they regained it.
+    </p>
 
-		<!-- Project Links -->
-		<div class="flex flex-wrap justify-center gap-4 mb-8">
-			<a
-				href="https://github.com/seemarida/cogs_189_project"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="inline-flex items-center px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium"
-			>
-				<svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-					<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-				</svg>
-				View Code
-			</a>
-			<a
-				href="/projects/cogs189_final_project.pdf"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="inline-flex items-center px-6 py-3 bg-muted-rose text-white rounded-lg hover:bg-opacity-90 transition-colors font-medium"
-			>
-				<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-				</svg>
-				View Presentation
-			</a>
-		</div>
+    <div style="grid-column: 3; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; max-width: 340px; align-self: start; margin-top: -8px; margin-left: 40px;">
+      <img src="/experiment.png" alt="Experiment Setup" style="width: 100%; display: block;" />
+    </div>
 
-		<div class="text-center">
-			<a href="/" class="inline-block text-muted-rose hover:text-gray-800 transition-colors font-medium">&larr; Back to home</a>
-		</div>
-	</div>
-</MainLayout>
+    <div style="grid-column: 1 / 4; display: grid; grid-template-columns: 200px 1fr; gap: 24px; align-items: center; padding: 20px 24px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; margin-top: 24px;">
+      <div style="border: 1px solid var(--border); border-radius: 8px; overflow: hidden; background: #fff; padding: 12px;">
+        <img src="/channels.png" alt="EEG Channel Layout" style="width: 100%; display: block;" />
+      </div>
+      <div>
+        <p style="font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 10px;">Channels used</p>
+        <p style="font-size: 1.05rem; font-weight: 300; line-height: 2; color: var(--ink);">
+          All 7 channels sit in the frontal region. Fp1 and Fp2 cover the prefrontal cortex, most directly tied to attention and cognitive control. F3 and F4 capture working memory and focus, positioned symmetrically to pick up hemispheric differences. F7 and F8 track frontal asymmetry. Fz anchors the midline. Ground at O1, reference at O2.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <p style="font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; margin-top: 48px;">What I built</p>
+  <p>
+    The pipeline filtered the raw EEG between 0.1 and 50 Hz, then epoched the data into 2-second windows aligned to the self-report markers. From each epoch I extracted relative band power across Delta, Theta, Alpha, Beta, and Gamma for all 7 channels. Alpha suppression and Beta elevation in frontal regions are established markers of active attention. Theta increases tend to signal cognitive load or fatigue.
+  </p>
+
+  <div style="border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin: 40px 0;">
+    <img src="/attention.png" alt="Attention Analysis Results" style="width: 100%; display: block;" />
+  </div>
+
+  <p style="font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; margin-top: 48px;">What I found</p>
+  <p>
+    There were visible differences in band power between focused and unfocused epochs, particularly in Alpha and Beta at the prefrontal channels. But the labels were imprecise and the windows short. Self-reporting while trying to focus is its own problem. It worked as a proof of concept, which is the honest place a single-session small-N EEG study lands.
+  </p>
+
+  <div style="border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin: 40px 0;">
+    <img src="/freq.png" alt="Frequency Band Analysis" style="width: 100%; display: block;" />
+  </div>
+
+  <div style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border); display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; color: var(--muted); font-size: 0.95rem;">
+    <div>
+      <div style="font-weight: 600; color: var(--ink); margin-bottom: 8px;">Tools</div>
+      <div>Python, psychopy, OpenBCI, NumPy, scikit-learn</div>
+    </div>
+    <div>
+      <div style="font-weight: 600; color: var(--ink); margin-bottom: 8px;">Course</div>
+      <div>COGS 189, Brain-Computer Interfaces</div>
+    </div>
+  </div>
+</ProjectLayout>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0e0e0e;color:#fff;font-family:'Inter',sans-serif;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;overflow-x:hidden}
+.title{font-size:.72rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:#444;margin-bottom:48px;text-align:center}
+.stage{width:100%;max-width:860px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.illusion-side{display:flex;flex-direction:column;align-items:center;gap:20px}
+.illusion-wrap{position:relative;width:240px;height:240px}
+.illusion-inner{width:100%;height:100%;transition:transform .5s cubic-bezier(.34,1.2,.64,1)}
+.illusion-svg{width:100%;height:100%}
+.crop-overlay{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;transition:clip-path .4s ease}
+.region-label{font-size:.7rem;color:#333;letter-spacing:.06em;text-transform:uppercase;text-align:center;height:16px;transition:color .3s}
+.controls{display:flex;flex-direction:column;gap:12px;width:100%;max-width:260px}
+.ctrl-label{font-size:.66rem;color:#3a3a3a;letter-spacing:.08em;text-transform:uppercase;margin-bottom:2px}
+.btn-row{display:flex;gap:7px;flex-wrap:wrap}
+.btn{padding:6px 13px;border-radius:6px;border:1px solid #222;background:#141414;color:#555;font-family:'Inter',sans-serif;font-size:.73rem;cursor:pointer;transition:all .15s;letter-spacing:.02em}
+.btn:hover{border-color:#3a3a3a;color:#999}
+.btn.active{color:#fff;background:#202020;border-color:#444}
+
+.rotation-wrap{display:flex;flex-direction:column;gap:8px}
+.slider{-webkit-appearance:none;appearance:none;width:100%;height:3px;background:#1e1e1e;border-radius:2px;outline:none;cursor:pointer}
+.slider::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:#4A7260;cursor:pointer;transition:transform .15s}
+.slider::-webkit-slider-thumb:hover{transform:scale(1.2)}
+.slider-labels{display:flex;justify-content:space-between;font-size:.62rem;color:#333;letter-spacing:.04em}
+.rotation-val{font-size:.68rem;color:#555;text-align:right;font-variant-numeric:tabular-nums;margin-top:-4px}
+
+.embed-side{display:flex;flex-direction:column;gap:14px}
+.embed-label{font-size:.66rem;color:#3a3a3a;letter-spacing:.08em;text-transform:uppercase}
+.embed-canvas{width:100%;aspect-ratio:1;position:relative;background:#0a0a0a;border:1px solid #1a1a1a;border-radius:12px;overflow:hidden}
+.cluster{position:absolute;border-radius:50%;pointer-events:none}
+.cduck{width:120px;height:100px;background:radial-gradient(ellipse,rgba(70,140,210,.1) 0%,transparent 70%);top:14%;left:8%}
+.crabbit{width:110px;height:110px;background:radial-gradient(ellipse,rgba(210,110,70,.1) 0%,transparent 70%);bottom:12%;right:10%}
+.anchor{position:absolute;border-radius:50%}
+.aduck{width:8px;height:8px;background:#4a9fd4;top:26%;left:22%;box-shadow:0 0 14px rgba(74,159,212,.5)}
+.arabbit{width:8px;height:8px;background:#d47a4a;bottom:22%;right:20%;box-shadow:0 0 14px rgba(212,122,74,.5)}
+.alabel{position:absolute;font-size:.6rem;letter-spacing:.04em;white-space:nowrap}
+.dlabel{top:26%;left:33%;transform:translateY(-50%);color:#4a9fd4}
+.rlabel{bottom:22%;right:31%;transform:translateY(50%);color:#d47a4a}
+.ax{position:absolute;font-size:.58rem;color:#222;letter-spacing:.06em;text-transform:uppercase}
+.axx{bottom:9px;right:13px}.axy{top:9px;left:13px}
+.ipt{position:absolute;width:13px;height:13px;border-radius:50%;background:#e0e0e0;box-shadow:0 0 18px rgba(255,255,255,.25);transition:left .85s cubic-bezier(.34,1.4,.64,1),top .85s cubic-bezier(.34,1.4,.64,1),background .5s,box-shadow .5s;z-index:10}
+.mini{position:absolute;width:4px;height:4px;border-radius:50%;opacity:.2;pointer-events:none}
+.esv{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none}
+.cline{stroke-dasharray:3 5;stroke-width:1;opacity:0;transition:opacity .4s;animation:moveDash 10s linear infinite}
+@keyframes moveDash{to{stroke-dashoffset:-80}}
+.score-wrap{display:flex;flex-direction:column;gap:6px}
+.srow{display:flex;align-items:center;gap:10px}
+.sname{font-size:.68rem;width:46px;flex-shrink:0}
+.sbg{flex:1;height:3px;background:#1a1a1a;border-radius:2px;overflow:hidden}
+.sfill{height:100%;border-radius:2px;transition:width .8s cubic-bezier(.34,1.2,.64,1)}
+.df{background:#4a9fd4}.rf{background:#d47a4a}
+.sval{font-size:.65rem;color:#333;width:38px;text-align:right;font-variant-numeric:tabular-nums}
+.verdict{font-size:.72rem;color:#333;margin-top:2px;letter-spacing:.04em;min-height:18px;transition:color .4s}
+.caption{font-size:.7rem;color:#2a2a2a;line-height:1.6;max-width:280px;text-align:center;margin-top:4px}
+@media(max-width:600px){.stage{grid-template-columns:1fr;gap:28px}.illusion-wrap{width:200px;height:200px}}
+</style>
+</head>
+<body>
+
+<p class="title">Optical Illusions in CLIP — Embedding Space</p>
+
+<div class="stage">
+  <div class="illusion-side">
+    <div class="illusion-wrap" id="iWrap">
+      <div class="illusion-inner" id="iInner">
+        <svg class="illusion-svg" viewBox="0 0 240 240" fill="none">
+          <rect width="240" height="240" rx="12" fill="#181818"/>
+          <ellipse cx="130" cy="150" rx="60" ry="48" fill="#d8d4cc"/>
+          <ellipse cx="92" cy="104" rx="38" ry="34" fill="#d8d4cc"/>
+          <path d="M55 100 Q40 105 42 114 Q54 122 62 112 Z" fill="#d8d4cc"/>
+          <path d="M150 100 Q146 55 154 36 Q162 55 160 100 Z" fill="#d8d4cc"/>
+          <path d="M168 102 Q170 56 178 38 Q185 58 180 102 Z" fill="#d8d4cc"/>
+          <ellipse cx="168" cy="110" rx="28" ry="26" fill="#d8d4cc"/>
+          <circle cx="86" cy="96" r="4" fill="#181818"/>
+          <circle cx="87" cy="95" r="1.5" fill="#fff"/>
+          <circle cx="168" cy="102" r="4" fill="#181818"/>
+          <circle cx="169" cy="101" r="1.5" fill="#fff"/>
+          <ellipse cx="128" cy="196" rx="55" ry="7" fill="#111"/>
+        </svg>
+      </div>
+      <!-- highlight overlay showing focused region -->
+      <div id="cropViz" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;border-radius:12px;transition:box-shadow .4s ease;"></div>
+    </div>
+
+    <p class="region-label" id="rLabel">adjust region or rotation</p>
+
+    <div class="controls">
+      <!-- Region -->
+      <div>
+        <p class="ctrl-label">Region focus</p>
+        <div class="btn-row">
+          <button class="btn active" onclick="setRegion('full',this)">Full</button>
+          <button class="btn" onclick="setRegion('left',this)">Left</button>
+          <button class="btn" onclick="setRegion('right',this)">Right</button>
+          <button class="btn" onclick="setRegion('top',this)">Top</button>
+          <button class="btn" onclick="setRegion('bottom',this)">Bottom</button>
+        </div>
+      </div>
+
+      <!-- Rotation -->
+      <div class="rotation-wrap" style="margin-top:4px">
+        <p class="ctrl-label">Rotation</p>
+        <input
+          type="range"
+          class="slider"
+          id="rotSlider"
+          min="-180"
+          max="180"
+          value="0"
+          step="1"
+          oninput="setRotation(this.value)"
+        />
+        <div class="slider-labels">
+          <span>-180°</span>
+          <span>0°</span>
+          <span>+180°</span>
+        </div>
+        <p class="rotation-val" id="rotVal">0°</p>
+      </div>
+    </div>
+
+    <p class="caption">Region and rotation both shift CLIP's classification — just like directing human attention does.</p>
+  </div>
+
+  <div class="embed-side">
+    <p class="embed-label">CLIP Embedding Space (PCA)</p>
+    <div class="embed-canvas" id="eCanvas">
+      <div class="cluster cduck"></div>
+      <div class="cluster crabbit"></div>
+      <div class="mini" style="background:#4a9fd4;top:19%;left:14%"></div>
+      <div class="mini" style="background:#4a9fd4;top:28%;left:26%"></div>
+      <div class="mini" style="background:#4a9fd4;top:22%;left:32%"></div>
+      <div class="mini" style="background:#4a9fd4;top:34%;left:17%"></div>
+      <div class="mini" style="background:#4a9fd4;top:30%;left:36%"></div>
+      <div class="mini" style="background:#4a9fd4;top:16%;left:28%"></div>
+      <div class="mini" style="background:#d47a4a;bottom:17%;right:14%"></div>
+      <div class="mini" style="background:#d47a4a;bottom:25%;right:26%"></div>
+      <div class="mini" style="background:#d47a4a;bottom:19%;right:32%"></div>
+      <div class="mini" style="background:#d47a4a;bottom:29%;right:17%"></div>
+      <div class="mini" style="background:#d47a4a;bottom:22%;right:36%"></div>
+      <div class="mini" style="background:#d47a4a;bottom:14%;right:28%"></div>
+      <div class="anchor aduck"></div>
+      <div class="anchor arabbit"></div>
+      <span class="alabel dlabel">duck</span>
+      <span class="alabel rlabel">rabbit</span>
+      <span class="ax axx">PC1</span>
+      <span class="ax axy">PC2</span>
+      <svg class="esv" id="eSVG" viewBox="0 0 400 400">
+        <line id="lDuck"   class="cline" stroke="#4a9fd4"/>
+        <line id="lRabbit" class="cline" stroke="#d47a4a"/>
+      </svg>
+      <div class="ipt" id="iPt"></div>
+    </div>
+    <div class="score-wrap">
+      <div class="srow">
+        <span class="sname" style="color:#4a9fd4">duck</span>
+        <div class="sbg"><div class="sfill df" id="dBar" style="width:50%"></div></div>
+        <span class="sval" id="dVal">0.2500</span>
+      </div>
+      <div class="srow">
+        <span class="sname" style="color:#d47a4a">rabbit</span>
+        <div class="sbg"><div class="sfill rf" id="rBar" style="width:50%"></div></div>
+        <span class="sval" id="rVal">0.2500</span>
+      </div>
+    </div>
+    <p class="verdict" id="verdict">adjust the controls to see classification shift</p>
+  </div>
+</div>
+
+<script>
+// Region data (from actual results, averaged across colors)
+const regionData = {
+  full:   { d: 0.2559, r: 0.2566 },
+  left:   { d: 0.2321, r: 0.2760 }, // rabbit-biased
+  right:  { d: 0.2439, r: 0.2351 }, // duck-biased
+  top:    { d: 0.2554, r: 0.2441 }, // duck-biased
+  bottom: { d: 0.2391, r: 0.2541 }, // rabbit-biased
+};
+
+// Region highlight shadow colors
+const regionShadow = {
+  full:   'none',
+  left:   'inset 60px 0 40px -20px rgba(212,122,74,.18)',
+  right:  'inset -60px 0 40px -20px rgba(74,159,212,.18)',
+  top:    'inset 0 60px 40px -20px rgba(74,159,212,.18)',
+  bottom: 'inset 0 -60px 40px -20px rgba(212,122,74,.18)',
+};
+
+const regionLabels = {
+  full: 'full image', left: 'left half', right: 'right half',
+  top: 'top half', bottom: 'bottom half'
+};
+
+const DP = { x: 22, y: 26 };
+const RP = { x: 78, y: 74 };
+
+let currentRegion = 'full';
+let currentRotation = 0;
+
+function getScores() {
+  const base = regionData[currentRegion];
+  // rotation effect: as image rotates away from canonical orientation,
+  // scores converge toward ambiguous center; extreme rotations add noise
+  const rotNorm = Math.abs(currentRotation) / 180; // 0 to 1
+  const rotEffect = Math.sin(rotNorm * Math.PI); // peaks at 90deg
+
+  // rotation toward rabbit or duck depending on direction
+  const rotBias = (currentRotation / 180) * 0.018;
+
+  const d = base.d * (1 - rotEffect * 0.3) + 0.250 * rotEffect * 0.3 - rotBias;
+  const r = base.r * (1 - rotEffect * 0.3) + 0.250 * rotEffect * 0.3 + rotBias;
+  return { d: Math.max(0.22, Math.min(0.29, d)), r: Math.max(0.22, Math.min(0.29, r)) };
+}
+
+function ptPos(d, r) {
+  const t = Math.max(0, Math.min(1, ((r - d) + .07) / .14));
+  return { x: DP.x + (RP.x - DP.x) * t, y: DP.y + (RP.y - DP.y) * t };
+}
+
+function update() {
+  const s = getScores();
+  const pos = ptPos(s.d, s.r);
+  const bias = s.r - s.d;
+
+  // move point
+  const pt = document.getElementById('iPt');
+  pt.style.left = `calc(${pos.x}% - 6.5px)`;
+  pt.style.top  = `calc(${pos.y}% - 6.5px)`;
+
+  // color point
+  if (Math.abs(bias) < 0.002) {
+    pt.style.background = '#d0d0d0';
+    pt.style.boxShadow  = '0 0 16px rgba(255,255,255,.2)';
+  } else if (bias > 0) {
+    const i = Math.min(bias / .05, 1);
+    pt.style.background = `rgba(212,122,74,${.65 + i * .35})`;
+    pt.style.boxShadow  = `0 0 ${12 + i * 14}px rgba(212,122,74,.55)`;
+  } else {
+    const i = Math.min(-bias / .05, 1);
+    pt.style.background = `rgba(74,159,212,${.65 + i * .35})`;
+    pt.style.boxShadow  = `0 0 ${12 + i * 14}px rgba(74,159,212,.55)`;
+  }
+
+  // score bars
+  const mn = .22, mx = .29;
+  document.getElementById('dBar').style.width = Math.max(4, (s.d - mn) / (mx - mn) * 100) + '%';
+  document.getElementById('rBar').style.width = Math.max(4, (s.r - mn) / (mx - mn) * 100) + '%';
+  document.getElementById('dVal').textContent = s.d.toFixed(4);
+  document.getElementById('rVal').textContent = s.r.toFixed(4);
+
+  // verdict
+  const v = document.getElementById('verdict');
+  if (Math.abs(bias) < 0.001) {
+    v.textContent = 'ambiguous'; v.style.color = '#444';
+  } else if (bias > 0) {
+    v.innerHTML = 'CLIP sees a <span style="color:#d47a4a;font-weight:500">rabbit</span>';
+  } else {
+    v.innerHTML = 'CLIP sees a <span style="color:#4a9fd4;font-weight:500">duck</span>';
+  }
+
+  // SVG lines
+  const c = document.getElementById('eCanvas');
+  const w = c.offsetWidth, h = c.offsetHeight, sc = 400 / w;
+  const px = pos.x / 100 * w * sc, py = pos.y / 100 * h * sc;
+  const dx = DP.x / 100 * w * sc, dy = DP.y / 100 * h * sc;
+  const rx = RP.x / 100 * w * sc, ry = RP.y / 100 * h * sc;
+  const ld = document.getElementById('lDuck'), lr = document.getElementById('lRabbit');
+  ld.setAttribute('x1', px); ld.setAttribute('y1', py);
+  ld.setAttribute('x2', dx); ld.setAttribute('y2', dy);
+  lr.setAttribute('x1', px); lr.setAttribute('y1', py);
+  lr.setAttribute('x2', rx); lr.setAttribute('y2', ry);
+  ld.style.opacity = '0.4'; lr.style.opacity = '0.4';
+}
+
+function setRegion(r, btn) {
+  currentRegion = r;
+  document.querySelectorAll('.btn:not(.rotation-btn)').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('rLabel').textContent =
+    `region: ${regionLabels[r]}  |  rotation: ${currentRotation}°`;
+  document.getElementById('rLabel').style.color = '#555';
+  document.getElementById('cropViz').style.boxShadow = regionShadow[r];
+  update();
+}
+
+function setRotation(val) {
+  currentRotation = parseInt(val);
+  document.getElementById('iInner').style.transform = `rotate(${val}deg)`;
+  document.getElementById('rotVal').textContent = `${val}°`;
+  document.getElementById('rLabel').textContent =
+    `region: ${regionLabels[currentRegion]}  |  rotation: ${val}°`;
+  document.getElementById('rLabel').style.color = '#555';
+  update();
+}
+
+update();
+</script>
+</body>
+</html>

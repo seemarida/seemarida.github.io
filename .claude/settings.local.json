@@ -9,7 +9,9 @@
       "Bash(git ls-tree:*)",
       "Bash(npm run build:*)",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(curl:*)",
+      "Bash(cat:*)"
     ],
     "deny": []
   }

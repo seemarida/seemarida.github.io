@@ -36,7 +36,7 @@ export const homeContent = {
       title: "Biosignal Processing Pipeline",
       description: "Developed a Python pipeline for cleaning and extracting physiological features from noisy wearable data, including motion artifact removal and PPG/EDA filtering for HR and HRV extraction.",
       fields: ["Signal Processing", "Wearables", "Data Engineering", "Python"],
-      image: "/biosignal-pipeline.png"
+      image: "/biosensor_demo.gif"
     },
     {
       slug: "eeg-attention",
@@ -50,20 +50,13 @@ export const homeContent = {
       title: "Sarcastic Headline Generator",
       description: "Explored whether character-level RNNs can learn sarcasm using The Onion dataset with RNN, LSTM, and GRU architectures.",
       fields: ["NLP", "Deep Learning", "RNN / LSTM", "Text Generation"],
-      image: null
+      image: "/sarcasm_demo.gif"
     },
     {
       slug: "zebrafish-dynamics",
       title: "Zebrafish Multiscale Dynamics Analysis",
       description: "Translated mathematical formulations from a neuroscience paper into a working implementation of the Iterative Coarse Graining (ICG) algorithm.",
       fields: ["Python", "Multiscale Analysis", "Computational Neuroscience"],
-      image: null
-    },
-    {
-      slug: "biometric-integration",
-      title: "Biometric Integration for Biobehavioral Phenotyping",
-      description: "Integrated multimodal biometric data to characterize behavioral patterns and developmental trajectories in young children.",
-      fields: ["Biometrics", "Signal Processing", "Childhood Development", "Data Integration"],
       image: null
     }
   ],
@@ -84,7 +77,7 @@ export const homeContent = {
   },
 
   interests: {
-    title: "My Interests",
+    title: "What drives me",
     items: [
       {
         title: "Brain-Computer Interfaces",

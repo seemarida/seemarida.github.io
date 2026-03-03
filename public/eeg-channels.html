@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+<style>
+  body { margin: 0; background: #fff; display: flex; align-items: center; justify-content: center; min-height: 100vh; font-family: 'Inter', sans-serif; }
+  .wrap { display: flex; flex-direction: column; align-items: center; gap: 24px; padding: 40px; }
+  .legend { display: flex; gap: 20px; align-items: center; }
+  .leg-item { display: flex; align-items: center; gap: 7px; font-size: 0.72rem; color: #78716C; }
+  .leg-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .caption { font-size: 0.72rem; color: #BFBAB4; letter-spacing: 0.04em; text-align: center; max-width: 340px; line-height: 1.6; }
+</style>
+</head>
+<body>
+<div class="wrap">
+<svg width="380" height="420" viewBox="0 0 380 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+  <!-- head outline -->
+  <ellipse cx="190" cy="210" rx="148" ry="172" fill="#FAFAF9" stroke="#E7E3DC" stroke-width="1.5"/>
+
+  <!-- nose -->
+  <path d="M178 42 Q190 28 202 42" stroke="#E7E3DC" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+  <!-- left ear -->
+  <path d="M43 195 Q32 205 33 220 Q34 235 43 242" stroke="#E7E3DC" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+  <!-- right ear -->
+  <path d="M337 195 Q348 205 347 220 Q346 235 337 242" stroke="#E7E3DC" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+  <!-- horizontal reference line (faint) -->
+  <line x1="50" y1="210" x2="330" y2="210" stroke="#F0EDE8" stroke-width="1" stroke-dasharray="3 4"/>
+  <!-- vertical reference line (faint) -->
+  <line x1="190" y1="50" x2="190" y2="370" stroke="#F0EDE8" stroke-width="1" stroke-dasharray="3 4"/>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- USED CHANNELS (sage green) -->
+  <!-- ═══════════════════════════════════════ -->
+
+  <!-- Fz — center front -->
+  <circle cx="190" cy="118" r="14" fill="#4A7260" opacity="0.9"/>
+  <text x="190" y="122" text-anchor="middle" font-family="Inter" font-size="10" font-weight="500" fill="#fff">Fz</text>
+
+  <!-- Fp1 — front left -->
+  <circle cx="142" cy="76" r="14" fill="#4A7260" opacity="0.9"/>
+  <text x="142" y="80" text-anchor="middle" font-family="Inter" font-size="9.5" font-weight="500" fill="#fff">Fp1</text>
+
+  <!-- Fp2 — front right -->
+  <circle cx="238" cy="76" r="14" fill="#4A7260" opacity="0.9"/>
+  <text x="238" y="80" text-anchor="middle" font-family="Inter" font-size="9.5" font-weight="500" fill="#fff">Fp2</text>
+
+  <!-- F3 — left of center -->
+  <circle cx="136" cy="126" r="14" fill="#4A7260" opacity="0.9"/>
+  <text x="136" y="130" text-anchor="middle" font-family="Inter" font-size="10" font-weight="500" fill="#fff">F3</text>
+
+  <!-- F4 — right of center -->
+  <circle cx="244" cy="126" r="14" fill="#4A7260" opacity="0.9"/>
+  <text x="244" y="130" text-anchor="middle" font-family="Inter" font-size="10" font-weight="500" fill="#fff">F4</text>
+
+  <!-- F7 — far left -->
+  <circle cx="90" cy="156" r="14" fill="#4A7260" opacity="0.9"/>
+  <text x="90" y="160" text-anchor="middle" font-family="Inter" font-size="10" font-weight="500" fill="#fff">F7</text>
+
+  <!-- F8 — far right -->
+  <circle cx="290" cy="156" r="14" fill="#4A7260" opacity="0.9"/>
+  <text x="290" y="160" text-anchor="middle" font-family="Inter" font-size="10" font-weight="500" fill="#fff">F8</text>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- REFERENCE / GROUND (not used actively) -->
+  <!-- ═══════════════════════════════════════ -->
+
+  <!-- O1 — ground -->
+  <circle cx="148" cy="348" r="14" fill="#4A7260" opacity="0.9"/>
+  <text x="148" y="352" text-anchor="middle" font-family="Inter" font-size="9.5" font-weight="500" fill="#fff">O1</text>
+  <text x="148" y="368" text-anchor="middle" font-family="Inter" font-size="7.5" fill="#BFBAB4" letter-spacing="0.03em">GND</text>
+
+  <!-- O2 — reference -->
+  <circle cx="232" cy="348" r="14" fill="#4A7260" opacity="0.9"/>
+  <text x="232" y="352" text-anchor="middle" font-family="Inter" font-size="9.5" font-weight="500" fill="#fff">O2</text>
+  <text x="232" y="368" text-anchor="middle" font-family="Inter" font-size="7.5" fill="#BFBAB4" letter-spacing="0.03em">REF</text>
+
+  <!-- ═══════════════════════════════════════ -->
+  <!-- UNUSED CHANNELS (light gray) -->
+  <!-- ═══════════════════════════════════════ -->
+
+  <!-- Cz -->
+  <circle cx="190" cy="210" r="11" fill="none" stroke="#E7E3DC" stroke-width="1.5"/>
+  <text x="190" y="214" text-anchor="middle" font-family="Inter" font-size="9" fill="#BFBAB4">Cz</text>
+
+  <!-- C3 -->
+  <circle cx="108" cy="210" r="11" fill="none" stroke="#E7E3DC" stroke-width="1.5"/>
+  <text x="108" y="214" text-anchor="middle" font-family="Inter" font-size="9" fill="#BFBAB4">C3</text>
+
+  <!-- C4 -->
+  <circle cx="272" cy="210" r="11" fill="none" stroke="#E7E3DC" stroke-width="1.5"/>
+  <text x="272" y="214" text-anchor="middle" font-family="Inter" font-size="9" fill="#BFBAB4">C4</text>
+
+  <!-- T7 -->
+  <circle cx="54" cy="210" r="11" fill="none" stroke="#E7E3DC" stroke-width="1.5"/>
+  <text x="54" y="214" text-anchor="middle" font-family="Inter" font-size="9" fill="#BFBAB4">T7</text>
+
+  <!-- T8 -->
+  <circle cx="326" cy="210" r="11" fill="none" stroke="#E7E3DC" stroke-width="1.5"/>
+  <text x="326" y="214" text-anchor="middle" font-family="Inter" font-size="9" fill="#BFBAB4">T8</text>
+
+  <!-- P3 -->
+  <circle cx="130" cy="280" r="11" fill="none" stroke="#E7E3DC" stroke-width="1.5"/>
+  <text x="130" y="284" text-anchor="middle" font-family="Inter" font-size="9" fill="#BFBAB4">P3</text>
+
+  <!-- P4 -->
+  <circle cx="250" cy="280" r="11" fill="none" stroke="#E7E3DC" stroke-width="1.5"/>
+  <text x="250" y="284" text-anchor="middle" font-family="Inter" font-size="9" fill="#BFBAB4">P4</text>
+
+  <!-- Pz -->
+  <circle cx="190" cy="290" r="11" fill="none" stroke="#E7E3DC" stroke-width="1.5"/>
+  <text x="190" y="294" text-anchor="middle" font-family="Inter" font-size="9" fill="#BFBAB4">Pz</text>
+
+  <!-- direction label -->
+  <text x="190" y="398" text-anchor="middle" font-family="Inter" font-size="9" fill="#D6D2CC" letter-spacing="0.08em">FRONT</text>
+  <text x="190" y="24" text-anchor="middle" font-family="Inter" font-size="9" fill="#D6D2CC" letter-spacing="0.08em">FRONT</text>
+
+</svg>
+
+<div class="legend">
+  <div class="leg-item">
+    <div class="leg-dot" style="background:#4A7260"></div>
+    <span>channels used</span>
+  </div>
+  <div class="leg-item">
+    <div class="leg-dot" style="background:none;border:1.5px solid #E7E3DC;width:9px;height:9px;border-radius:50%"></div>
+    <span>not used</span>
+  </div>
+</div>
+
+<p class="caption">7 frontal channels targeting prefrontal and frontal cortex regions associated with attention, working memory, and cognitive control.</p>
+
+</div>
+</body>
+</html>

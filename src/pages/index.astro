@@ -1,112 +1,309 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro';
 import { homeContent } from '../data/homeContent.ts';
-import { siteConfig } from '../data/siteConfig.js';
+import { aboutContent } from '../data/aboutContent.ts';
+
+const googleDriveResumeLink = "https://drive.google.com/file/d/1vMcm1Vrld1HCFTy2rBo5zAO5CgFo5NxH/view?usp=sharing";
+const spotifyPlaylist = "https://open.spotify.com/playlist/53b9uX18dpZkcdaR2f2kEI?si=3e7cb54f280f47ae";
 ---
 
-<MainLayout
-	title={`${siteConfig.name} | Home`}
-	description={siteConfig.description}
->
-	<div class="max-w-4xl mx-auto py-8">
-		<!-- Hero Section -->
-		<div class="text-center mb-16">
-			<h1 class="text-4xl md:text-6xl font-bold mb-6 text-gray-800 flex items-baseline justify-center gap-2">
-				hi, i'm <a href="mailto:srida@ucsd.edu,seemazrida@gmail.com?subject=Hello!" class="hover:text-muted-rose transition-colors cursor-pointer text-gray-800">seema</a>
-				<img src="/pfp-removebg-preview.png" alt="Seema's profile picture" class="w-20 h-20 md:w-24 md:h-24 object-contain translate-y-2 -translate-x-2" />
-			</h1>
-			<p class="text-lg md:text-3xl text-soft-blue font-light mb-8">
-				{homeContent.hero.subtitle}
-			</p>
-		</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>seema rida</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #FAF8F5; --ink: #1C1917; --green: #4A7260; --green-mid: #D0E4DC;
+      --muted: #78716C; --border: #E7E3DC; --card: #FFFFFF; --tag: #EEF4F1;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--ink); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
-		<!-- Personal Introduction -->
-		<div class="bg-white/90 rounded-2xl p-8 md:p-12 shadow-lg mb-12 border border-gray-100 hover:border-muted-rose/30 transition-all duration-300">
-			<div class="prose prose-lg max-w-none">
-				<p class="text-lg md:text-xl text-gray-700 mb-6 leading-relaxed">
-					{homeContent.hero.description}
-				</p>
-				
-				<div class="bg-gradient-to-r from-muted-rose/10 to-purple-50 rounded-xl p-6 mb-6 border-l-4 border-muted-rose">
-					<p class="text-lg text-gray-700 leading-relaxed">
-						<span class="font-semibold text-muted-rose">What I'm up to right now:</span><br/>
-						{homeContent.hero.currentlyDoing}
-					</p>
-				</div>
-				
-				<p class="text-lg text-gray-700 leading-relaxed mb-8">
-					{homeContent.hero.personality}
-				</p>
+    nav { display: flex; justify-content: flex-end; padding: 22px 52px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 100; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links button { background: none; border: none; font-family: 'Inter', sans-serif; font-size: 0.82rem; color: var(--muted); cursor: pointer; padding: 0; transition: color 0.15s; }
+    .nav-links button:hover, .nav-links button.active { color: var(--ink); }
+    .page { display: none; }
+    .page.active { display: block; }
 
-				<!-- Resume Highlights -->
-				<div class="border-t border-muted-rose/20 pt-6">
-					<h3 class="text-xl font-bold bg-gradient-to-r from-gray-800 to-muted-rose bg-clip-text text-transparent mb-4">
-						{homeContent.resumeHighlights.title}
-					</h3>
-					<ul class="space-y-2 mb-4 list-disc list-inside">
-						{
-							homeContent.resumeHighlights.items.map(item => (
-								<li class="text-gray-700">
-									{item}
-								</li>
-							))
-						}
-					</ul>
-					<a
-						href={homeContent.resumeHighlights.resumeLink.href}
-						class="text-soft-blue hover:text-muted-rose transition-colors font-semibold underline"
-						target="_blank"
-						rel="noopener noreferrer"
-					>
-						{homeContent.resumeHighlights.resumeLink.text} →
-					</a>
-				</div>
-			</div>
-		</div>
+    /* HOME */
+    .home-wrap { max-width: 100%; padding: 72px 15% 100px; }
+    .home-wrap h1 { font-size: 3.8rem; font-weight: 600; letter-spacing: -0.035em; line-height: 1.1; margin-bottom: 14px; }
+    .home-wrap h1 span { color: var(--green); }
+    .hero-sub { font-size: 1.15rem; color: var(--muted); margin-bottom: 64px; }
+    .home-section { padding: 38px 0; border-top: 1px solid var(--border); }
+    .home-section:last-of-type { border-bottom: 1px solid var(--border); }
+    .lbl { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
+    .home-section p { font-size: 1.15rem; font-weight: 300; line-height: 1.8; }
+    .home-section p + p { margin-top: 12px; }
+    .cta { display: inline-flex; align-items: center; gap: 5px; margin-top: 18px; font-size: 1rem; font-weight: 500; color: var(--green); background: none; border: none; font-family: 'Inter', sans-serif; cursor: pointer; padding: 0; transition: gap 0.2s; text-decoration: none; }
+    .cta:hover { gap: 10px; }
 
-		<!-- Social Links -->
-		<div class="text-center mb-8">
-			<h2 class="text-2xl font-bold bg-gradient-to-r from-gray-800 to-muted-rose bg-clip-text text-transparent mb-4">
-				{homeContent.socialLinks.title}
-			</h2>
-			<div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-				{
-					homeContent.socialLinks.links.map(link => (
-						<a
-							href={link.href}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="group flex items-center gap-3 bg-white rounded-xl p-4 shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-muted-rose/40 hover:shadow-muted-rose/10"
-						>
-							<div class={`w-12 h-12 rounded-lg flex items-center justify-center text-white text-xl font-bold
-								${link.icon === 'linkedin' ? 'bg-blue-600' : ''}
-								${link.icon === 'github' ? 'bg-gray-800' : ''}
-								${link.icon === 'spotify' ? 'bg-green-500' : ''}
-								group-hover:scale-110 transition-transform duration-300`}>
-								{link.icon === 'linkedin' && 'in'}
-								{link.icon === 'github' && 'gh'}
-								{link.icon === 'spotify' && '♫'}
-							</div>
-							<div class="text-left">
-								<div class="font-semibold text-gray-800 group-hover:text-muted-rose transition-colors">
-									{link.name}
-								</div>
-								<div class="text-sm text-gray-500">
-									{link.description}
-								</div>
-							</div>
-						</a>
-					))
-				}
-			</div>
-		</div>
+    .spotify-card { display: inline-flex; align-items: center; gap: 14px; margin-top: 20px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; text-decoration: none; transition: box-shadow 0.18s, transform 0.18s; }
+    .spotify-card:hover { box-shadow: 0 3px 16px rgba(28,25,23,0.07); transform: translateY(-1px); }
+    .sthumb { width: 52px; height: 52px; border-radius: 6px; overflow: hidden; flex-shrink: 0; background: #2a1c2e; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+    .sthumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .strk { font-size: 1rem; font-weight: 500; color: var(--ink); }
+    .sart { font-size: 0.9rem; color: var(--muted); font-weight: 300; }
+    .sbdg { font-size: 0.88rem; font-weight: 600; color: #1DB954; }
 
-		<!-- Fun Footer Note -->
-		<div class="text-center mt-16">
-			<p class="text-sm text-gray-500 hover:text-muted-rose transition-colors duration-300">
-				This little corner of the internet is where I collect my thoughts about brains, code, and everything in between.
-			</p>
-			<div class="mt-4 w-16 h-0.5 bg-gradient-to-r from-transparent via-muted-rose to-transparent mx-auto opacity-60"></div>
-		</div>
-	</div>
-</MainLayout>
+    .connect-links { display: flex; gap: 12px; margin-top: 20px; }
+    .cl { display: inline-flex; padding: 10px 20px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; font-weight: 500; color: var(--ink); text-decoration: none; background: var(--card); transition: border-color 0.15s, color 0.15s; }
+    .cl:hover { border-color: var(--green); color: var(--green); }
+
+    /* ABOUT */
+    .about-wrap { max-width: 100%; padding: 72px 15% 100px; }
+    .ph { font-size: 3.2rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 12px; }
+    .ph span { color: var(--green); }
+    .ps { font-size: 1.05rem; color: var(--muted); margin-bottom: 60px; }
+    .asec { padding: 38px 0; border-top: 1px solid var(--border); }
+    .asec h2 { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
+    .bio-flex { display: flex; gap: 40px; align-items: flex-start; }
+    .headshot { width: 200px; height: 200px; border-radius: 50%; overflow: hidden; flex-shrink: 0; border: 2px solid var(--border); background: var(--tag); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 600; color: var(--muted); }
+    .headshot img { width: 100%; height: 100%; object-fit: cover; }
+    .bt p { font-size: 1.1rem; font-weight: 300; line-height: 1.8; margin-bottom: 12px; }
+    .bt p:last-child { margin: 0; }
+
+    .areas { display: flex; flex-direction: column; }
+    .arow { display: flex; align-items: baseline; gap: 20px; padding: 14px 0; border-bottom: 1px solid var(--border); }
+    .arow:last-child { border-bottom: none; }
+    .aname { font-size: 1.02rem; font-weight: 500; color: var(--ink); min-width: 200px; flex-shrink: 0; }
+    .adesc { font-size: 0.96rem; color: var(--muted); font-weight: 300; line-height: 1.6; }
+
+    .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .ei { display: flex; align-items: center; gap: 13px; padding: 14px 16px; border: 1px solid var(--border); border-radius: 10px; background: var(--card); }
+    .eico { width: 42px; height: 42px; border-radius: 8px; background: var(--tag); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; }
+    .er { font-size: 0.95rem; font-weight: 500; }
+    .eo { font-size: 0.86rem; color: var(--muted); font-weight: 300; }
+
+    .skills-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+    .st { padding: 6px 14px; background: var(--tag); border: 1px solid var(--green-mid); border-radius: 100px; font-size: 0.9rem; }
+
+    .lrow { display: flex; justify-content: space-between; align-items: baseline; padding: 11px 0; border-bottom: 1px solid var(--border); }
+    .lrow:last-child { border-bottom: none; }
+    .lrole { font-size: 1.02rem; }
+    .lorg { font-size: 1rem; color: var(--muted); font-weight: 300; }
+    .lp { font-size: 0.88rem; color: var(--muted); white-space: nowrap; margin-left: 18px; }
+    .rbtn { display: inline-block; margin-top: 40px; padding: 12px 28px; background: var(--ink); color: #fff; border-radius: 8px; font-size: 0.98rem; font-weight: 500; cursor: pointer; border: none; font-family: 'Inter', sans-serif; transition: background 0.2s; text-decoration: none; }
+    .rbtn:hover { background: #333; }
+
+    /* PROJECTS */
+    .projects-wrap { max-width: 100%; padding: 72px 15% 100px; }
+    .pr { display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 24px; padding: 32px 0; border-top: 1px solid var(--border); text-decoration: none; cursor: pointer; }
+    .pr:last-child { border-bottom: 1px solid var(--border); }
+    .pr:hover .ptitle { color: var(--green); }
+    .pr:hover .parr { transform: translateX(4px); opacity: 1; }
+    .ptitle { font-size: 1.25rem; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); margin-bottom: 8px; transition: color 0.18s; }
+    .pdesc { font-size: 1.02rem; font-weight: 300; line-height: 1.7; color: var(--muted); max-width: 600px; }
+    .ptags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+    .ptag { padding: 3px 11px; background: var(--tag); border-radius: 100px; font-size: 0.8rem; color: var(--muted); }
+    .parr { font-size: 1.2rem; color: var(--muted); opacity: 0.5; transition: transform 0.18s, opacity 0.18s; padding-top: 4px; }
+
+    footer { border-top: 1px solid var(--border); padding: 32px 52px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+    .fn { font-size: 0.95rem; color: var(--muted); }
+    .fl { display: flex; gap: 26px; list-style: none; }
+    .fl a { font-size: 0.92rem; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+    .fl a:hover { color: var(--ink); }
+
+    .fi { opacity: 0; transform: translateY(12px); animation: fu 0.45s ease forwards; }
+    @keyframes fu { to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 1024px) {
+      .home-wrap, .about-wrap, .projects-wrap { padding: 60px 10% 80px; }
+    }
+
+    @media (max-width: 768px) {
+      .home-wrap, .about-wrap, .projects-wrap { padding: 48px 8% 80px; }
+    }
+
+    @media (max-width: 600px) {
+      nav { padding: 18px 20px; }
+      .home-wrap, .about-wrap, .projects-wrap { padding: 48px 6% 80px; }
+      footer { padding: 22px 20px; flex-direction: column; }
+      .bio-flex { flex-direction: column; }
+      .exp-grid { grid-template-columns: 1fr; }
+      .aname { min-width: 130px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <ul class="nav-links">
+    <li><button onclick="go('home')" class="active" id="nav-home">home</button></li>
+    <li><button onclick="go('projects')" id="nav-projects">work</button></li>
+    <li><button onclick="go('about')" id="nav-about">about</button></li>
+  </ul>
+</nav>
+
+<!-- HOME -->
+<div class="page active" id="page-home">
+  <div class="home-wrap">
+    <div class="fi" style="animation-delay:0.05s">
+      <h1>hi, i'm <span>seema</span></h1>
+      <p class="hero-sub">cogsci student & signal processing researcher</p>
+    </div>
+
+    <div class="home-section fi" style="animation-delay:0.12s">
+      <p class="lbl">what i do</p>
+      <p>I'm interested in tools that bridge technology and the human experience, especially the ones that help us quantify things that usually feel impossible to measure. That's what drew me to neurotech and wearables.</p>
+      <p>Right now I'm at the Chiba Lab, building systems that capture classroom environments through multimodal biosensor data.</p>
+      <button class="cta" onclick="go('projects')">see what i'm building →</button>
+    </div>
+
+    <div class="home-section fi" style="animation-delay:0.19s">
+      <p class="lbl">outside the lab</p>
+      <p>When I'm not at the lab, I'm playing piano, going on a run, thrifting, or making yet another Spotify playlist. Here's my most recent one:</p>
+      <a class="spotify-card" href={spotifyPlaylist} target="_blank">
+        <div class="sthumb">
+          <img src="/mitski.png" alt="Mitski" />
+        </div>
+        <div>
+          <div class="strk">this is mitski</div>
+          <div class="sart">playlist</div>
+        </div>
+        <span class="sbdg">↗</span>
+      </a>
+    </div>
+
+    <div class="home-section fi" style="animation-delay:0.33s">
+      <p class="lbl">let's connect</p>
+      <p>Always happy to chat about research, neurotech, music, or anything in between.</p>
+      <div class="connect-links">
+        <a class="cl" href="https://www.linkedin.com/in/seema-rida/" target="_blank">LinkedIn →</a>
+        <a class="cl" href="mailto:seemazrida@gmail.com">Email →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<div class="page" id="page-about">
+  <div class="about-wrap">
+    <div class="fi" style="animation-delay:0.05s">
+      <h1 class="ph">about <span>me</span></h1>
+      <p class="ps">cognitive science & computer science at uc san diego</p>
+    </div>
+
+    <div class="asec fi" style="animation-delay:0.12s">
+      <div class="bio-flex">
+        <div class="headshot">
+          <img src="/headshot.png" alt="Seema" />
+        </div>
+        <div class="bt">
+          <p>I'm a senior at UCSD studying Cognitive Science (Machine Learning and Neural Computation) with a CS minor. At the Chiba Lab, I work on building and deploying multimodal biosensor systems to study how the autonomic nervous system shapes children's behavior and learning. Learning about the brain and body has also become a personal journey. Understanding how my own brain works is part of what pulls me toward neurotech, wearables, and the tools that make the invisible measurable. That interest runs deep into signal processing too: good research depends on clean, accurate data, and I find a lot of meaning in the work of making noisy physiological signals actually usable.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="asec fi" style="animation-delay:0.17s">
+      <h2>experience</h2>
+      <div class="exp-grid">
+        <div class="ei">
+          <div class="eico">
+            <img src="https://cogsci.ucsd.edu/_images/department-images/brain-logo.png" alt="UCSD" style="width: 100%; height: 100%; object-fit: contain;" />
+          </div>
+          <div><div class="er">Undergrad Researcher</div><div class="eo">Chiba Lab · UCSD</div></div>
+        </div>
+        <div class="ei">
+          <div class="eico">
+            <img src="https://ugresearch.ucsd.edu/_images/urh/UR_Design_Icon_Color_transparency.png" alt="UC Scholar" style="width: 100%; height: 100%; object-fit: contain;" />
+          </div>
+          <div><div class="er">UC Scholar</div><div class="eo">Undergraduate Research Hub</div></div>
+        </div>
+        <div class="ei">
+          <div class="eico">
+            <img src="https://t4.education/wp-content/uploads/2025/07/abwaab-main.png" alt="Abwaab" style="width: 100%; height: 100%; object-fit: contain;" />
+          </div>
+          <div><div class="er">Data Science Intern</div><div class="eo">Abwaab</div></div>
+        </div>
+        <div class="ei">
+          <div class="eico">
+            <img src="https://static1.squarespace.com/static/5901b9191b10e3a0176d6dc3/t/5919c1426a496322aac0c6f8/1494860100558/LogoDark.png?format=1500w" alt="IRA" style="width: 100%; height: 100%; object-fit: contain;" />
+          </div>
+          <div><div class="er">Robotics Instructor</div><div class="eo">International Robotics Academy</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="asec fi" style="animation-delay:0.27s">
+      <h2>skills</h2>
+      <div class="skills-wrap">
+        {aboutContent.skills.techniques.items.map(skill => (
+          <span class="st">{skill}</span>
+        ))}
+      </div>
+    </div>
+
+    <div class="asec fi" style="animation-delay:0.32s">
+      <h2>leadership</h2>
+      <div class="lrow"><div><span class="lrole">Co-President</span><span class="lorg"> · Tritons Prosthetic Society</span></div><span class="lp">May 2025 – present</span></div>
+      <div class="lrow"><div><span class="lrole">Teaching Assistant</span><span class="lorg"> · Neural Signal Processing (COGS 118C)</span></div><span class="lp">Jan 2026 – present</span></div>
+      <div class="lrow"><div><span class="lrole">Peer Mentor</span><span class="lorg"> · Cognitive Science Student Association</span></div><span class="lp">Nov 2022 – present</span></div>
+    </div>
+
+    <a class="rbtn" href={googleDriveResumeLink} target="_blank">view resume →</a>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<div class="page" id="page-projects">
+  <div class="projects-wrap">
+    <div class="fi" style="animation-delay:0.05s">
+      <h1 class="ph"><span>work</span></h1>
+      <p class="ps">research, class projects, and things i built for fun</p>
+    </div>
+    <div>
+      {homeContent.projects.map((project, i) => (
+        <a class="pr fi" href={`/projects/${project.slug}`} style={`animation-delay:${0.12 + i * 0.05}s`}>
+          <div>
+            <div class="ptitle">{project.title}</div>
+            <div class="pdesc">{project.description}</div>
+            <div class="ptags">
+              {project.fields.slice(0, 3).map(field => (
+                <span class="ptag">{field}</span>
+              ))}
+            </div>
+          </div>
+          <div class="parr">→</div>
+        </a>
+      ))}
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="fn">seema rida · 2026</span>
+  <ul class="fl">
+    <li><a href="https://www.linkedin.com/in/seema-rida/" target="_blank">linkedin</a></li>
+    <li><a href="https://github.com/seemarida" target="_blank">github</a></li>
+    <li><a href="mailto:seemazrida@gmail.com">email</a></li>
+    <li><a href="https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz" target="_blank">spotify</a></li>
+  </ul>
+</footer>
+
+<script is:inline>
+  function go(name) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
+    document.getElementById('page-' + name).classList.add('active');
+    document.getElementById('nav-' + name).classList.add('active');
+    document.querySelectorAll('#page-' + name + ' .fi').forEach(el => {
+      el.style.animation = 'none'; el.offsetHeight; el.style.animation = '';
+    });
+    window.scrollTo(0, 0);
+  }
+
+  // Handle hash navigation on page load
+  window.addEventListener('DOMContentLoaded', function() {
+    const hash = window.location.hash.substring(1); // Remove the #
+    if (hash && ['home', 'projects', 'about'].includes(hash)) {
+      go(hash);
+    }
+  });
+</script>
+</body>
+</html>

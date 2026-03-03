@@ -1,47 +1,53 @@
 ---
-import MainLayout from '../../layouts/MainLayout.astro';
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
 ---
 
-<MainLayout
-	title="Biosignal Processing Pipeline | Seema Rida"
-	description="Interactive demo of a Python pipeline for cleaning and extracting physiological features from wearable data"
+<ProjectLayout
+  title="Motion Artifact Removal Pipeline"
+  description="Real-world biosensor data is messy. I built a pipeline to make it usable."
+  tags={["Signal Processing", "Wearables", "Data Engineering", "Python"]}
 >
-	<div class="max-w-6xl mx-auto py-12 px-4">
-		<div class="text-center mb-8">
-			<h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Biosignal Processing Pipeline</h1>
-			<div class="w-16 h-0.5 bg-muted-rose mx-auto mb-6"></div>
-			<p class="text-gray-600 text-lg max-w-2xl mx-auto">
-				Python pipeline for cleaning and extracting physiological features from noisy wearable data
-			</p>
-		</div>
+  <p style="font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 12px;">The problem</p>
+  <p>
+    Wearable sensors pick up everything. Your heartbeat, yes, but also every step you take, every arm swing, every fidget. The signal you actually want gets buried under motion artifacts, baseline drift, and noise. If you don't clean it before analysis, your heart rate estimates are wrong, your HRV features are meaningless, and everything downstream breaks. Especially with kids... they move a lot.
+  </p>
+  <p>
+    This pipeline is my attempt to fix that.
+  </p>
 
-		<!-- Embedded Demo -->
-		<div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden mb-8">
-			<iframe
-				src="/projects/biosensor-monitor.html"
-				class="w-full"
-				style="height: 800px; border: none;"
-				title="Biosensor Monitor Demo"
-			></iframe>
-		</div>
+  <div style="border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin: 40px 0;">
+    <img src="/biosignal-pipeline.png" alt="Biosignal Processing Pipeline" style="width: 100%; display: block;" />
+  </div>
 
-		<!-- Project Links -->
-		<div class="flex flex-wrap justify-center gap-4 mb-8">
-			<a
-				href="https://github.com/seemarida/biosignal-pipeline"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="inline-flex items-center px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium"
-			>
-				<svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-					<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-				</svg>
-				View Code
-			</a>
-		</div>
+  <p style="font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; margin-top: 48px;">What I built</p>
+  <p>
+    The pipeline ingests raw PPG and EDA data from wearable sensors and runs it through a series of processing stages. The interesting part was motion artifact removal. Hard sudden movements I called "bangs" leave a distinct signature across the accelerometer axes, and once I found it, I could flag and remove those windows automatically before they could contaminate the downstream features.
+  </p>
 
-		<div class="text-center">
-			<a href="/" class="inline-block text-muted-rose hover:text-gray-800 transition-colors font-medium">&larr; Back to home</a>
-		</div>
-	</div>
-</MainLayout>
+  <p style="font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; margin-top: 48px;">What I found</p>
+  <p>
+    Motion artifacts are the biggest source of error in wrist-worn PPG, and they're not random, there's usually a pattern.
+  </p>
+
+  <div style="background: #EEF4F1; border: 1px solid #D0E4DC; border-radius: 12px; padding: 28px 32px; margin: 40px 0;">
+    <p style="font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 12px;">Want to know more?</p>
+    <p style="font-size: 1.05rem; font-weight: 300; line-height: 1.8; color: var(--ink);">
+      I can't share the full dataset or codebase publicly, but I'm happy to talk through the methods, the design decisions, or the messier parts of real-world biosensor data collection. If any of this is relevant to what you're working on, <a href="mailto:seemazrida@gmail.com" style="color: var(--green); text-decoration: none; border-bottom: 1px solid var(--green-mid); transition: border-color 0.15s;" onmouseover="this.style.borderColor='var(--green)'" onmouseout="this.style.borderColor='var(--green-mid)'">reach out →</a>
+    </p>
+  </div>
+
+  <div style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border); display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; color: var(--muted); font-size: 0.95rem;">
+    <div>
+      <div style="font-weight: 600; color: var(--ink); margin-bottom: 8px;">Tools</div>
+      <div>Python, NumPy, SciPy, Pandas, EmotiBit</div>
+    </div>
+    <div>
+      <div style="font-weight: 600; color: var(--ink); margin-bottom: 8px;">Context</div>
+      <div>Chiba Lab, UC San Diego</div>
+    </div>
+    <div>
+      <div style="font-weight: 600; color: var(--ink); margin-bottom: 8px;">Data</div>
+      <div>PPG, EDA, Accelerometer (IMU)</div>
+    </div>
+  </div>
+</ProjectLayout>

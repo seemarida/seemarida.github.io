@@ -5,21 +5,20 @@ export const projectsData = {
   projects: [
     {
       title: "Optical Illusions in CLIP",
-      description: "Analyzed how CLIP encodes perceptual ambiguity using the rabbit-duck illusion, designed systematic image perturbations to evaluate model bias, and compared outputs against human perception data.",
+      description: "We bias our perception without realizing it. I ran experiments to see if CLIP does the same thing.",
       abstract: "This computer vision project investigated how OpenAI's CLIP model processes and interprets perceptually ambiguous images, specifically using the famous rabbit-duck optical illusion. The research involved creating a controlled dataset of systematically perturbed versions of the illusion to probe the model's visual encoding strategies. By comparing CLIP's similarity scores for 'rabbit' vs 'duck' labels across different image manipulations, the analysis revealed insights into how vision-language models handle perceptual ambiguity differently from human observers. The findings contribute to understanding the limitations and biases in state-of-the-art multimodal AI systems.",
-      tags: ["Computer Vision", "Machine Learning", "CLIP", "Perceptual AI", "Python"],
+      tags: ["Computer Vision", "Machine Learning", "Perceptual AI", "Experimental Design"],
       links: [
-        { text: "Code", href: "https://github.com/seemarida/CLIP_optical_illusions" },
+        { text: "Code", href: "https://github.com/seemarida/COGS118B_FinalProject_Team21/tree/main" },
         { text: "Demo", href: "/projects/optical-illusions-clip" }
       ]
     },
     {
-      title: "Biosignal Processing Pipeline",
-      description: "Developed a Python pipeline for cleaning and extracting physiological features from noisy wearable data, including motion artifact removal and PPG/EDA filtering for HR and HRV extraction.",
+      title: "Motion Artifact Removal Pipeline",
+      description: "Real-world biosensor data is messy. I built a pipeline to make it usable.",
       abstract: "This signal processing project created a comprehensive computational pipeline for processing raw biosensor data from commercial wearable devices. The pipeline handles common challenges in physiological signal analysis including motion artifacts, baseline drift, and noise contamination. Key features include advanced filtering techniques for photoplethysmography (PPG) and electrodermal activity (EDA) signals, automatic peak detection for heart rate calculation, and time- and frequency-domain heart rate variability (HRV) metrics extraction. The modular design allows for easy integration with different sensor platforms and adaptation to various research protocols.",
-      tags: ["Signal Processing", "Python", "Wearables", "Biosensors", "Data Engineering"],
+      tags: ["Signal Processing", "Wearables", "Data Engineering", "Python"],
       links: [
-        { text: "Code", href: "https://github.com/seemarida/biosignal-pipeline" },
         { text: "Demo", href: "/projects/biosignal-pipeline" }
       ]
     },
@@ -28,13 +27,6 @@ export const projectsData = {
       description: "A comparison of various supervised learning algorithms on different datasets to evaluate their performance and applicability.",
       abstract: "This project involved implementing and comparing multiple supervised learning algorithms including decision trees, random forests, support vector machines, and neural networks. Performance metrics such as accuracy, precision, recall, and F1-score were used to evaluate each algorithm across diverse datasets with varying characteristics. The analysis provided insights into the strengths and weaknesses of each approach and their suitability for different problem domains.",
       tags: ["Machine Learning", "Python", "scikit-learn", "Classification", "Model Comparison"],
-      links: []
-    },
-    {
-      title: "Biometric Integration for Biobehavioral Phenotyping in Early Childhood",
-      description: "Integrated multimodal biometric data to characterize behavioral patterns and developmental trajectories in young children.",
-      abstract: "This research project focused on developing a comprehensive framework for biobehavioral phenotyping in early childhood by integrating multiple biometric data streams including heart rate variability, electrodermal activity, and movement patterns. The goal was to identify distinct behavioral phenotypes and their associations with developmental outcomes. Advanced signal processing and machine learning techniques were employed to extract meaningful features and create predictive models that could inform early intervention strategies.",
-      tags: ["Biometrics", "Signal Processing", "Childhood Development", "Data Integration", "Python"],
       links: []
     },
     {

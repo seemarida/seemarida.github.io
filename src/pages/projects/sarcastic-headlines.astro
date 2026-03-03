@@ -1,58 +1,51 @@
 ---
-import MainLayout from '../../layouts/MainLayout.astro';
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
 ---
 
-<MainLayout
-	title="Sarcastic Headline Generator | Seema Rida"
-	description="Interactive demo of a character-level RNN trained to generate sarcastic headlines"
+<ProjectLayout
+  title="Sarcastic Headline Generator"
+  description="Can a character-level RNN learn sarcasm? I trained three architectures on The Onion to find out."
+  tags={["NLP", "Deep Learning", "RNN / LSTM", "Text Generation"]}
+  codeLink="https://github.com/seemarida/cogs185_final_project"
 >
-	<div class="max-w-6xl mx-auto py-12 px-4">
-		<div class="text-center mb-8">
-			<h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">Sarcastic Headline Generator</h1>
-			<div class="w-16 h-0.5 bg-muted-rose mx-auto mb-6"></div>
-			<p class="text-gray-600 text-lg max-w-2xl mx-auto">
-				An exploration of whether character-level RNNs can learn sarcasm using The Onion dataset
-			</p>
-		</div>
+  <p style="font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 12px;">The question</p>
+  <p>
+    Sarcasm is an interesting mode of language that challenges direct language understanding. Once you strip away tone and facial expressions and you're left with text alone, it becomes much harder to tell if something is sarcastic. I wanted to know if a character-level RNN could generate sarcasm using nothing but sequential text.
+    <br /><br />
+    Sarcasm might be one of the most context and memory dependent modes of language. For a model to generate it, it would have to learn patterns that hint at subtle ironic intent. That's what made the architecture comparison interesting.
+  </p>
 
-		<!-- Embedded Demo -->
-		<div class="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden mb-8">
-			<iframe
-				src="/projects/sarcasm_demo.html"
-				class="w-full"
-				style="height: 800px; border: none;"
-				title="Sarcastic Headline Generator Demo"
-			></iframe>
-		</div>
+  <p style="font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; margin-top: 48px;">What I built</p>
+  <p>
+    I filtered the News Headlines Dataset for Sarcasm Detection down to sarcastic-only entries sourced from The Onion, around 26,000 headlines. Then I trained three character-level recurrent architectures on the same data: a vanilla RNN, an LSTM, and a GRU, each generating text one character at a time.
+    <br /><br />
+    The vanilla RNN was the baseline. I figured the vanishing gradient problem would hurt performance specifically on sarcasm, since irony often relies on context established earlier in the sentence. LSTM addresses this with gates that decide what's remembered, what's forgotten, and what's passed forward. GRU does the same but combines the forget and input gates into a single update gate, making it faster to train.
+  </p>
 
-		<!-- Project Links -->
-		<div class="flex flex-wrap justify-center gap-4 mb-8">
-			<a
-				href="https://github.com/seemarida/cogs185_final_project"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="inline-flex items-center px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors font-medium"
-			>
-				<svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
-					<path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-				</svg>
-				View Code
-			</a>
-			<a
-				href="/projects/cogs_185_final_report.pdf"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="inline-flex items-center px-6 py-3 bg-muted-rose text-white rounded-lg hover:bg-opacity-90 transition-colors font-medium"
-			>
-				<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-				</svg>
-				View Report
-			</a>
-		</div>
+  <p style="font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; margin-top: 48px;">What I found</p>
+  <p>
+    The LSTM and GRU both outperformed the vanilla RNN, which wasn't surprising — the gating mechanisms help them retain structure over longer sequences. The generated headlines were often grammatically plausible and occasionally genuinely funny, which says something about how much of The Onion's style lives in structure and rhythm rather than content. The model learned things like "Area Man" constructions and the specific deadpan framing without being told what any of those things meant.
+  </p>
 
-		<div class="text-center">
-			<a href="/" class="inline-block text-muted-rose hover:text-gray-800 transition-colors font-medium">&larr; Back to home</a>
-		</div>
-	</div>
-</MainLayout>
+  <p style="font-size: 0.85rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--green); margin-bottom: 12px; margin-top: 48px;">Try it yourself</p>
+  <p>
+    The code and trained models are on GitHub. To generate headlines, clone the repo and run:
+  </p>
+
+  <pre style="background: #FAFAF9; border: 1px solid var(--border); border-radius: 8px; padding: 16px 20px; margin: 24px 0; overflow-x: auto; font-family: 'Monaco', 'Menlo', 'Consolas', monospace; font-size: 0.9rem; color: var(--ink); line-height: 1.5;"><code>python generate.py models/lstm_256_2_0.005.pt --prime_str "Area Man" --temperature 0.65 --predict_len 60</code></pre>
+
+  <p style="font-size: 0.95rem; color: var(--muted);">
+    Swap the prime string, temperature, and length to see how the outputs change.
+  </p>
+
+  <div style="margin-top: 60px; padding-top: 40px; border-top: 1px solid var(--border); display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; color: var(--muted); font-size: 0.95rem;">
+    <div>
+      <div style="font-weight: 600; color: var(--ink); margin-bottom: 8px;">Tools</div>
+      <div>Python, PyTorch, RNN, LSTM, GRU</div>
+    </div>
+    <div>
+      <div style="font-weight: 600; color: var(--ink); margin-bottom: 8px;">Dataset</div>
+      <div>The Onion headlines</div>
+    </div>
+  </div>
+</ProjectLayout>

@@ -1,0 +1,91 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import { homeContent } from '../data/homeContent.ts';
+import { siteConfig } from '../data/siteConfig.js';
+
+const spotifyLink = "https://open.spotify.com/playlist/53b9uX18dpZkcdaR2f2kEI?si=29a502c96018487c";
+---
+
+<MainLayout
+	title={`${siteConfig.name} | Home`}
+	description={siteConfig.description}
+>
+	<div class="min-h-screen px-6 py-12 md:py-16">
+		<!-- Hero -->
+		<div class="text-center mb-20 md:mb-32">
+			<h1 class="text-5xl md:text-7xl font-bold text-gray-800 mb-6 flex items-baseline justify-center gap-3">
+				hi, i'm <a href="mailto:srida@ucsd.edu,seemazrida@gmail.com?subject=Hello!" class="hover:text-muted-rose transition-colors cursor-pointer text-gray-800">seema</a>
+				<img src="/pfp-removebg-preview.png" alt="Seema's profile picture" class="w-20 h-20 md:w-24 md:h-24 object-contain translate-y-3" />
+			</h1>
+			<p class="text-2xl md:text-3xl text-gray-600 font-light">
+				cogsci student & signal processing researcher
+			</p>
+		</div>
+
+		<!-- Horizontal Scroll Content -->
+		<div class="space-y-16 md:space-y-24 max-w-6xl mx-auto">
+			<!-- Section 1 -->
+			<div class="bg-gradient-to-r from-muted-rose/10 to-purple-50 rounded-2xl p-10 md:p-12 border-l-4 border-muted-rose">
+				<p class="text-xl md:text-2xl text-gray-700 leading-relaxed font-medium">
+					I'm fascinated by tools that bridge the gap between technology and the human experience—especially when they help us quantify abstract concepts that usually feel impossible to measure. That's what drew me to neurotech and wearables.
+				</p>
+			</div>
+
+			<!-- Section 2 -->
+			<div class="pl-8 md:pl-12 border-l-4 border-gray-200">
+				<p class="text-xl md:text-2xl text-gray-700 leading-relaxed font-medium mb-8">
+					My work is driven by curiosity about human behavior and the systems that shape it.
+				</p>
+				<a href="/projects" class="inline-flex items-center text-muted-rose hover:text-gray-800 font-bold text-xl transition-colors">
+					See what I'm working on →
+				</a>
+			</div>
+
+			<!-- Section 3 -->
+			<div class="pl-8 md:pl-12 border-l-4 border-gray-200">
+				<p class="text-xl md:text-2xl text-gray-700 leading-relaxed font-medium">
+					When I'm not at the lab, I'm playing piano, going on a run, or creating yet another Spotify playlist...
+				</p>
+			</div>
+
+			<!-- Spotify Integration -->
+			<div class="bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 rounded-2xl p-10 md:p-12 border border-green-200 hover:shadow-xl hover:border-green-300 transition-all duration-300">
+				<div class="flex items-start gap-3 mb-6">
+					<svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" class="text-green-600 flex-shrink-0 mt-1">
+						<path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm4.535 14.507a.625.625 0 01-.856.186c-2.372-1.411-5.35-1.731-8.883-.949a.625.625 0 01-.748-.469.625.625 0 01.469-.748c3.85-.882 7.147-.518 9.83 1.096a.625.625 0 01.188.883zm1.206-2.68a.781.781 0 01-1.069.235c-2.711-1.666-6.851-2.148-10.072-1.175a.781.781 0 01-.954-.51.781.781 0 01.51-.955c3.538-1.081 7.975-.556 11.035 1.291a.781.781 0 01.234 1.067zm.11-2.789a.938.938 0 01-1.285.281c-3.072-1.888-8.066-2.441-11.886-1.333a.937.937 0 01-1.147-.608.937.937 0 01.609-1.148c4.167-1.272 9.584-.652 13.003 1.482a.938.938 0 01.288 1.28z"/>
+					</svg>
+					<p class="text-lg md:text-xl text-gray-600 italic font-medium">
+						...like this one I just made:
+					</p>
+				</div>
+				<a
+					href={spotifyLink}
+					target="_blank"
+					rel="noopener noreferrer"
+					class="flex items-center gap-6 bg-white rounded-xl p-6 hover:bg-white/90 transition-all group shadow-sm"
+				>
+					<div class="flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden shadow-md">
+						<img src="/images/fleetwood.jpg" alt="Playlist cover" class="w-full h-full object-cover" />
+					</div>
+					<div class="flex-1 min-w-0">
+						<p class="text-xl font-bold text-gray-800 truncate">Latest Playlist</p>
+						<p class="text-lg text-gray-600 truncate">My current favorites</p>
+					</div>
+					<div class="flex-shrink-0">
+						<span class="inline-flex items-center gap-2 bg-green-500 text-white text-sm font-bold px-5 py-2.5 rounded-full group-hover:bg-green-600 group-hover:scale-105 transition-all shadow-md">
+							<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm4.535 14.507a.625.625 0 01-.856.186c-2.372-1.411-5.35-1.731-8.883-.949a.625.625 0 01-.748-.469.625.625 0 01.469-.748c3.85-.882 7.147-.518 9.83 1.096a.625.625 0 01.188.883zm1.206-2.68a.781.781 0 01-1.069.235c-2.711-1.666-6.851-2.148-10.072-1.175a.781.781 0 01-.954-.51.781.781 0 01.51-.955c3.538-1.081 7.975-.556 11.035 1.291a.781.781 0 01.234 1.067zm.11-2.789a.938.938 0 01-1.285.281c-3.072-1.888-8.066-2.441-11.886-1.333a.937.937 0 01-1.147-.608.937.937 0 01.609-1.148c4.167-1.272 9.584-.652 13.003 1.482a.938.938 0 01.288 1.28z"/></svg>
+							Play on Spotify
+						</span>
+					</div>
+				</a>
+			</div>
+
+			<!-- Learn More -->
+			<div class="text-center pb-12">
+				<a href="/about" class="inline-flex items-center text-muted-rose hover:text-gray-800 font-bold text-xl transition-colors">
+					Learn more about me →
+				</a>
+			</div>
+		</div>
+	</div>
+</MainLayout>

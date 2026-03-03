@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#fff;font-family:'Inter',sans-serif;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;padding:48px 24px}
+
+  .wrap{width:100%;max-width:780px;display:flex;flex-direction:column;gap:32px}
+
+  /* stage indicator */
+  .stages{display:flex;align-items:center;gap:0;margin-bottom:4px}
+  .stage-dot{display:flex;align-items:center;gap:0}
+  .dot{width:8px;height:8px;border-radius:50%;background:#E7E3DC;transition:background .4s,transform .3s;flex-shrink:0}
+  .dot.active{background:#4A7260;transform:scale(1.3)}
+  .dot.done{background:#D0E4DC}
+  .line{width:32px;height:1px;background:#E7E3DC}
+
+  .stage-label{font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#78716C;margin-bottom:6px;transition:color .3s;min-height:16px}
+
+  .stage-desc{font-size:.82rem;font-weight:300;color:#78716C;line-height:1.7;min-height:48px;transition:opacity .3s;max-width:600px}
+
+  /* signal area */
+  .signal-area{display:flex;flex-direction:column;gap:0;border:1px solid #E7E3DC;border-radius:12px;overflow:hidden;background:#FAFAFA}
+
+  .signal-row{display:flex;align-items:stretch}
+  .sig-label{width:80px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:#BFBAB4;border-right:1px solid #E7E3DC;padding:0 8px;text-align:center;line-height:1.4}
+  .sig-canvas-wrap{flex:1;position:relative;overflow:hidden}
+  canvas{display:block}
+
+  .divider-row{height:1px;background:#E7E3DC}
+
+  /* nav */
+  .nav{display:flex;align-items:center;justify-content:space-between}
+  .nav-btn{padding:9px 20px;border-radius:7px;font-family:'Inter',sans-serif;font-size:.78rem;font-weight:500;cursor:pointer;border:1px solid #E7E3DC;background:#fff;color:#78716C;transition:all .15s;letter-spacing:.01em}
+  .nav-btn:hover:not(:disabled){border-color:#4A7260;color:#4A7260}
+  .nav-btn:disabled{opacity:.3;cursor:default}
+  .nav-btn.primary{background:#1C1917;color:#fff;border-color:#1C1917}
+  .nav-btn.primary:hover:not(:disabled){background:#333;border-color:#333}
+
+  .step-counter{font-size:.72rem;color:#BFBAB4;letter-spacing:.04em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- stage dots -->
+  <div>
+    <div class="stages" id="stageDots"></div>
+  </div>
+
+  <!-- label + desc -->
+  <div>
+    <p class="stage-label" id="stageLabel"></p>
+    <p class="stage-desc" id="stageDesc"></p>
+  </div>
+
+  <!-- signals -->
+  <div class="signal-area">
+    <div class="signal-row" style="height:110px">
+      <div class="sig-label">Accel</div>
+      <div class="sig-canvas-wrap" id="accWrap">
+        <canvas id="accCanvas"></canvas>
+      </div>
+    </div>
+    <div class="divider-row"></div>
+    <div class="signal-row" style="height:140px">
+      <div class="sig-label">PPG</div>
+      <div class="sig-canvas-wrap" id="ppgWrap">
+        <canvas id="ppgCanvas"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- nav -->
+  <div class="nav">
+    <button class="nav-btn" id="prevBtn" onclick="prevStage()">← prev</button>
+    <span class="step-counter" id="stepCounter"></span>
+    <button class="nav-btn primary" id="nextBtn" onclick="nextStage()">next →</button>
+  </div>
+
+</div>
+
+<script>
+const W_ACC = 0, H_ACC = 110;
+const W_PPG = 0, H_PPG = 140;
+let wAcc, wPpg;
+
+const accCanvas = document.getElementById('accCanvas');
+const ppgCanvas = document.getElementById('ppgCanvas');
+const ctxA = accCanvas.getContext('2d');
+const ctxP = ppgCanvas.getContext('2d');
+
+// ── generate synthetic data ──────────────────────────────────────
+const N = 600;
+const t = Array.from({length:N}, (_,i) => i/N);
+
+// Accelerometer: mostly calm with 3 bang events
+function genAcc() {
+  return t.map((x,i) => {
+    let base = 0.05 * Math.sin(2*Math.PI*2*x) + 0.03 * Math.sin(2*Math.PI*5*x);
+    let noise = (Math.random()-0.5)*0.08;
+    // bangs at ~20%, ~55%, ~78%
+    let bang = 0;
+    const bangs = [0.20, 0.55, 0.78];
+    const widths = [0.04, 0.05, 0.035];
+    bangs.forEach((b,j) => {
+      const d = Math.abs(x - b);
+      if(d < widths[j]) bang += (1.2 + Math.random()*0.4) * Math.exp(-d*d/(0.0003)) * (Math.random()>0.5?1:-1);
+    });
+    return base + noise + bang;
+  });
+}
+
+// PPG: clean heartbeat + motion artifacts at bang regions
+function genPPG(noisy=true) {
+  return t.map((x,i) => {
+    // clean heartbeat ~1Hz
+    let hr = 0.6*Math.pow(Math.max(0, Math.sin(2*Math.PI*1.1*x - 0.3)), 3)
+           - 0.15*Math.pow(Math.max(0, Math.sin(2*Math.PI*1.1*x - 0.8)), 2);
+    let noise = (Math.random()-0.5)*0.04;
+    let artifact = 0;
+    if(noisy) {
+      const bangs = [0.20, 0.55, 0.78];
+      const widths = [0.045, 0.055, 0.04];
+      bangs.forEach((b,j) => {
+        const d = Math.abs(x-b);
+        if(d < widths[j]) {
+          artifact += 0.9 * Math.sin(2*Math.PI*8*(x-b)*20) * Math.exp(-d*d/0.0005);
+        }
+      });
+    }
+    return hr + noise + artifact;
+  });
+}
+
+// Artifact windows from bang detection
+const bangWindows = [
+  {s:0.16, e:0.26},
+  {s:0.50, e:0.62},
+  {s:0.74, e:0.83},
+];
+
+// Expanded windows after interval_marking
+const expandedWindows = [
+  {s:0.13, e:0.29},
+  {s:0.47, e:0.65},
+  {s:0.71, e:0.86},
+];
+
+const accData = genAcc();
+const ppgNoisy = genPPG(true);
+const ppgClean = genPPG(false);
+
+// ── stages ───────────────────────────────────────────────────────
+const stages = [
+  {
+    label: 'Stage 1 — Raw signals',
+    desc: 'This is what comes off the sensor. The top channel is the accelerometer (X, Y, Z magnitude). The bottom is raw PPG. You can already see where the motion artifacts are — those spikes in the accelerometer correspond to corrupted regions in the PPG.',
+    draw: drawRaw,
+  },
+  {
+    label: 'Stage 2 — Bang detection',
+    desc: 'bang_detect() checks whether at least two accelerometer axes exceed the threshold simultaneously. If only one axis spikes, it's probably just normal movement. If two or more spike together, that's a bang — a hard movement that will corrupt the PPG signal.',
+    draw: drawBangDetect,
+  },
+  {
+    label: 'Stage 3 — Flagging',
+    desc: 'flag() walks through the data row by row and marks each sample as usable (1) or corrupted (0) based on the thresholds. Any window where the accelerometer goes out of range gets flagged out. The PPG beneath those windows is now marked unusable.',
+    draw: drawFlagged,
+  },
+  {
+    label: 'Stage 4 — Interval marking',
+    desc: 'interval_marking() expands each flagged window by a buffer on either side. Motion artifacts bleed into adjacent samples — the signal doesn't recover instantly after a bang. This step catches that bleeding edge and removes it too.',
+    draw: drawIntervalMark,
+  },
+  {
+    label: 'Stage 5 — Clean PPG',
+    desc: 'What's left is usable signal. The corrupted windows are removed, and from the remaining PPG we can reliably detect peaks, extract R-R intervals, and compute HRV features. Clean data in, meaningful features out.',
+    draw: drawClean,
+  },
+];
+
+let current = 0;
+
+// ── drawing helpers ───────────────────────────────────────────────
+function resize() {
+  const aw = document.getElementById('accWrap').clientWidth;
+  const pw = document.getElementById('ppgWrap').clientWidth;
+  accCanvas.width = aw; accCanvas.height = H_ACC;
+  ppgCanvas.width = pw; ppgCanvas.height = H_PPG;
+  wAcc = aw; wPpg = pw;
+}
+
+function toCanvasX(x, w) { return x * w; }
+
+function plotSignal(ctx, data, w, h, color, lineWidth=1.5, yMin=-1.4, yMax=1.4) {
+  ctx.beginPath();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = lineWidth;
+  ctx.lineJoin = 'round';
+  data.forEach((v,i) => {
+    const cx = i/(data.length-1)*w;
+    const cy = h/2 - (v - (yMin+yMax)/2) / (yMax-yMin) * h * 0.78;
+    i===0 ? ctx.moveTo(cx,cy) : ctx.lineTo(cx,cy);
+  });
+  ctx.stroke();
+}
+
+function plotPPG(ctx, data, w, h, color, lw=1.5) {
+  ctx.beginPath();
+  ctx.strokeStyle = color;
+  ctx.lineWidth = lw;
+  ctx.lineJoin = 'round';
+  data.forEach((v,i) => {
+    const cx = i/(data.length-1)*w;
+    const cy = h*0.75 - v*(h*0.55);
+    i===0 ? ctx.moveTo(cx,cy) : ctx.lineTo(cx,cy);
+  });
+  ctx.stroke();
+}
+
+function shadeWindows(ctx, windows, w, h, color) {
+  windows.forEach(win => {
+    ctx.fillStyle = color;
+    ctx.fillRect(win.s*w, 0, (win.e-win.s)*w, h);
+  });
+}
+
+function clearAll() {
+  ctxA.clearRect(0,0,wAcc,H_ACC);
+  ctxP.clearRect(0,0,wPpg,H_PPG);
+}
+
+function drawAxis(ctx, w, h) {
+  ctx.strokeStyle = '#F0EDE8';
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(0, h/2);
+  ctx.lineTo(w, h/2);
+  ctx.stroke();
+}
+
+// ── stage draw functions ───────────────────────────────────────────
+function drawRaw() {
+  clearAll();
+  drawAxis(ctxA, wAcc, H_ACC);
+  plotSignal(ctxA, accData, wAcc, H_ACC, '#BFBAB4', 1.2);
+  plotPPG(ctxP, ppgNoisy, wPpg, H_PPG, '#BFBAB4', 1.5);
+}
+
+function drawBangDetect() {
+  clearAll();
+  drawAxis(ctxA, wAcc, H_ACC);
+  // threshold lines
+  ctxA.strokeStyle = '#EDE9E4';
+  ctxA.lineWidth = 1;
+  ctxA.setLineDash([4,4]);
+  [0.35, -0.35].forEach(th => {
+    const cy = H_ACC/2 - th/(1.4)*H_ACC*0.78;
+    ctxA.beginPath(); ctxA.moveTo(0,cy); ctxA.lineTo(wAcc,cy); ctxA.stroke();
+  });
+  ctxA.setLineDash([]);
+
+  plotSignal(ctxA, accData, wAcc, H_ACC, '#BFBAB4', 1.2);
+
+  // highlight bang spikes on acc
+  shadeWindows(ctxA, bangWindows, wAcc, H_ACC, 'rgba(212,100,80,0.08)');
+  bangWindows.forEach(win => {
+    ctxA.strokeStyle = 'rgba(212,100,80,0.5)';
+    ctxA.lineWidth = 1;
+    ctxA.setLineDash([3,3]);
+    ctxA.beginPath();
+    ctxA.moveTo(win.s*wAcc, 0); ctxA.lineTo(win.s*wAcc, H_ACC);
+    ctxA.moveTo(win.e*wAcc, 0); ctxA.lineTo(win.e*wAcc, H_ACC);
+    ctxA.stroke();
+    ctxA.setLineDash([]);
+  });
+
+  plotPPG(ctxP, ppgNoisy, wPpg, H_PPG, '#BFBAB4', 1.5);
+}
+
+function drawFlagged() {
+  clearAll();
+  drawAxis(ctxA, wAcc, H_ACC);
+  plotSignal(ctxA, accData, wAcc, H_ACC, '#BFBAB4', 1.2);
+  shadeWindows(ctxA, bangWindows, wAcc, H_ACC, 'rgba(212,100,80,0.1)');
+
+  // PPG with flagged regions highlighted
+  shadeWindows(ctxP, bangWindows, wPpg, H_PPG, 'rgba(212,100,80,0.08)');
+  plotPPG(ctxP, ppgNoisy, wPpg, H_PPG, '#BFBAB4', 1.5);
+
+  // draw the bad ppg segment in red
+  bangWindows.forEach(win => {
+    const i0 = Math.floor(win.s * N);
+    const i1 = Math.ceil(win.e * N);
+    const seg = ppgNoisy.slice(i0, i1);
+    ctxP.save();
+    ctxP.beginPath();
+    ctxP.rect(win.s*wPpg, 0, (win.e-win.s)*wPpg, H_PPG);
+    ctxP.clip();
+    plotPPG(ctxP, ppgNoisy, wPpg, H_PPG, 'rgba(212,100,80,0.7)', 1.8);
+    ctxP.restore();
+
+    // flag label
+    ctxP.fillStyle = 'rgba(212,100,80,0.6)';
+    ctxP.font = '500 9px Inter';
+    ctxP.letterSpacing = '0.06em';
+    ctxP.fillText('flag: 0', win.s*wPpg + 6, 14);
+  });
+}
+
+function drawIntervalMark() {
+  clearAll();
+  drawAxis(ctxA, wAcc, H_ACC);
+  plotSignal(ctxA, accData, wAcc, H_ACC, '#BFBAB4', 1.2);
+  shadeWindows(ctxA, expandedWindows, wAcc, H_ACC, 'rgba(212,100,80,0.08)');
+
+  shadeWindows(ctxP, expandedWindows, wPpg, H_PPG, 'rgba(212,100,80,0.07)');
+
+  // good PPG faded
+  plotPPG(ctxP, ppgNoisy, wPpg, H_PPG, '#D6D2CC', 1.3);
+
+  // bad segments in red (expanded)
+  expandedWindows.forEach(win => {
+    ctxP.save();
+    ctxP.beginPath();
+    ctxP.rect(win.s*wPpg, 0, (win.e-win.s)*wPpg, H_PPG);
+    ctxP.clip();
+    plotPPG(ctxP, ppgNoisy, wPpg, H_PPG, 'rgba(212,100,80,0.65)', 1.8);
+    ctxP.restore();
+  });
+
+  // bracket arrows showing expansion
+  bangWindows.forEach((bang,j) => {
+    const exp = expandedWindows[j];
+    ctxP.strokeStyle = 'rgba(212,100,80,0.4)';
+    ctxP.lineWidth = 1;
+    ctxP.setLineDash([3,3]);
+    ctxP.beginPath();
+    ctxP.moveTo(bang.s*wPpg, H_PPG-12);
+    ctxP.lineTo(exp.s*wPpg, H_PPG-12);
+    ctxP.moveTo(bang.e*wPpg, H_PPG-12);
+    ctxP.lineTo(exp.e*wPpg, H_PPG-12);
+    ctxP.stroke();
+    ctxP.setLineDash([]);
+  });
+}
+
+function drawClean() {
+  clearAll();
+  drawAxis(ctxA, wAcc, H_ACC);
+  plotSignal(ctxA, accData, wAcc, H_ACC, '#BFBAB4', 1.2);
+  shadeWindows(ctxA, expandedWindows, wAcc, H_ACC, 'rgba(212,100,80,0.06)');
+
+  // removed sections shown as gaps
+  shadeWindows(ctxP, expandedWindows, wPpg, H_PPG, 'rgba(240,237,232,0.9)');
+
+  // clean signal only in usable windows
+  ctxP.save();
+  const usablePath = new Path2D();
+  let lastE = 0;
+  expandedWindows.forEach(win => {
+    usablePath.rect(lastE*wPpg, 0, (win.s-lastE)*wPpg, H_PPG);
+    lastE = win.e;
+  });
+  usablePath.rect(lastE*wPpg, 0, (1-lastE)*wPpg, H_PPG);
+  ctxP.clip(usablePath);
+  plotPPG(ctxP, ppgClean, wPpg, H_PPG, '#4A7260', 2);
+  ctxP.restore();
+
+  // gap markers
+  expandedWindows.forEach(win => {
+    const mx = ((win.s+win.e)/2)*wPpg;
+    ctxP.fillStyle = '#D6D2CC';
+    ctxP.font = '400 9px Inter';
+    ctxP.textAlign = 'center';
+    ctxP.fillText('removed', mx, H_PPG/2 + 4);
+    ctxP.textAlign = 'left';
+  });
+
+  // peak markers on clean signal
+  let prevV = 0, peakCount = 0;
+  ppgClean.forEach((v,i) => {
+    if(i>1 && v > 0.4 && v > ppgClean[i-1] && v > ppgClean[i+1]) {
+      const x = i/(N-1);
+      const inBad = expandedWindows.some(w => x >= w.s && x <= w.e);
+      if(!inBad && peakCount < 12) {
+        const cx = x*wPpg;
+        const cy = H_PPG*0.75 - v*(H_PPG*0.55);
+        ctxP.beginPath();
+        ctxP.arc(cx, cy-6, 3, 0, Math.PI*2);
+        ctxP.fillStyle = 'rgba(74,114,96,0.5)';
+        ctxP.fill();
+        peakCount++;
+      }
+    }
+  });
+}
+
+// ── UI ────────────────────────────────────────────────────────────
+function buildDots() {
+  const wrap = document.getElementById('stageDots');
+  wrap.innerHTML = '';
+  stages.forEach((s,i) => {
+    const dot = document.createElement('div');
+    dot.className = 'stage-dot';
+    const d = document.createElement('div');
+    d.className = 'dot' + (i===current?' active':i<current?' done':'');
+    dot.appendChild(d);
+    if(i < stages.length-1) {
+      const line = document.createElement('div');
+      line.className = 'line';
+      dot.appendChild(line);
+    }
+    wrap.appendChild(dot);
+  });
+}
+
+function render() {
+  buildDots();
+  const s = stages[current];
+  document.getElementById('stageLabel').textContent = s.label;
+  document.getElementById('stageDesc').textContent = s.desc;
+  document.getElementById('stepCounter').textContent = `${current+1} of ${stages.length}`;
+  document.getElementById('prevBtn').disabled = current === 0;
+  document.getElementById('nextBtn').textContent = current === stages.length-1 ? 'done' : 'next →';
+  document.getElementById('nextBtn').disabled = false;
+  resize();
+  s.draw();
+}
+
+function nextStage() { if(current < stages.length-1) { current++; render(); } }
+function prevStage() { if(current > 0) { current--; render(); } }
+
+window.addEventListener('resize', () => { resize(); stages[current].draw(); });
+window.addEventListener('load', render);
+</script>
+</body>
+</html>
