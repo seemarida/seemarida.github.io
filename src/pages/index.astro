@@ -34,6 +34,7 @@ const spotifyPlaylist = "https://open.spotify.com/playlist/53b9uX18dpZkcdaR2f2kE
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <style>
     :root {
       --bg: #FAF8F5; --ink: #1C1917; --green: #4A7260; --green-mid: #D0E4DC;
@@ -42,9 +43,11 @@ const spotifyPlaylist = "https://open.spotify.com/playlist/53b9uX18dpZkcdaR2f2kE
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: var(--bg); color: var(--ink); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
-    nav { display: flex; justify-content: flex-end; padding: 22px 52px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 100; }
-    .nav-links { display: flex; gap: 28px; list-style: none; }
-    .nav-links button { background: none; border: none; font-family: 'Inter', sans-serif; font-size: 0.82rem; color: var(--muted); cursor: pointer; padding: 0; transition: color 0.15s; }
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 22px 52px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 100; }
+    .nav-name { font-size: 1.1rem; font-weight: 500; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+    .nav-name i { color: var(--green); font-size: 1.5rem; }
+    .nav-links { display: flex; gap: 40px; list-style: none; }
+    .nav-links button { background: none; border: none; font-family: 'Inter', sans-serif; font-size: 1rem; color: var(--muted); cursor: pointer; padding: 0; transition: color 0.15s; }
     .nav-links button:hover, .nav-links button.active { color: var(--ink); }
     .page { display: none; }
     .page.active { display: block; }
@@ -59,8 +62,8 @@ const spotifyPlaylist = "https://open.spotify.com/playlist/53b9uX18dpZkcdaR2f2kE
     .lbl { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
     .home-section p { font-size: 1.15rem; font-weight: 300; line-height: 1.8; }
     .home-section p + p { margin-top: 12px; }
-    .cta { display: inline-flex; align-items: center; gap: 5px; margin-top: 18px; font-size: 1rem; font-weight: 500; color: var(--green); background: none; border: none; font-family: 'Inter', sans-serif; cursor: pointer; padding: 0; transition: gap 0.2s; text-decoration: none; }
-    .cta:hover { gap: 10px; }
+    .cta { display: inline-flex; align-items: center; gap: 5px; margin-top: 18px; font-size: 1rem; font-weight: 500; color: var(--green); background: none; border: none; font-family: 'Inter', sans-serif; cursor: pointer; padding: 0; transition: gap 0.2s, color 0.2s; text-decoration: none; }
+    .cta:hover { gap: 10px; color: var(--ink); }
 
     .spotify-card { display: inline-flex; align-items: center; gap: 14px; margin-top: 20px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; text-decoration: none; transition: box-shadow 0.18s, transform 0.18s; }
     .spotify-card:hover { box-shadow: 0 3px 16px rgba(28,25,23,0.07); transform: translateY(-1px); }
@@ -94,9 +97,10 @@ const spotifyPlaylist = "https://open.spotify.com/playlist/53b9uX18dpZkcdaR2f2kE
     .adesc { font-size: 0.96rem; color: var(--muted); font-weight: 300; line-height: 1.6; }
 
     .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .ei { display: flex; align-items: center; gap: 13px; padding: 14px 16px; border: 1px solid var(--border); border-radius: 10px; background: var(--card); }
+    .ei { display: flex; align-items: center; gap: 13px; padding: 14px 16px; border: 1px solid var(--border); border-radius: 10px; background: var(--card); text-decoration: none; transition: border-color 0.2s, transform 0.2s; }
+    .ei:hover { border-color: var(--green); transform: translateY(-2px); }
     .eico { width: 42px; height: 42px; border-radius: 8px; background: var(--tag); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; }
-    .er { font-size: 0.95rem; font-weight: 500; }
+    .er { font-size: 0.95rem; font-weight: 500; color: var(--ink); }
     .eo { font-size: 0.86rem; color: var(--muted); font-weight: 300; }
 
     .skills-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -112,8 +116,9 @@ const spotifyPlaylist = "https://open.spotify.com/playlist/53b9uX18dpZkcdaR2f2kE
 
     /* PROJECTS */
     .projects-wrap { max-width: 100%; padding: 72px 15% 100px; }
-    .pr { display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 24px; padding: 32px 0; border-top: 1px solid var(--border); text-decoration: none; cursor: pointer; }
+    .pr { display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 24px; padding: 32px 20px; border-top: 1px solid var(--border); text-decoration: none; cursor: pointer; transition: background 0.2s; border-radius: 8px; margin: 0 -20px; }
     .pr:last-child { border-bottom: 1px solid var(--border); }
+    .pr:hover { background: var(--tag); }
     .pr:hover .ptitle { color: var(--green); }
     .pr:hover .parr { transform: translateX(4px); opacity: 1; }
     .ptitle { font-size: 1.25rem; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); margin-bottom: 8px; transition: color 0.18s; }
@@ -152,6 +157,9 @@ const spotifyPlaylist = "https://open.spotify.com/playlist/53b9uX18dpZkcdaR2f2kE
 <body>
 
 <nav>
+  <div class="nav-name">
+    <i class="fa-solid fa-brain"></i>
+  </div>
   <ul class="nav-links">
     <li><button onclick="go('home')" class="active" id="nav-home">home</button></li>
     <li><button onclick="go('projects')" id="nav-projects">work</button></li>
@@ -222,30 +230,30 @@ const spotifyPlaylist = "https://open.spotify.com/playlist/53b9uX18dpZkcdaR2f2kE
     <div class="asec fi" style="animation-delay:0.17s">
       <h2>experience</h2>
       <div class="exp-grid">
-        <div class="ei">
+        <a class="ei" href="https://cogsci.ucsd.edu/people/faculty/andrea-chiba.html" target="_blank">
           <div class="eico">
             <img src="https://cogsci.ucsd.edu/_images/department-images/brain-logo.png" alt="UCSD" style="width: 100%; height: 100%; object-fit: contain;" />
           </div>
           <div><div class="er">Undergrad Researcher</div><div class="eo">Chiba Lab · UCSD</div></div>
-        </div>
-        <div class="ei">
+        </a>
+        <a class="ei" href="https://ugresearch.ucsd.edu/programs/all-urh-programs/uc-scholars/index.html" target="_blank">
           <div class="eico">
             <img src="https://ugresearch.ucsd.edu/_images/urh/UR_Design_Icon_Color_transparency.png" alt="UC Scholar" style="width: 100%; height: 100%; object-fit: contain;" />
           </div>
           <div><div class="er">UC Scholar</div><div class="eo">Undergraduate Research Hub</div></div>
-        </div>
-        <div class="ei">
+        </a>
+        <a class="ei" href="https://abwaab.com/en" target="_blank">
           <div class="eico">
             <img src="https://t4.education/wp-content/uploads/2025/07/abwaab-main.png" alt="Abwaab" style="width: 100%; height: 100%; object-fit: contain;" />
           </div>
           <div><div class="er">Data Science Intern</div><div class="eo">Abwaab</div></div>
-        </div>
-        <div class="ei">
+        </a>
+        <a class="ei" href="https://www.ira.edu.jo/" target="_blank">
           <div class="eico">
             <img src="https://static1.squarespace.com/static/5901b9191b10e3a0176d6dc3/t/5919c1426a496322aac0c6f8/1494860100558/LogoDark.png?format=1500w" alt="IRA" style="width: 100%; height: 100%; object-fit: contain;" />
           </div>
           <div><div class="er">Robotics Instructor</div><div class="eo">International Robotics Academy</div></div>
-        </div>
+        </a>
       </div>
     </div>
 
@@ -296,7 +304,7 @@ const spotifyPlaylist = "https://open.spotify.com/playlist/53b9uX18dpZkcdaR2f2kE
 </div>
 
 <footer>
-  <span class="fn">seema rida · 2026</span>
+  <span class="fn">© 2026</span>
   <ul class="fl">
     <li><a href="https://www.linkedin.com/in/seema-rida/" target="_blank">linkedin</a></li>
     <li><a href="https://github.com/seemarida" target="_blank">github</a></li>

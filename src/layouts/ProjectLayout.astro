@@ -11,6 +11,7 @@ const { title, description, tags, image, demoLink, codeLink } = Astro.props;
   <meta name="description" content={description} />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <style>
     :root {
       --bg: #FAF8F5; --ink: #1C1917; --green: #4A7260; --green-mid: #D0E4DC;
@@ -20,7 +21,9 @@ const { title, description, tags, image, demoLink, codeLink } = Astro.props;
     body { background: var(--bg); color: var(--ink); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
     nav { display: flex; justify-content: space-between; align-items: center; padding: 22px 52px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 100; }
-    .back-link { font-size: 0.9rem; color: var(--muted); text-decoration: none; transition: color 0.15s; display: flex; align-items: center; gap: 6px; }
+    .nav-left { display: flex; align-items: center; gap: 8px; }
+    .nav-left i { color: var(--green); font-size: 1.5rem; }
+    .back-link { font-size: 1rem; color: var(--muted); text-decoration: none; transition: color 0.15s; display: flex; align-items: center; gap: 6px; }
     .back-link:hover { color: var(--ink); }
 
     .project-wrap { max-width: 100%; padding: 72px 15% 100px; }
@@ -65,7 +68,7 @@ const { title, description, tags, image, demoLink, codeLink } = Astro.props;
 
 <nav>
   <a href="/#projects" class="back-link">← back to work</a>
-  <span class="fn">seema rida</span>
+  <div></div>
 </nav>
 
 <div class="project-wrap">
@@ -96,7 +99,7 @@ const { title, description, tags, image, demoLink, codeLink } = Astro.props;
 </div>
 
 <footer>
-  <span class="fn">seema rida · 2026</span>
+  <span class="fn">© 2026</span>
   <ul class="fl">
     <li><a href="https://www.linkedin.com/in/seema-rida/" target="_blank">linkedin</a></li>
     <li><a href="https://github.com/seemarida" target="_blank">github</a></li>
