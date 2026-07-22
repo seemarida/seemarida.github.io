@@ -1,0 +1,306 @@
+---
+const title = "Movement Behavior in Children using Wearable Biosensors in the Classroom";
+const description = "Using wearable biosensors to track movement patterns in 4-6 year olds across a 7-week summer camp, capturing physiological signals during real classroom activities.";
+const tags = ["Wearable Biosensors", "Child Development", "Data Analysis", "Python"];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} | seema rida</title>
+  <meta name="description" content={description} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    :root {
+      --bg: #FAF8F5; --ink: #1C1917; --green: #4A7260; --green-mid: #D0E4DC;
+      --muted: #78716C; --border: #E7E3DC; --card: #FFFFFF; --tag: #EEF4F1;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--ink); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 22px 52px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 100; }
+    .nav-left { display: flex; align-items: center; gap: 8px; }
+    .nav-left i { color: var(--green); font-size: 1.5rem; }
+    .back-link { font-size: 1rem; color: var(--muted); text-decoration: none; transition: color 0.15s; display: flex; align-items: center; gap: 6px; }
+    .back-link:hover { color: var(--ink); }
+
+    .project-wrap { max-width: 100%; padding: 72px 15% 100px; }
+    .project-header { margin-bottom: 48px; }
+    .project-title { font-size: 3rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px; color: var(--ink); }
+    .project-desc { font-size: 1.1rem; color: var(--muted); font-weight: 300; line-height: 1.7; margin-bottom: 16px; }
+    .project-meta { font-size: 1rem; color: var(--muted); font-style: italic; margin-bottom: 8px; }
+    .project-advisors { font-size: 0.95rem; color: var(--muted); margin-bottom: 24px; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+    .tag { padding: 6px 14px; background: var(--tag); border: 1px solid var(--green-mid); border-radius: 100px; font-size: 0.9rem; color: var(--muted); }
+
+    .content { font-size: 1.05rem; color: var(--ink); font-weight: 300; line-height: 1.8; }
+    .content h2 { font-size: 1.8rem; font-weight: 600; margin-top: 48px; margin-bottom: 20px; color: var(--ink); letter-spacing: -0.02em; }
+    .content h2:first-of-type { margin-top: 0; }
+    .content h3 { font-size: 1.4rem; font-weight: 600; margin-top: 32px; margin-bottom: 16px; color: var(--ink); }
+    .content p { margin-bottom: 20px; color: var(--muted); }
+    .content ul { margin-left: 24px; margin-bottom: 20px; color: var(--muted); }
+    .content li { margin-bottom: 10px; }
+    .content strong { color: var(--ink); font-weight: 600; }
+    .content a { color: var(--green); text-decoration: none; border-bottom: 1px solid var(--green-mid); transition: border-color 0.15s; }
+    .content a:hover { border-color: var(--green); }
+
+    .research-question {
+      background: var(--tag);
+      border-left: 4px solid var(--green);
+      padding: 24px;
+      margin: 32px 0;
+      border-radius: 8px;
+    }
+    .research-question p { margin-bottom: 0; color: var(--ink); }
+
+    .emotibit-section {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 40px;
+      margin: 32px 0;
+      align-items: start;
+    }
+    .emotibit-image {
+      text-align: center;
+    }
+    .emotibit-image img {
+      width: 100%;
+      max-width: 300px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      padding: 20px;
+    }
+    .image-caption {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 12px;
+      font-style: italic;
+    }
+
+    .emotibit-text ul {
+      list-style-type: disc;
+      margin-left: 24px;
+      margin-top: 16px;
+      color: var(--muted);
+    }
+
+    .emotibit-text li {
+      margin-bottom: 12px;
+      line-height: 1.8;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 24px;
+      margin: 32px 0;
+    }
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .feature-card h5 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 12px;
+    }
+    .formula {
+      font-family: 'Georgia', serif;
+      font-size: 1.3rem;
+      color: var(--green);
+      margin: 16px 0;
+      text-align: center;
+      font-style: italic;
+    }
+    .feature-desc {
+      font-size: 0.95rem;
+      color: var(--muted);
+      text-align: center;
+      margin: 0;
+    }
+
+    .findings-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      margin: 32px 0;
+      align-items: start;
+    }
+
+    .findings-text {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .thesis-photo {
+      text-align: center;
+    }
+
+    .thesis-photo img {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .thesis-caption {
+      font-size: 0.95rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 16px;
+      line-height: 1.6;
+    }
+
+    .contact-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 32px;
+      text-align: center;
+    }
+    .contact-box p {
+      margin: 0;
+      color: var(--ink);
+    }
+
+    footer { border-top: 1px solid var(--border); padding: 32px 52px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-top: 80px; }
+    .fn { font-size: 0.95rem; color: var(--muted); }
+    .fl { display: flex; gap: 26px; list-style: none; }
+    .fl a { font-size: 0.92rem; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+    .fl a:hover { color: var(--ink); }
+
+    @media (max-width: 1024px) {
+      .project-wrap { padding: 60px 10% 80px; }
+      .emotibit-section { grid-template-columns: 1fr; }
+      .findings-section { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .project-wrap { padding: 48px 8% 80px; }
+      .features-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 18px 20px; }
+      .project-wrap { padding: 48px 6% 80px; }
+      .project-title { font-size: 2rem; }
+      footer { padding: 22px 20px; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/#research" class="back-link">← back to home</a>
+  <div></div>
+</nav>
+
+<div class="project-wrap">
+  <div class="project-header">
+    <h1 class="project-title">{title}</h1>
+    <p class="project-meta">Holistic Early Childhood Development (HECD) Project Team</p>
+    <p class="project-advisors">Professors Terry Jernigan & Andrea Chiba (Advisor) | Chiba Lab, UCSD</p>
+    <div class="tags">
+      {tags.map(tag => <span class="tag">{tag}</span>)}
+    </div>
+  </div>
+
+  <div class="content">
+    <h2>Movement is a functional signal</h2>
+    <p>
+      Movement is among the first and most visible signs of a healthy, maturing nervous system. Yet when children enter school, they're expected to sit still. Movement isn't noise. It can reflect a child's arousal, cognitive load, and capacity to self-regulate. At ages 4-6, movement is highly variable and can be directly tied to internal state.
+    </p>
+
+    <div class="research-question">
+      <p>
+        <strong>Research Question:</strong> Can we capture children's movement naturally and continuously in a real classroom? Do individual movement patterns across different classroom activities reflect a child's internal and biobehavioral states?
+      </p>
+    </div>
+
+    <h2>EmotiBit Wearable Biosensor</h2>
+    <div class="emotibit-section">
+      <div class="emotibit-image">
+        <img src="/emotibit.jpeg" alt="EmotiBit Biosensor" />
+        <p class="image-caption">EmotiBit wearable biosensor</p>
+      </div>
+      <div class="emotibit-text">
+        <p>
+          No baseline exists for how 4-6 year olds naturally move in a classroom, or how much variability is typical. Wearable biosensors offer a way forward:
+        </p>
+        <ul>
+          <li><strong>9-axis IMU (inertial measurement unit):</strong> combines an accelerometer (linear acceleration), gyroscope (rotation), and magnetometer (magnetic field) to capture motion</li>
+          <li>Also records <strong>EDA, PPG, and temperature</strong> for physiological context</li>
+          <li><strong>Low-profile</strong> enough to avoid disrupting naturalistic behavior</li>
+          <li>Validated against gold-standard sensors (Montgomery et al., 2024)</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>What I Did</h2>
+    <p>
+      Using wearable biosensors, I tracked ~50 kids (ages 4–6) across a 7-week summer camp, capturing movement, heart rate, and other physiological signals continuously and unobtrusively during real classroom activities. I then compared their movement patterns to parent-reported measures of things like anxiety, self-regulation, and engagement.
+    </p>
+
+    <h2>Movement Features</h2>
+    <div class="features-grid">
+      <div class="feature-card">
+        <h5>Euclidean Norm Minus One (ENMO)</h5>
+        <div class="formula">√(x² + y² + z²) − 1</div>
+        <p class="feature-desc">mean magnitude of acceleration → <strong>total movement</strong></p>
+      </div>
+      <div class="feature-card">
+        <h5>Jerk</h5>
+        <div class="formula">da/dt</div>
+        <p class="feature-desc">rate of acceleration over time → <strong>movement intensity</strong></p>
+      </div>
+      <div class="feature-card">
+        <h5>Angular Velocity</h5>
+        <div class="formula">ω = dθ / dt</div>
+        <p class="feature-desc">rate of change of rotational angle → <strong>rotation</strong></p>
+      </div>
+    </div>
+
+    <h2>What I Found</h2>
+    <div class="findings-section">
+      <div class="findings-text">
+        <p>
+          Movement scales predictably with activity structure — lowest during circle time, highest during free play — but individual kids vary a lot within that pattern, and how a child moves (smooth vs. abrupt, steady vs. erratic) tracked with things like frustration tolerance and anxiety. Some kids showed almost no difference in movement across activity types at all, which is its own kind of signal.
+        </p>
+        <p>
+          Movement variability (not just quantity) tracked with affective state: children with higher self-regulation showed smoother movement; children with higher anxiety, anger, or depressive symptoms showed more abrupt, high-SD movement. Individual differences were large on day one and narrowed over the week — suggesting a settling-in effect worth studying further.
+        </p>
+      </div>
+
+      <div class="thesis-photo">
+        <img src="/thesis_photo.jpeg" alt="Thesis Presentation" />
+        <p class="thesis-caption">Presenting my honors thesis as part of the Cognitive Science Honors Program</p>
+      </div>
+    </div>
+
+    <div class="contact-box">
+      <p>Interested in seeing the full results, data visualizations, or the paper/poster? <a href="mailto:srida@ucsd.edu">Contact me</a></p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="fn">© 2026 seema rida</span>
+  <ul class="fl">
+    <li><a href="https://www.linkedin.com/in/seema-rida/" target="_blank">linkedin</a></li>
+    <li><a href="https://github.com/seemarida" target="_blank">github</a></li>
+    <li><a href="mailto:seemazrida@gmail.com">email</a></li>
+    <li><a href="https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz" target="_blank">spotify</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>

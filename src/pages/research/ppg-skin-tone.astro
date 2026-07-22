@@ -1,0 +1,164 @@
+---
+const title = "PPG Signal Accuracy Across Skin Tones";
+const description = "Investigating whether wearable biosensors work equally well across skin tones, and what that means for the future of inclusive biosensing.";
+const tags = ["Photoplethysmography", "Health Equity", "Signal Processing", "Pilot Study"];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} | seema rida</title>
+  <meta name="description" content={description} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    :root {
+      --bg: #FAF8F5; --ink: #1C1917; --green: #4A7260; --green-mid: #D0E4DC;
+      --muted: #78716C; --border: #E7E3DC; --card: #FFFFFF; --tag: #EEF4F1;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--ink); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 22px 52px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 100; }
+    .nav-left { display: flex; align-items: center; gap: 8px; }
+    .nav-left i { color: var(--green); font-size: 1.5rem; }
+    .back-link { font-size: 1rem; color: var(--muted); text-decoration: none; transition: color 0.15s; display: flex; align-items: center; gap: 6px; }
+    .back-link:hover { color: var(--ink); }
+
+    .project-wrap { max-width: 100%; padding: 72px 15% 100px; }
+    .project-header { margin-bottom: 48px; }
+    .project-title { font-size: 3rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px; color: var(--ink); }
+    .project-desc { font-size: 1.1rem; color: var(--muted); font-weight: 300; line-height: 1.7; margin-bottom: 16px; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+    .tag { padding: 6px 14px; background: var(--tag); border: 1px solid var(--green-mid); border-radius: 100px; font-size: 0.9rem; color: var(--muted); }
+
+    .content { font-size: 1.05rem; color: var(--ink); font-weight: 300; line-height: 1.8; }
+    .content h2 { font-size: 1.8rem; font-weight: 600; margin-top: 48px; margin-bottom: 20px; color: var(--ink); letter-spacing: -0.02em; }
+    .content h2:first-of-type { margin-top: 0; }
+    .content h3 { font-size: 1.4rem; font-weight: 600; margin-top: 32px; margin-bottom: 16px; color: var(--ink); }
+    .content p { margin-bottom: 20px; color: var(--muted); }
+    .content ul { margin-left: 24px; margin-bottom: 20px; color: var(--muted); list-style-type: disc; }
+    .content li { margin-bottom: 10px; }
+    .content strong { color: var(--ink); font-weight: 600; }
+    .content a { color: var(--green); text-decoration: none; border-bottom: 1px solid var(--green-mid); transition: border-color 0.15s; }
+    .content a:hover { border-color: var(--green); }
+
+    .research-question {
+      background: var(--tag);
+      border-left: 4px solid var(--green);
+      padding: 24px;
+      margin: 32px 0;
+      border-radius: 8px;
+    }
+    .research-question p { margin-bottom: 0; color: var(--ink); }
+
+    .highlight-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 32px 0;
+    }
+    .highlight-box p { margin-bottom: 0; color: var(--muted); }
+
+    .status-box {
+      background: #FFF9E6;
+      border-left: 4px solid #F59E0B;
+      padding: 24px;
+      margin: 32px 0;
+      border-radius: 8px;
+    }
+    .status-box p { margin-bottom: 0; color: var(--ink); }
+    .status-box strong { color: #F59E0B; }
+
+    footer { border-top: 1px solid var(--border); padding: 32px 52px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-top: 80px; }
+    .fn { font-size: 0.95rem; color: var(--muted); }
+    .fl { display: flex; gap: 26px; list-style: none; }
+    .fl a { font-size: 0.92rem; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+    .fl a:hover { color: var(--ink); }
+
+    @media (max-width: 1024px) {
+      .project-wrap { padding: 60px 10% 80px; }
+    }
+    @media (max-width: 768px) {
+      .project-wrap { padding: 48px 8% 80px; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 18px 20px; }
+      .project-wrap { padding: 48px 6% 80px; }
+      .project-title { font-size: 2rem; }
+      footer { padding: 22px 20px; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/#research" class="back-link">← back to home</a>
+  <div></div>
+</nav>
+
+<div class="project-wrap">
+  <div class="project-header">
+    <h1 class="project-title">{title}</h1>
+    <div class="tags">
+      {tags.map(tag => <span class="tag">{tag}</span>)}
+    </div>
+  </div>
+
+  <div class="content">
+    <h2>The Question</h2>
+    <p>
+      Green-light PPG (photoplethysmography) is the commercial standard for wearable heart rate monitoring because it resists motion artifacts better than other wavelengths. But there's a problem: green light is absorbed more by melanin than red light.
+    </p>
+
+    <div class="research-question">
+      <p>
+        <strong>Research Question:</strong> Does green-light PPG create a systematic accuracy gap across skin tones? And if so, what are the implications for the future of equitable biosensing?
+      </p>
+    </div>
+
+    <h2>Why It Matters</h2>
+    <div class="highlight-box">
+      <p>
+        Wearables are only as trustworthy as their weakest-case accuracy. If the sensors that track our health, fitness, and stress don't work equally well for everyone, they risk reinforcing existing inequities in healthcare and research. Understanding how PPG accuracy varies across skin tones is critical for building inclusive biosensing technology.
+      </p>
+    </div>
+
+    <h2>What I Did / My Role</h2>
+    <p>
+      This is a pilot study currently in progress. My contributions include:
+    </p>
+    <ul>
+      <li><strong>Co-designed the study protocol</strong> to investigate PPG signal quality across diverse skin tones</li>
+      <li>Used <strong>Individual Typology Angle (ITA)</strong> — a continuous colorimetry-based measure — instead of the more common Fitzpatrick scale, to more precisely capture skin tone diversity</li>
+      <li>Built the <strong>signal quality analysis pipeline</strong>, evaluating metrics including SNR (signal-to-noise ratio), perfusion index, and kurtosis</li>
+      <li>Compared <strong>red vs. green PPG wavelengths</strong> to understand how different wavelengths perform across the skin tone spectrum</li>
+      <li>Collected raw signal data across <strong>breathing and movement conditions</strong> to test real-world robustness</li>
+    </ul>
+
+    <h2>Current Status</h2>
+    <div class="status-box">
+      <p>
+        <strong>This project is currently being prepared for publication.</strong> Full results and analysis will be shared once the paper is out. If you're curious about the methodology, preliminary insights, or want to discuss inclusive biosensing, feel free to <a href="mailto:srida@ucsd.edu">reach out</a>.
+      </p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="fn">© 2026 seema rida</span>
+  <ul class="fl">
+    <li><a href="https://www.linkedin.com/in/seema-rida/" target="_blank">linkedin</a></li>
+    <li><a href="https://github.com/seemarida" target="_blank">github</a></li>
+    <li><a href="mailto:seemazrida@gmail.com">email</a></li>
+    <li><a href="https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz" target="_blank">spotify</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>

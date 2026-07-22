@@ -1,9 +1,4 @@
 ---
-import { homeContent } from '../data/homeContent.ts';
-import { aboutContent } from '../data/aboutContent.ts';
-
-const googleDriveResumeLink = "https://drive.google.com/file/d/1vMcm1Vrld1HCFTy2rBo5zAO5CgFo5NxH/view?usp=sharing";
-const spotifyPlaylist = "https://open.spotify.com/playlist/53b9uX18dpZkcdaR2f2kEI?si=3e7cb54f280f47ae";
 ---
 
 <!DOCTYPE html>
@@ -11,327 +6,369 @@ const spotifyPlaylist = "https://open.spotify.com/playlist/53b9uX18dpZkcdaR2f2kE
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>seema rida</title>
-  <meta name="description" content="cogsci student & signal processing researcher" />
+  <title>Seema Rida</title>
+  <meta name="description" content="CogSci researcher exploring sensors, signals, & the brain" />
 
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
-  <!-- Open Graph / Social Media Preview -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://seemazr.com" />
-  <meta property="og:title" content="seema rida" />
-  <meta property="og:description" content="cogsci student & signal processing researcher" />
-  <meta property="og:image" content="https://seemazr.com/favicon-32x32.png" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="seema rida" />
-  <meta name="twitter:description" content="cogsci student & signal processing researcher" />
-
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Libre+Baskerville:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
   <style>
-    :root {
-      --bg: #FAF8F5; --ink: #1C1917; --green: #4A7260; --green-mid: #D0E4DC;
-      --muted: #78716C; --border: #E7E3DC; --card: #FFFFFF; --tag: #EEF4F1;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--bg); color: var(--ink); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
-    nav { display: flex; justify-content: space-between; align-items: center; padding: 22px 52px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 100; }
-    .nav-name { font-size: 1.1rem; font-weight: 500; color: var(--ink); display: flex; align-items: center; gap: 8px; }
-    .nav-name i { color: var(--green); font-size: 1.5rem; }
-    .nav-links { display: flex; gap: 40px; list-style: none; }
-    .nav-links button { background: none; border: none; font-family: 'Inter', sans-serif; font-size: 1rem; color: var(--muted); cursor: pointer; padding: 0; transition: color 0.15s; }
-    .nav-links button:hover, .nav-links button.active { color: var(--ink); }
-    .page { display: none; }
-    .page.active { display: block; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #F8F6F4;
+      color: #1C1917;
+      line-height: 1.6;
+    }
 
-    /* HOME */
-    .home-wrap { max-width: 100%; padding: 72px 15% 100px; }
-    .home-wrap h1 { font-size: 3.8rem; font-weight: 600; letter-spacing: -0.035em; line-height: 1.1; margin-bottom: 14px; }
-    .home-wrap h1 span { color: var(--green); }
-    .hero-sub { font-size: 1.15rem; color: var(--muted); margin-bottom: 64px; }
-    .home-section { padding: 38px 0; border-top: 1px solid var(--border); }
-    .home-section:last-of-type { border-bottom: 1px solid var(--border); }
-    .lbl { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 14px; }
-    .home-section p { font-size: 1.15rem; font-weight: 300; line-height: 1.8; }
-    .home-section p + p { margin-top: 12px; }
-    .cta { display: inline-flex; align-items: center; gap: 5px; margin-top: 18px; font-size: 1rem; font-weight: 500; color: var(--green); background: none; border: none; font-family: 'Inter', sans-serif; cursor: pointer; padding: 0; transition: gap 0.2s, color 0.2s; text-decoration: none; }
-    .cta:hover { gap: 10px; color: var(--ink); }
+    /* Navigation Bar */
+    nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 3rem;
+      gap: 6rem;
+    }
 
-    .spotify-card { display: inline-flex; align-items: center; gap: 14px; margin-top: 20px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; text-decoration: none; transition: box-shadow 0.18s, transform 0.18s; }
-    .spotify-card:hover { box-shadow: 0 3px 16px rgba(28,25,23,0.07); transform: translateY(-1px); }
-    .sthumb { width: 52px; height: 52px; border-radius: 6px; overflow: hidden; flex-shrink: 0; background: #2a1c2e; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
-    .sthumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .strk { font-size: 1rem; font-weight: 500; color: var(--ink); }
-    .sart { font-size: 0.9rem; color: var(--muted); font-weight: 300; }
-    .sbdg { font-size: 0.88rem; font-weight: 600; color: #1DB954; }
+    nav a {
+      text-decoration: none;
+      color: #1C1917;
+      font-size: 1rem;
+      font-weight: 300;
+      font-family: 'Inter', sans-serif;
+      transition: color 0.3s ease;
+    }
 
-    .connect-links { display: flex; gap: 12px; margin-top: 20px; }
-    .cl { display: inline-flex; padding: 10px 20px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; font-weight: 500; color: var(--ink); text-decoration: none; background: var(--card); transition: border-color 0.15s, color 0.15s; }
-    .cl:hover { border-color: var(--green); color: var(--green); }
+    nav a:hover {
+      color: #6FAB84;
+    }
 
-    /* ABOUT */
-    .about-wrap { max-width: 100%; padding: 72px 15% 100px; }
-    .ph { font-size: 3.2rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 12px; }
-    .ph span { color: var(--green); }
-    .ps { font-size: 1.05rem; color: var(--muted); margin-bottom: 60px; }
-    .asec { padding: 38px 0; border-top: 1px solid var(--border); }
-    .asec h2 { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 20px; }
-    .bio-flex { display: flex; gap: 40px; align-items: flex-start; }
-    .headshot { width: 200px; height: 200px; border-radius: 50%; overflow: hidden; flex-shrink: 0; border: 2px solid var(--border); background: var(--tag); display: flex; align-items: center; justify-content: center; font-size: 1.2rem; font-weight: 600; color: var(--muted); }
-    .headshot img { width: 100%; height: 100%; object-fit: cover; }
-    .bt p { font-size: 1.1rem; font-weight: 300; line-height: 1.8; margin-bottom: 12px; }
-    .bt p:last-child { margin: 0; }
+    .logo {
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 2rem;
+      color: #6FAB84;
+      font-weight: 400;
+    }
 
-    .areas { display: flex; flex-direction: column; }
-    .arow { display: flex; align-items: baseline; gap: 20px; padding: 14px 0; border-bottom: 1px solid var(--border); }
-    .arow:last-child { border-bottom: none; }
-    .aname { font-size: 1.02rem; font-weight: 500; color: var(--ink); min-width: 200px; flex-shrink: 0; }
-    .adesc { font-size: 0.96rem; color: var(--muted); font-weight: 300; line-height: 1.6; }
+    /* Main Content */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem 4rem 2rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 150px);
+    }
 
-    .exp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .ei { display: flex; align-items: center; gap: 13px; padding: 14px 16px; border: 1px solid var(--border); border-radius: 10px; background: var(--card); text-decoration: none; transition: border-color 0.2s, transform 0.2s; }
-    .ei:hover { border-color: var(--green); transform: translateY(-2px); }
-    .eico { width: 42px; height: 42px; border-radius: 8px; background: var(--tag); flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 1.15rem; }
-    .er { font-size: 0.95rem; font-weight: 500; color: var(--ink); }
-    .eo { font-size: 0.86rem; color: var(--muted); font-weight: 300; }
+    .hero-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      width: 100%;
+    }
 
-    .skills-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
-    .st { padding: 6px 14px; background: var(--tag); border: 1px solid var(--green-mid); border-radius: 100px; font-size: 0.9rem; }
+    .hero-section {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 51px;
+      width: 100%;
+      position: relative;
+    }
 
-    .lrow { display: flex; justify-content: space-between; align-items: baseline; padding: 11px 0; border-bottom: 1px solid var(--border); }
-    .lrow:last-child { border-bottom: none; }
-    .lrole { font-size: 1.02rem; }
-    .lorg { font-size: 1rem; color: var(--muted); font-weight: 300; }
-    .lp { font-size: 0.88rem; color: var(--muted); white-space: nowrap; margin-left: 18px; }
-    .rbtn { display: inline-block; margin-top: 40px; padding: 12px 28px; background: var(--ink); color: #fff; border-radius: 8px; font-size: 0.98rem; font-weight: 500; cursor: pointer; border: none; font-family: 'Inter', sans-serif; transition: background 0.2s; text-decoration: none; }
-    .rbtn:hover { background: #333; }
+    .hero-section::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      height: 100%;
+      width: 1px;
+      background: transparent;
+      transform: translateX(-25.5px);
+      pointer-events: none;
+    }
 
-    /* PROJECTS */
-    .projects-wrap { max-width: 100%; padding: 72px 15% 100px; }
-    .pr { display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 24px; padding: 32px 20px; border-top: 1px solid var(--border); text-decoration: none; cursor: pointer; transition: background 0.2s; border-radius: 8px; margin: 0 -20px; }
-    .pr:last-child { border-bottom: 1px solid var(--border); }
-    .pr:hover { background: var(--tag); }
-    .pr:hover .ptitle { color: var(--green); }
-    .pr:hover .parr { transform: translateX(4px); opacity: 1; }
-    .ptitle { font-size: 1.25rem; font-weight: 500; letter-spacing: -0.01em; color: var(--ink); margin-bottom: 8px; transition: color 0.18s; }
-    .pdesc { font-size: 1.02rem; font-weight: 300; line-height: 1.7; color: var(--muted); max-width: 600px; }
-    .ptags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
-    .ptag { padding: 3px 11px; background: var(--tag); border-radius: 100px; font-size: 0.8rem; color: var(--muted); }
-    .parr { font-size: 1.2rem; color: var(--muted); opacity: 0.5; transition: transform 0.18s, opacity 0.18s; padding-top: 4px; }
+    .left-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
 
-    footer { border-top: 1px solid var(--border); padding: 32px 52px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
-    .fn { font-size: 0.95rem; color: var(--muted); }
-    .fl { display: flex; gap: 26px; list-style: none; }
-    .fl a { font-size: 0.92rem; color: var(--muted); text-decoration: none; transition: color 0.15s; }
-    .fl a:hover { color: var(--ink); }
+    .greeting {
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 32px;
+      margin-bottom: 1rem;
+      color: #1C1917;
+      align-self: center;
+    }
 
-    .fi { opacity: 0; transform: translateY(12px); animation: fu 0.45s ease forwards; }
-    @keyframes fu { to { opacity: 1; transform: translateY(0); } }
+    .image-container {
+      animation: levitate 2s ease-in-out infinite;
+    }
 
-    @media (max-width: 1024px) {
-      .home-wrap, .about-wrap, .projects-wrap { padding: 60px 10% 80px; }
+    .image-container img {
+      width: 195px;
+      height: 252px;
+      object-fit: cover;
+    }
+
+    @keyframes levitate {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    .right-section {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .subtitle {
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 32px;
+      color: #1C1917;
+      margin-bottom: 0;
+    }
+
+    .subtitle .highlight {
+      color: #6FAB84;
+    }
+
+    .main-title {
+      font-family: 'Libre Baskerville', serif;
+      font-weight: 400;
+      line-height: 1;
+      color: #1C1917;
+      text-align: left;
+      margin-top: 35px;
+    }
+
+    .main-title .sensors {
+      font-size: 75px;
+      margin-bottom: 27px;
+    }
+
+    .main-title .signals {
+      font-size: 55px;
+      margin-bottom: 27px;
+    }
+
+    .main-title .brain {
+      font-size: 32px;
+    }
+
+    .bio {
+      font-size: 1rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      color: #6B7280;
+      line-height: 1.7;
+      width: 750px;
+      text-align: center;
+    }
+
+    /* Research Section */
+    .research-section {
+      background: #F8F6F4;
+      padding: 4rem 2rem;
+    }
+
+    .research-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .research-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .section-title {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 48px;
+      font-weight: 400;
+      color: #1C1917;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .research-card {
+      display: block;
+      background: #FFFFFF;
+      border: 2px solid #E7E3DC;
+      border-radius: 12px;
+      padding: 2.5rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .research-card:hover {
+      border-color: #6FAB84;
+      box-shadow: 0 4px 12px rgba(111, 171, 132, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .research-card-title {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: #1C1917;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .research-card-date {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 400;
+      color: #6FAB84;
+      margin-bottom: 1rem;
+    }
+
+    .research-card-description {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 300;
+      color: #6B7280;
+      line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+
+    .research-card-link {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: #6FAB84;
+      transition: color 0.3s ease;
+    }
+
+    .research-card:hover .research-card-link {
+      color: #4A7260;
     }
 
     @media (max-width: 768px) {
-      .home-wrap, .about-wrap, .projects-wrap { padding: 48px 8% 80px; }
-    }
+      nav {
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        padding: 1.5rem 1rem;
+      }
 
-    @media (max-width: 600px) {
-      nav { padding: 18px 20px; }
-      .home-wrap, .about-wrap, .projects-wrap { padding: 48px 6% 80px; }
-      footer { padding: 22px 20px; flex-direction: column; }
-      .bio-flex { flex-direction: column; }
-      .exp-grid { grid-template-columns: 1fr; }
-      .aname { min-width: 130px; }
+      .hero-section {
+        flex-direction: column;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .main-title .sensors {
+        font-size: 50px;
+      }
+
+      .main-title .signals {
+        font-size: 40px;
+      }
+
+      .main-title .brain {
+        font-size: 24px;
+      }
+
+      .container {
+        padding: 2rem 1rem;
+      }
+
+      .bio {
+        text-align: center;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Navigation -->
+  <nav>
+    <a href="#research">Research</a>
+    <a href="#projects">Projects</a>
+    <span class="logo">SR</span>
+    <a href="#about">About</a>
+    <a href="#gallery">Gallery</a>
+  </nav>
 
-<nav>
-  <div class="nav-name">
-    <i class="fa-solid fa-brain"></i>
-  </div>
-  <ul class="nav-links">
-    <li><button onclick="go('home')" class="active" id="nav-home">home</button></li>
-    <li><button onclick="go('projects')" id="nav-projects">work</button></li>
-    <li><button onclick="go('about')" id="nav-about">about</button></li>
-  </ul>
-</nav>
-
-<!-- HOME -->
-<div class="page active" id="page-home">
-  <div class="home-wrap">
-    <div class="fi" style="animation-delay:0.05s">
-      <h1>hi, i'm <span>seema</span></h1>
-      <p class="hero-sub">cogsci student & signal processing researcher</p>
-    </div>
-
-    <div class="home-section fi" style="animation-delay:0.12s">
-      <p class="lbl">what i do</p>
-      <p>I'm interested in tools that bridge technology and the human experience, especially the ones that help us quantify things that usually feel impossible to measure. That's what drew me to neurotech and wearables.</p>
-      <p>Right now I'm at the Chiba Lab, building systems that capture classroom environments through multimodal biosensor data.</p>
-      <button class="cta" onclick="go('projects')">see what i'm building →</button>
-    </div>
-
-    <div class="home-section fi" style="animation-delay:0.19s">
-      <p class="lbl">outside the lab</p>
-      <p>When I'm not at the lab, I'm playing piano, going on a run, thrifting, or making yet another Spotify playlist. Here's my most recent one:</p>
-      <a class="spotify-card" href={spotifyPlaylist} target="_blank">
-        <div class="sthumb">
-          <img src="/mitski.png" alt="Mitski" />
+  <!-- Main Content -->
+  <div class="container">
+    <div class="hero-wrapper">
+      <div class="hero-section">
+        <!-- Left Section: Greeting + Image -->
+        <div class="left-section">
+          <div class="greeting">Hi. I'm Seema</div>
+          <div class="image-container">
+            <img src="/home_drawing.jpg" alt="Seema's illustration" />
+          </div>
         </div>
-        <div>
-          <div class="strk">this is mitski</div>
-          <div class="sart">playlist</div>
-        </div>
-        <span class="sbdg">↗</span>
-      </a>
-    </div>
 
-    <div class="home-section fi" style="animation-delay:0.33s">
-      <p class="lbl">let's connect</p>
-      <p>Always happy to chat about research, neurotech, music, or anything in between.</p>
-      <div class="connect-links">
-        <a class="cl" href="https://www.linkedin.com/in/seema-rida/" target="_blank">LinkedIn →</a>
-        <a class="cl" href="mailto:seemazrida@gmail.com">Email →</a>
+        <!-- Right Section: Title -->
+        <div class="right-section">
+          <div class="subtitle">
+            <span class="highlight">CogSci researcher</span> exploring
+          </div>
+          <div class="main-title">
+            <div class="sensors">Sensors,</div>
+            <div class="signals">Signals,</div>
+            <div class="brain">& the Brain</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bio Section -->
+      <div class="bio">
+        I build technology to understand physiology and behavior. Originally from Amman, currently in San Diego studying children in classrooms using wearable biosensors at UCSD.
       </div>
     </div>
   </div>
-</div>
 
-<!-- ABOUT -->
-<div class="page" id="page-about">
-  <div class="about-wrap">
-    <div class="fi" style="animation-delay:0.05s">
-      <h1 class="ph">about <span>me</span></h1>
-      <p class="ps">cognitive science & computer science at uc san diego</p>
-    </div>
+  <!-- Research Section -->
+  <section id="research" class="research-section">
+    <div class="research-container">
+      <h2 class="section-title">Research</h2>
 
-    <div class="asec fi" style="animation-delay:0.12s">
-      <div class="bio-flex">
-        <div class="headshot">
-          <img src="/headshot.png" alt="Seema" />
-        </div>
-        <div class="bt">
-          <p>I'm a senior at UCSD studying Cognitive Science (Machine Learning and Neural Computation) with a CS minor. At the Chiba Lab, I work on building and deploying multimodal biosensor systems to study how the autonomic nervous system shapes children's behavior and learning. Learning about the brain and body has also become a personal journey. Understanding how my own brain works is part of what pulls me toward neurotech, wearables, and the tools that make the invisible measurable. That interest runs deep into signal processing too: good research depends on clean, accurate data, and I find a lot of meaning in the work of making noisy physiological signals actually usable.</p>
-        </div>
-      </div>
-    </div>
+      <div class="research-grid">
+        <!-- Research Card 1 -->
+        <a href="/research/biosensor-movement" class="research-card">
+          <h3 class="research-card-title">Movement Behavior in Children using Wearable Biosensors in the Classroom</h3>
+          <p class="research-card-date">September 2025 – Present</p>
+          <p class="research-card-description">
+            Using wearable biosensors to track movement patterns in 4-6 year olds across a 7-week summer camp, capturing physiological signals during real classroom activities to understand how movement reflects internal and biobehavioral states.
+          </p>
+          <span class="research-card-link">Read more →</span>
+        </a>
 
-    <div class="asec fi" style="animation-delay:0.17s">
-      <h2>experience</h2>
-      <div class="exp-grid">
-        <a class="ei" href="https://cogsci.ucsd.edu/people/faculty/andrea-chiba.html" target="_blank">
-          <div class="eico">
-            <img src="https://cogsci.ucsd.edu/_images/department-images/brain-logo.png" alt="UCSD" style="width: 100%; height: 100%; object-fit: contain;" />
-          </div>
-          <div><div class="er">Undergrad Researcher</div><div class="eo">Chiba Lab · UCSD</div></div>
-        </a>
-        <a class="ei" href="https://ugresearch.ucsd.edu/programs/all-urh-programs/uc-scholars/index.html" target="_blank">
-          <div class="eico">
-            <img src="https://ugresearch.ucsd.edu/_images/urh/UR_Design_Icon_Color_transparency.png" alt="UC Scholar" style="width: 100%; height: 100%; object-fit: contain;" />
-          </div>
-          <div><div class="er">UC Scholar</div><div class="eo">Undergraduate Research Hub</div></div>
-        </a>
-        <a class="ei" href="https://abwaab.com/en" target="_blank">
-          <div class="eico">
-            <img src="https://t4.education/wp-content/uploads/2025/07/abwaab-main.png" alt="Abwaab" style="width: 100%; height: 100%; object-fit: contain;" />
-          </div>
-          <div><div class="er">Data Science Intern</div><div class="eo">Abwaab</div></div>
-        </a>
-        <a class="ei" href="https://www.ira.edu.jo/" target="_blank">
-          <div class="eico">
-            <img src="https://static1.squarespace.com/static/5901b9191b10e3a0176d6dc3/t/5919c1426a496322aac0c6f8/1494860100558/LogoDark.png?format=1500w" alt="IRA" style="width: 100%; height: 100%; object-fit: contain;" />
-          </div>
-          <div><div class="er">Robotics Instructor</div><div class="eo">International Robotics Academy</div></div>
+        <!-- Research Card 2 -->
+        <a href="/research/ppg-skin-tone" class="research-card">
+          <h3 class="research-card-title">PPG Signal Accuracy Across Skin Tones</h3>
+          <p class="research-card-date">Ongoing</p>
+          <p class="research-card-description">
+            Investigating whether wearable biosensors work equally well across skin tones, and what that means for the future of inclusive biosensing.
+          </p>
+          <span class="research-card-link">Read more →</span>
         </a>
       </div>
     </div>
-
-    <div class="asec fi" style="animation-delay:0.27s">
-      <h2>skills</h2>
-      <div class="skills-wrap">
-        {aboutContent.skills.techniques.items.map(skill => (
-          <span class="st">{skill}</span>
-        ))}
-      </div>
-    </div>
-
-    <div class="asec fi" style="animation-delay:0.32s">
-      <h2>leadership</h2>
-      <div class="lrow"><div><span class="lrole">Co-President</span><span class="lorg"> · Tritons Prosthetic Society</span></div><span class="lp">May 2025 – present</span></div>
-      <div class="lrow"><div><span class="lrole">Teaching Assistant</span><span class="lorg"> · Neural Signal Processing (COGS 118C)</span></div><span class="lp">Jan 2026 – present</span></div>
-      <div class="lrow"><div><span class="lrole">Peer Mentor</span><span class="lorg"> · Cognitive Science Student Association</span></div><span class="lp">Nov 2022 – present</span></div>
-    </div>
-
-    <a class="rbtn" href={googleDriveResumeLink} target="_blank">view resume →</a>
-  </div>
-</div>
-
-<!-- PROJECTS -->
-<div class="page" id="page-projects">
-  <div class="projects-wrap">
-    <div class="fi" style="animation-delay:0.05s">
-      <h1 class="ph"><span>work</span></h1>
-      <p class="ps">research, class projects, and things i built for fun</p>
-    </div>
-    <div>
-      {homeContent.projects.map((project, i) => (
-        <a class="pr fi" href={`/projects/${project.slug}`} style={`animation-delay:${0.12 + i * 0.05}s`}>
-          <div>
-            <div class="ptitle">{project.title}</div>
-            <div class="pdesc">{project.description}</div>
-            <div class="ptags">
-              {project.fields.slice(0, 3).map(field => (
-                <span class="ptag">{field}</span>
-              ))}
-            </div>
-          </div>
-          <div class="parr">→</div>
-        </a>
-      ))}
-    </div>
-  </div>
-</div>
-
-<footer>
-  <span class="fn">© 2026 Seema Rida</span>
-  <ul class="fl">
-    <li><a href="https://www.linkedin.com/in/seema-rida/" target="_blank">linkedin</a></li>
-    <li><a href="https://github.com/seemarida" target="_blank">github</a></li>
-    <li><a href="mailto:seemazrida@gmail.com">email</a></li>
-    <li><a href="https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz" target="_blank">spotify</a></li>
-  </ul>
-</footer>
-
-<script is:inline>
-  function go(name) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.nav-links button').forEach(b => b.classList.remove('active'));
-    document.getElementById('page-' + name).classList.add('active');
-    document.getElementById('nav-' + name).classList.add('active');
-    document.querySelectorAll('#page-' + name + ' .fi').forEach(el => {
-      el.style.animation = 'none'; el.offsetHeight; el.style.animation = '';
-    });
-    window.scrollTo(0, 0);
-  }
-
-  // Handle hash navigation on page load
-  window.addEventListener('DOMContentLoaded', function() {
-    const hash = window.location.hash.substring(1); // Remove the #
-    if (hash && ['home', 'projects', 'about'].includes(hash)) {
-      go(hash);
-    }
-  });
-</script>
+  </section>
 </body>
 </html>
