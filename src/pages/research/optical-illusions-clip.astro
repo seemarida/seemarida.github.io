@@ -1,0 +1,184 @@
+---
+const title = "Optical Illusions in CLIP";
+const description = "We bias our perception without realizing it. I ran experiments to see if CLIP does the same thing.";
+const tags = ["CLIP", "Vision Models", "Perception", "Cognitive Science", "Machine Learning"];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} | seema rida</title>
+  <meta name="description" content={description} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    :root {
+      --bg: #FAF8F5; --ink: #1C1917; --green: #4A7260; --green-mid: #D0E4DC;
+      --muted: #78716C; --border: #E7E3DC; --card: #FFFFFF; --tag: #EEF4F1;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--ink); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 22px 52px; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: var(--bg); z-index: 100; }
+    .nav-left { display: flex; align-items: center; gap: 8px; }
+    .nav-left i { color: var(--green); font-size: 1.5rem; }
+    .back-link { font-size: 1rem; color: var(--muted); text-decoration: none; transition: color 0.15s; display: flex; align-items: center; gap: 6px; }
+    .back-link:hover { color: var(--ink); }
+
+    .project-wrap { max-width: 100%; padding: 72px 15% 100px; }
+    .project-header { margin-bottom: 48px; }
+    .project-title { font-size: 3rem; font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 16px; color: var(--ink); }
+    .project-desc { font-size: 1.1rem; color: var(--muted); font-weight: 300; line-height: 1.7; margin-bottom: 16px; }
+
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+    .tag { padding: 6px 14px; background: var(--tag); border: 1px solid var(--green-mid); border-radius: 100px; font-size: 0.9rem; color: var(--muted); }
+
+    .content { font-size: 1.05rem; color: var(--ink); font-weight: 300; line-height: 1.8; }
+    .content h2 { font-size: 1.8rem; font-weight: 600; margin-top: 48px; margin-bottom: 20px; color: var(--ink); letter-spacing: -0.02em; }
+    .content h2:first-of-type { margin-top: 0; }
+    .content h3 { font-size: 1.4rem; font-weight: 600; margin-top: 32px; margin-bottom: 16px; color: var(--ink); }
+    .content p { margin-bottom: 20px; color: var(--muted); }
+    .content ul { margin-left: 24px; margin-bottom: 20px; color: var(--muted); list-style-type: disc; }
+    .content li { margin-bottom: 10px; }
+    .content strong { color: var(--ink); font-weight: 600; }
+    .content a { color: var(--green); text-decoration: none; border-bottom: 1px solid var(--green-mid); transition: border-color 0.15s; }
+    .content a:hover { border-color: var(--green); }
+
+    .research-question {
+      background: var(--tag);
+      border-left: 4px solid var(--green);
+      padding: 24px;
+      margin: 32px 0;
+      border-radius: 8px;
+    }
+    .research-question p { margin-bottom: 0; color: var(--ink); }
+
+    .highlight-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 32px 0;
+    }
+    .highlight-box p { margin-bottom: 0; color: var(--muted); }
+
+    .image-container {
+      margin: 32px 0;
+      text-align: center;
+    }
+    .image-container img {
+      max-width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+    }
+    .image-caption {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-top: 12px;
+      font-style: italic;
+    }
+
+    footer { border-top: 1px solid var(--border); padding: 32px 52px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; margin-top: 80px; }
+    .fn { font-size: 0.95rem; color: var(--muted); }
+    .fl { display: flex; gap: 26px; list-style: none; }
+    .fl a { font-size: 0.92rem; color: var(--muted); text-decoration: none; transition: color 0.15s; }
+    .fl a:hover { color: var(--ink); }
+
+    @media (max-width: 1024px) {
+      .project-wrap { padding: 60px 10% 80px; }
+    }
+    @media (max-width: 768px) {
+      .project-wrap { padding: 48px 8% 80px; }
+    }
+    @media (max-width: 600px) {
+      nav { padding: 18px 20px; }
+      .project-wrap { padding: 48px 6% 80px; }
+      .project-title { font-size: 2rem; }
+      footer { padding: 22px 20px; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="/#research" class="back-link">← back to home</a>
+  <div></div>
+</nav>
+
+<div class="project-wrap">
+  <div class="project-header">
+    <h1 class="project-title">{title}</h1>
+    <div class="tags">
+      {tags.map(tag => <span class="tag">{tag}</span>)}
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="research-question">
+      <p>
+        We bias our perception without realizing it. I ran experiments to see if CLIP does the same thing.
+      </p>
+    </div>
+
+    <h2>The Question</h2>
+    <p>
+      The duck-rabbit illusion has one image, two valid answers, and no correct one. That's what makes it useful, not as a trick, but as a test. I used it to ask: when CLIP looks at an ambiguous image, where does it land? And can I bias it?
+    </p>
+
+    <div class="highlight-box">
+      <p>
+        The duck-rabbit illusion is a classic example of bistable perception; your brain can hold either interpretation, and both are equally valid. Unlike most classification tasks where there's a ground truth, this illusion has none. That's what makes it interesting as a research tool: if CLIP has to pick one, what does it pick, and why?
+      </p>
+    </div>
+
+    <div class="image-container">
+      <img src="/optical-illusions-clip.png" alt="Duck-rabbit optical illusion analysis in CLIP" />
+      <p class="image-caption">The duck-rabbit illusion as seen by CLIP</p>
+    </div>
+
+    <h2>What I Did</h2>
+    <p>
+      CLIP maps images and text into the same embedding space, so "duck" and "rabbit" both exist as points, and so does the illusion image. I expected the illusion to sit somewhere in between the two, geometrically caught between both categories. I used PCA to reduce those high-dimensional embeddings to 2D so I could actually see this.
+    </p>
+    <p>
+      Then I tried to bias it.
+    </p>
+    <p>
+      In humans, perception shifts with color, cropping, and framing. I ran the same kinds of manipulations on the image, coloring specific regions red, green, and blue, cropping to emphasize duck or rabbit features, shifting the background, and measured whether CLIP's similarity scores moved toward rabbit or duck.
+    </p>
+
+    <h2>What I Found</h2>
+    <p>
+      Coloring the left half biased CLIP toward rabbit. The right half pushed it toward duck. Same color, different location: opposite result. Full-image colorizations did almost nothing, which tells you CLIP isn't responding to global appearance. It's responding to local spatial structure, and that structure maps directly onto where the duck and rabbit features actually live in the image.
+    </p>
+    <p>
+      Cropping did the same thing. Isolate the bill region, similarity scores shift toward duck. Isolate the ears, they shift toward rabbit. This is exactly how human selective attention works: where you look determines what you see.
+    </p>
+    <p>
+      The classification can flip on a cosine similarity difference of 0.002. The illusion is sitting right on the decision boundary, and that instability is the point. Humans experience these illusions the same way: perception is unstable, context-dependent, and easy to tip!
+    </p>
+
+    <h2>Why It Matters</h2>
+    <div class="highlight-box">
+      <p>
+        Optical illusions are a window into how perception works, in humans, and apparently in models too. CLIP takes shortcuts, just like we do. The question is whether those shortcuts are grounded in anything like human cognition, or something else entirely. This project is a small step toward making that visible.
+      </p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <span class="fn">© 2026 seema rida</span>
+  <ul class="fl">
+    <li><a href="https://www.linkedin.com/in/seema-rida/" target="_blank">linkedin</a></li>
+    <li><a href="https://github.com/seemarida" target="_blank">github</a></li>
+    <li><a href="mailto:seemazrida@gmail.com">email</a></li>
+    <li><a href="https://open.spotify.com/user/wyklimh7i9katv6ph7rwdc3oz" target="_blank">spotify</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>
