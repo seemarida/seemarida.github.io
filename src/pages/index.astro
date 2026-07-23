@@ -29,6 +29,20 @@
       background: #F8F6F4;
       color: #1C1917;
       line-height: 1.6;
+      cursor: none;
+    }
+
+    /* Custom Cursor */
+    .cursor {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(107, 114, 128, 0.5);
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease-out;
     }
 
     /* Navigation Bar */
@@ -38,6 +52,15 @@
       align-items: center;
       padding: 2rem 3rem;
       gap: 6rem;
+      position: sticky;
+      top: 0;
+      background: #F8F6F4;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+
+    nav.hidden {
+      transform: translateY(-100%);
     }
 
     nav a {
@@ -58,6 +81,27 @@
       font-size: 2rem;
       color: #6FAB84;
       font-weight: 400;
+      display: inline-block;
+      position: relative;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .logo span {
+      display: inline-block;
+      transition: transform 0.3s ease;
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 2rem;
+      color: #6FAB84;
+      font-weight: 400;
+    }
+
+    .logo:hover .logo-s {
+      transform: translate(-3px, -3px);
+    }
+
+    .logo:hover .logo-r {
+      transform: translate(3px, 3px);
     }
 
     /* Main Content */
@@ -117,12 +161,34 @@
 
     .image-container {
       animation: levitate 2s ease-in-out infinite;
+      position: relative;
+      display: inline-block;
     }
 
     .image-container img {
       width: 195px;
       height: 252px;
       object-fit: cover;
+    }
+
+    .image-tooltip {
+      position: absolute;
+      background: rgba(229, 231, 235, 0.95);
+      color: #6B7280;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      white-space: nowrap;
+      z-index: 10;
+    }
+
+    .image-container:hover .image-tooltip {
+      opacity: 1;
     }
 
     @keyframes levitate {
@@ -203,11 +269,15 @@
 
     .section-title {
       font-family: 'Libre Baskerville', serif;
-      font-size: 48px;
+      font-size: 36px;
       font-weight: 400;
       color: #1C1917;
       margin-bottom: 3rem;
       text-align: center;
+    }
+
+    .section-title .highlight {
+      color: #6FAB84;
     }
 
     .research-card {
@@ -219,12 +289,198 @@
       text-decoration: none;
       transition: all 0.3s ease;
       cursor: pointer;
+      position: relative;
     }
 
     .research-card:hover {
       border-color: #6FAB84;
       box-shadow: 0 4px 12px rgba(111, 171, 132, 0.1);
       transform: translateY(-2px);
+    }
+
+    .card-tooltip {
+      position: absolute;
+      background: rgba(229, 231, 235, 0.95);
+      color: #6B7280;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      white-space: nowrap;
+      z-index: 10;
+    }
+
+    .research-card:hover .card-tooltip {
+      opacity: 1;
+    }
+
+    /* About Section */
+    .about-section {
+      background: #F8F6F4;
+      padding: 4rem 2rem;
+    }
+
+    .about-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .about-content {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      gap: 4rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+
+    .headshot-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    .headshot-container img {
+      width: 100%;
+      border-radius: 12px;
+      border: 2px solid #E7E3DC;
+    }
+
+    .headshot-tooltip {
+      position: absolute;
+      background: rgba(229, 231, 235, 0.95);
+      color: #6B7280;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      white-space: nowrap;
+      z-index: 10;
+    }
+
+    .headshot-container:hover .headshot-tooltip {
+      opacity: 1;
+    }
+
+    .about-text {
+      font-size: 1.05rem;
+      color: #6B7280;
+      line-height: 1.8;
+    }
+
+    .about-text p {
+      margin-bottom: 1.5rem;
+    }
+
+    /* Experience Section */
+    .experience-section {
+      background: #F8F6F4;
+      padding: 2rem 2rem 4rem 2rem;
+    }
+
+    .experience-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .experience-columns {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+
+    .experience-column h3 {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #1C1917;
+      margin-bottom: 1.5rem;
+    }
+
+    .experience-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .experience-item {
+      border-left: 2px solid #E7E3DC;
+      padding-left: 1rem;
+      transition: border-color 0.3s ease;
+      display: flex;
+      gap: 1rem;
+    }
+
+    .experience-item:hover {
+      border-left-color: #6FAB84;
+    }
+
+    .experience-logo {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #FFFFFF;
+      border-radius: 8px;
+      border: 1px solid #E7E3DC;
+      padding: 6px;
+    }
+
+    .experience-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .experience-content {
+      flex: 1;
+    }
+
+    .experience-title {
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1C1917;
+      margin-bottom: 0.25rem;
+    }
+
+    .experience-org {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: #6B7280;
+      font-weight: 400;
+      margin-bottom: 0.25rem;
+    }
+
+    .experience-date {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      color: #6FAB84;
+      font-weight: 400;
+    }
+
+    .experience-description {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: #6B7280;
+      line-height: 1.6;
+      margin-top: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .experience-columns {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
     }
 
     .research-card-title {
@@ -297,17 +553,30 @@
       .bio {
         text-align: center;
       }
+
+      .about-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .headshot-container {
+        max-width: 300px;
+        margin: 0 auto;
+      }
     }
   </style>
 </head>
 <body>
+  <!-- Custom Cursor -->
+  <div class="cursor"></div>
+
   <!-- Navigation -->
   <nav>
-    <a href="#research">Research</a>
-    <a href="#projects">Projects</a>
-    <span class="logo">SR</span>
+    <a href="#research">Work</a>
     <a href="#about">About</a>
+    <a href="/" class="logo"><span class="logo-s">S</span><span class="logo-r">R</span></a>
     <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
   </nav>
 
   <!-- Main Content -->
@@ -319,6 +588,7 @@
           <div class="greeting">Hi. I'm Seema</div>
           <div class="image-container">
             <img src="/home_drawing.jpg" alt="Seema's illustration" />
+            <div class="image-tooltip">welcome :)</div>
           </div>
         </div>
 
@@ -345,7 +615,7 @@
   <!-- Research Section -->
   <section id="research" class="research-section">
     <div class="research-container">
-      <h2 class="section-title">Research</h2>
+      <h2 class="section-title">Selected <span class="highlight">works</span></h2>
 
       <div class="research-grid">
         <!-- Research Card 1 -->
@@ -356,6 +626,7 @@
             Using wearable biosensors to track movement patterns in 4-6 year olds across a 7-week summer camp, capturing physiological signals during real classroom activities to understand how movement reflects internal and biobehavioral states.
           </p>
           <span class="research-card-link">Read more →</span>
+          <div class="card-tooltip">learn more</div>
         </a>
 
         <!-- Research Card 2 -->
@@ -366,6 +637,7 @@
             Investigating whether wearable biosensors work equally well across skin tones, and what that means for the future of inclusive biosensing.
           </p>
           <span class="research-card-link">Read more →</span>
+          <div class="card-tooltip">learn more</div>
         </a>
 
         <!-- Research Card 3 -->
@@ -376,6 +648,7 @@
             What does attention look like in EEG, and can you build a classifier around it? Exploring whether the Pomodoro technique's fixed schedule works for everyone, or if we can detect when someone is truly in flow.
           </p>
           <span class="research-card-link">Read more →</span>
+          <div class="card-tooltip">learn more</div>
         </a>
 
         <!-- Research Card 4 -->
@@ -386,6 +659,7 @@
             We bias our perception without realizing it. I ran experiments to see if CLIP does the same thing, testing whether vision models experience bistable perception like humans do.
           </p>
           <span class="research-card-link">Read more →</span>
+          <div class="card-tooltip">learn more</div>
         </a>
 
         <!-- Research Card 5 -->
@@ -396,6 +670,7 @@
             Can a character-level RNN learn sarcasm? I trained three architectures on The Onion to find out, comparing vanilla RNN, LSTM, and GRU performance on context-dependent irony.
           </p>
           <span class="research-card-link">Read more →</span>
+          <div class="card-tooltip">learn more</div>
         </a>
 
         <!-- Research Card 6 -->
@@ -406,9 +681,204 @@
             Understanding multiscale neural structure by implementing the ICG algorithm from Munn et al. (2024). How do neurons look uncorrelated individually but coordinated as populations?
           </p>
           <span class="research-card-link">Read more →</span>
+          <div class="card-tooltip">learn more</div>
         </a>
       </div>
     </div>
   </section>
+
+  <!-- About Section -->
+  <section id="about" class="about-section">
+    <div class="about-container">
+      <h2 class="section-title">About <span class="highlight">me</span></h2>
+
+      <div class="about-content">
+        <div class="headshot-container">
+          <img src="/headshot.png" alt="Seema Rida headshot" />
+          <div class="headshot-tooltip">hey!</div>
+        </div>
+
+        <div class="about-text">
+          <p>
+            I'm a researcher interested in wearable tech, physiology, and behavior. I just graduated from UC San Diego with a B.S. in Cognitive Science (Machine Learning & Neural Computation) and a minor in Computer Science.
+          </p>
+          <p>
+            Understanding how the brain and body work has always been more than academic for me, it's personal. Learning how my own brain works is part of what pulls me toward neurotech and wearables in the first place. Other than my love for research, I enjoy photography, learning and listening to new music, and thrifting!
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section id="experience" class="experience-section">
+    <div class="experience-container">
+      <div class="experience-columns">
+        <!-- Experience Column -->
+        <div class="experience-column">
+          <h3>Experience</h3>
+          <div class="experience-list">
+            <div class="experience-item">
+              <div class="experience-logo">
+                <img src="/logos/ucsd.png" alt="UCSD" />
+              </div>
+              <div class="experience-content">
+                <div class="experience-title">Undergraduate Researcher</div>
+                <div class="experience-org">Chiba Lab · UCSD</div>
+              </div>
+            </div>
+
+            <div class="experience-item">
+              <div class="experience-logo">
+                <img src="/logos/urh.png" alt="URH" />
+              </div>
+              <div class="experience-content">
+                <div class="experience-title">UC Scholar</div>
+                <div class="experience-org">Undergraduate Research Hub</div>
+              </div>
+            </div>
+
+            <div class="experience-item">
+              <div class="experience-logo">
+                <img src="/logos/abwaab.png" alt="Abwaab" />
+              </div>
+              <div class="experience-content">
+                <div class="experience-title">Data Science Intern</div>
+                <div class="experience-org">Abwaab</div>
+              </div>
+            </div>
+
+            <div class="experience-item">
+              <div class="experience-logo">
+                <img src="/logos/ira.png" alt="IRA" />
+              </div>
+              <div class="experience-content">
+                <div class="experience-title">Robotics Instructor</div>
+                <div class="experience-org">International Robotics Academy</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Leadership & Teaching Column -->
+        <div class="experience-column">
+          <h3>Leadership & Teaching</h3>
+          <div class="experience-list">
+            <div class="experience-item">
+              <div class="experience-logo">
+                <img src="/logos/tps.png" alt="TPS" />
+              </div>
+              <div class="experience-content">
+                <div class="experience-title">Co-President</div>
+                <div class="experience-org">Tritons Prosthetic Society</div>
+                <div class="experience-date">May 2025 – Jun 2026</div>
+                <div class="experience-description">Lead a student org focused on building prosthetics and teaching members the fundamentals of prosthetic design.</div>
+              </div>
+            </div>
+
+            <div class="experience-item">
+              <div class="experience-logo">
+                <img src="/logos/ucsd.png" alt="UCSD" />
+              </div>
+              <div class="experience-content">
+                <div class="experience-title">Teaching Assistant</div>
+                <div class="experience-org">Neural Signal Processing (COGS 118C)</div>
+                <div class="experience-date">Jan 2026 – Jun 2026</div>
+                <div class="experience-description">Neural Signal Processing with Prof. Eran Mukamel. I hosted office hours, graded coding assignments, and met with students for project support.</div>
+              </div>
+            </div>
+
+            <div class="experience-item">
+              <div class="experience-logo">
+                <img src="/logos/cssa.png" alt="CSSA" />
+              </div>
+              <div class="experience-content">
+                <div class="experience-title">Peer Mentor</div>
+                <div class="experience-org">Cognitive Science Student Association</div>
+                <div class="experience-date">Nov 2022 – Jun 2026</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Custom cursor follower
+    const cursor = document.querySelector('.cursor');
+
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    // Navigation bar show/hide on scroll
+    const nav = document.querySelector('nav');
+    let lastScrollTop = 0;
+    let scrollThreshold = 100; // Minimum scroll distance to trigger hide/show
+
+    window.addEventListener('scroll', () => {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (Math.abs(scrollTop - lastScrollTop) > scrollThreshold) {
+        if (scrollTop > lastScrollTop && scrollTop > 200) {
+          // Scrolling down & past threshold
+          nav.classList.add('hidden');
+        } else {
+          // Scrolling up
+          nav.classList.remove('hidden');
+        }
+        lastScrollTop = scrollTop;
+      }
+    });
+
+    // Image tooltip follower
+    const imageContainer = document.querySelector('.image-container');
+    const tooltip = document.querySelector('.image-tooltip');
+
+    imageContainer.addEventListener('mousemove', (e) => {
+      const rect = imageContainer.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      tooltip.style.left = x + 'px';
+      tooltip.style.top = y + 'px';
+      tooltip.style.transform = 'translate(-50%, -50%)';
+    });
+
+    // Research card tooltips follower
+    const researchCards = document.querySelectorAll('.research-card');
+
+    researchCards.forEach(card => {
+      const cardTooltip = card.querySelector('.card-tooltip');
+
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        cardTooltip.style.left = x + 'px';
+        cardTooltip.style.top = y + 'px';
+        cardTooltip.style.transform = 'translate(-50%, -50%)';
+      });
+    });
+
+    // Headshot tooltip follower
+    const headshotContainer = document.querySelector('.headshot-container');
+    const headshotTooltip = document.querySelector('.headshot-tooltip');
+
+    if (headshotContainer && headshotTooltip) {
+      headshotContainer.addEventListener('mousemove', (e) => {
+        const rect = headshotContainer.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+
+        headshotTooltip.style.left = x + 'px';
+        headshotTooltip.style.top = y + 'px';
+        headshotTooltip.style.transform = 'translate(-50%, -50%)';
+      });
+    }
+  </script>
 </body>
 </html>
