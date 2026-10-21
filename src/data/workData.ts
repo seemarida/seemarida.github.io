@@ -27,6 +27,17 @@ export const projects: Project[] = [
     thumbnail: '/emotibit.jpeg',
     resources: [
       {
+        type: 'paper',
+        label: 'honors_thesis.pdf',
+        href: '/projects/honors_thesis.pdf'
+      },
+      {
+        type: 'poster',
+        label: 'honors_thesis_poster.pptx.jpg',
+        href: '/projects/honors_thesis_poster.pptx.jpg',
+        thumbnail: '/projects/honors_thesis_poster.pptx.jpg'
+      },
+      {
         type: 'photos',
         label: 'sensor diagram (vendor)',
         href: '/emotibit.jpeg',
@@ -47,7 +58,14 @@ export const projects: Project[] = [
     category: 'wearables',
     date: 'January 2026 – Present',
     description: 'Investigating whether wearable biosensors work equally well across skin tones, and what that means for the future of inclusive biosensing.',
-    resources: []
+    resources: [
+      {
+        type: 'poster',
+        label: 'neurotech_poster.png',
+        href: '/projects/neurotech_poster.png',
+        thumbnail: '/projects/neurotech_poster.png'
+      }
+    ]
   },
   {
     slug: 'eeg-attention',
