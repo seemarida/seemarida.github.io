@@ -86,7 +86,6 @@ import RetroWindow from '../components/RetroWindow.astro';
     .hero-wrapper {
       display: flex;
       flex-direction: column;
-      align-items: center;
       gap: 2rem;
       width: 100%;
     }
@@ -94,25 +93,27 @@ import RetroWindow from '../components/RetroWindow.astro';
     .hero-section {
       display: flex;
       align-items: flex-start;
-      justify-content: center;
-      gap: 51px;
+      gap: 2rem;
       width: 100%;
-      position: relative;
     }
 
     .left-section {
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
+      gap: 1rem;
+      flex-shrink: 0;
     }
 
-    .greeting {
-      font-family: 'Nanum Pen Script', cursive;
-      font-size: 32px;
-      margin-bottom: 1rem;
-      color: #1C1917;
-      align-self: center;
+    .image-panel {
+      background: radial-gradient(circle, rgba(28, 25, 23, 0.02) 1px, transparent 1px);
+      background-size: 12px 12px;
+      padding: 1.5rem;
+      border: 2px solid #E7E3DC;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
     }
 
     .image-container {
@@ -127,9 +128,10 @@ import RetroWindow from '../components/RetroWindow.astro';
     }
 
     .image-container img {
-      width: 195px;
-      height: 252px;
+      width: 180px;
+      height: 232px;
       object-fit: cover;
+      display: block;
     }
 
     @keyframes levitate {
@@ -137,58 +139,183 @@ import RetroWindow from '../components/RetroWindow.astro';
         transform: translateY(0);
       }
       50% {
-        transform: translateY(-10px);
+        transform: translateY(-8px);
       }
+    }
+
+    .speech-bubble {
+      position: relative;
+      background: #FFFFFF;
+      border: 2px solid #1C1917;
+      box-shadow: 3px 3px 0 #1C1917;
+      padding: 0.5rem 1rem;
+      font-family: 'VT323', monospace;
+      font-size: 1.125rem;
+      color: #1C1917;
+      letter-spacing: 0.05em;
+    }
+
+    .speech-bubble::before {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-bottom: 8px solid #1C1917;
+    }
+
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-bottom: 6px solid #FFFFFF;
     }
 
     .right-section {
       display: flex;
       flex-direction: column;
-      justify-content: flex-start;
+      gap: 1.5rem;
+      flex: 1;
     }
 
-    .subtitle {
-      font-family: 'Nanum Pen Script', cursive;
-      font-size: 32px;
+    .intro-line {
+      font-family: 'VT323', monospace;
+      font-size: 1.125rem;
       color: #1C1917;
-      margin-bottom: 0;
+      letter-spacing: 0.05em;
     }
 
-    .subtitle .highlight {
-      color: #6FAB84;
+    .intro-line .highlight {
+      background: #6FAB84;
+      color: #F8F6F4;
+      padding: 0 0.25rem;
     }
 
     .main-title {
-      font-family: 'Libre Baskerville', serif;
-      font-weight: 400;
-      line-height: 1;
+      font-family: 'Pixelify Sans', cursive;
+      font-weight: 700;
+      line-height: 1.1;
       color: #1C1917;
-      text-align: left;
-      margin-top: 35px;
     }
 
     .main-title .sensors {
-      font-size: 75px;
-      margin-bottom: 27px;
+      font-size: 3.5rem;
     }
 
     .main-title .signals {
-      font-size: 55px;
-      margin-bottom: 27px;
+      font-size: 2.75rem;
     }
 
     .main-title .brain {
-      font-size: 32px;
+      font-size: 1.75rem;
+      display: inline;
+    }
+
+    .blinking-cursor {
+      display: inline-block;
+      width: 0.75rem;
+      height: 1.75rem;
+      background: #1C1917;
+      margin-left: 0.25rem;
+      vertical-align: text-bottom;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .blinking-cursor {
+        animation: blink 1s steps(2) infinite;
+      }
+    }
+
+    @keyframes blink {
+      50% {
+        opacity: 0;
+      }
     }
 
     .bio {
+      font-family: 'VT323', monospace;
+      font-size: 1.125rem;
+      color: #1C1917;
+      line-height: 1.6;
+      letter-spacing: 0.05em;
+    }
+
+    .cta-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .cta-text {
+      font-family: 'VT323', monospace;
+      font-size: 1.125rem;
+      color: #1C1917;
+      letter-spacing: 0.05em;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .retro-btn {
+      font-family: 'VT323', monospace;
       font-size: 1rem;
-      font-family: 'Inter', sans-serif;
-      font-weight: 400;
-      color: #4B5563;
-      line-height: 1.7;
-      max-width: 750px;
-      text-align: center;
+      padding: 0.5rem 1rem;
+      background: #F8F6F4;
+      border: 2px solid #1C1917;
+      box-shadow: 4px 4px 0 #1C1917;
+      color: #1C1917;
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: none;
+      display: inline-block;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .retro-btn:hover {
+        background: #6FAB84;
+        animation: buttonPress 0.1s steps(1);
+      }
+
+      .retro-btn:active {
+        transform: translate(2px, 2px);
+        box-shadow: 2px 2px 0 #1C1917;
+      }
+    }
+
+    .retro-btn:hover {
+      background: #6FAB84;
+    }
+
+    .retro-btn:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 #1C1917;
+    }
+
+    .retro-btn:focus {
+      outline: none;
+      background: #1C1917;
+      color: #F8F6F4;
+    }
+
+    @keyframes buttonPress {
+      to {
+        transform: translate(2px, 2px);
+        box-shadow: 2px 2px 0 #1C1917;
+      }
     }
 
     @media (max-width: 768px) {
@@ -213,23 +340,32 @@ import RetroWindow from '../components/RetroWindow.astro';
 
       .hero-section {
         flex-direction: column;
-        gap: 2rem;
+        gap: 1.5rem;
         align-items: center;
       }
 
       .main-title .sensors {
-        font-size: 50px;
+        font-size: 2.5rem;
       }
 
       .main-title .signals {
-        font-size: 40px;
+        font-size: 2rem;
       }
 
       .main-title .brain {
-        font-size: 24px;
+        font-size: 1.5rem;
       }
 
-      .bio {
+      .blinking-cursor {
+        width: 0.5rem;
+        height: 1.5rem;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+      }
+
+      .retro-btn {
         text-align: center;
       }
     }
@@ -278,30 +414,41 @@ import RetroWindow from '../components/RetroWindow.astro';
     <RetroWindow title="welcome.exe" backLabel="">
       <div class="hero-wrapper">
         <div class="hero-section">
-          <!-- Left Section: Greeting + Image -->
+          <!-- Left Section: Image with Speech Bubble -->
           <div class="left-section">
-            <div class="greeting">Hi. I'm Seema</div>
-            <div class="image-container">
-              <img src="/home_drawing.jpg" alt="Seema's illustration" />
+            <div class="image-panel">
+              <div class="image-container">
+                <img src="/home_drawing.jpg" alt="Seema's illustration" />
+              </div>
+              <div class="speech-bubble">hi, i'm seema!</div>
             </div>
           </div>
 
-          <!-- Right Section: Title -->
+          <!-- Right Section: Content -->
           <div class="right-section">
-            <div class="subtitle">
-              <span class="highlight">CogSci researcher</span> exploring
+            <div class="intro-line">
+              <span class="highlight">cogSci researcher</span> exploring
             </div>
+
             <div class="main-title">
               <div class="sensors">Sensors,</div>
               <div class="signals">Signals,</div>
-              <div class="brain">& the Brain</div>
+              <div class="brain">& the Brain<span class="blinking-cursor" aria-hidden="true"></span></div>
+            </div>
+
+            <div class="bio">
+              I'm a project research engineer at Stanford working on neuromodulation and bioelectronics. Originally from Amman, now in the Bay Area.
+            </div>
+
+            <div class="cta-section">
+              <div class="cta-text">welcome to my website! click the icons on the left, or start here:</div>
+              <div class="cta-buttons">
+                <a href="/projects" class="retro-btn">browse projects</a>
+                <a href="/about" class="retro-btn">about me</a>
+                <a href="/resume" class="retro-btn">resume</a>
+              </div>
             </div>
           </div>
-        </div>
-
-        <!-- Bio Section -->
-        <div class="bio">
-          I build technology to understand physiology and behavior. Originally from Amman, now in the Bay Area working on neuromodulation and bioelectronics at Stanford.
         </div>
       </div>
     </RetroWindow>
