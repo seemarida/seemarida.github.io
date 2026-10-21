@@ -49,46 +49,45 @@ const { title = "Seema Rida", description = "CogSci researcher exploring sensors
     /* Navigation Bar */
     nav {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
-      padding: 2rem 3rem;
-      gap: 6rem;
+      padding: 0.5rem 2rem;
       position: sticky;
       top: 0;
       background: #F8F6F4;
+      border-bottom: 2px solid #1C1917;
       z-index: 1000;
-      transition: transform 0.3s ease;
     }
 
-    nav.hidden {
-      transform: translateY(-100%);
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
     }
 
-    nav a {
+    .nav-left a {
       text-decoration: none;
       color: #1C1917;
       font-size: 1rem;
-      font-weight: 300;
-      font-family: 'Inter', sans-serif;
-      transition: color 0.3s ease;
+      font-family: 'VT323', monospace;
+      letter-spacing: 0.05em;
     }
 
-    nav a:hover {
+    .nav-left a:hover {
       color: #6FAB84;
     }
 
-    nav a:focus {
+    .nav-left a:focus {
       outline: 2px solid #6FAB84;
       outline-offset: 4px;
     }
 
     .logo {
       font-family: 'Nanum Pen Script', cursive;
-      font-size: 2rem;
+      font-size: 1.5rem;
       color: #6FAB84;
       font-weight: 400;
       display: inline-block;
-      position: relative;
       text-decoration: none;
       cursor: pointer;
     }
@@ -96,10 +95,6 @@ const { title = "Seema Rida", description = "CogSci researcher exploring sensors
     .logo span {
       display: inline-block;
       transition: transform 0.3s ease;
-      font-family: 'Nanum Pen Script', cursive;
-      font-size: 2rem;
-      color: #6FAB84;
-      font-weight: 400;
     }
 
     .logo:hover .logo-s {
@@ -110,11 +105,28 @@ const { title = "Seema Rida", description = "CogSci researcher exploring sensors
       transform: translate(3px, 3px);
     }
 
+    .clock {
+      font-family: 'VT323', monospace;
+      font-size: 1rem;
+      color: #1C1917;
+      letter-spacing: 0.05em;
+    }
+
     @media (max-width: 768px) {
       nav {
-        flex-wrap: wrap;
-        gap: 1.5rem;
-        padding: 1.5rem 1rem;
+        padding: 0.5rem 1rem;
+      }
+
+      .nav-left {
+        gap: 1rem;
+      }
+
+      .logo {
+        font-size: 1.25rem;
+      }
+
+      .clock {
+        font-size: 0.875rem;
       }
     }
   </style>
@@ -125,12 +137,15 @@ const { title = "Seema Rida", description = "CogSci researcher exploring sensors
 
   <!-- Navigation -->
   <nav>
-    <a href="/work">work</a>
-    <a href="/about">about</a>
-    <a href="/" class="logo"><span class="logo-s">S</span><span class="logo-r">R</span></a>
-    <!-- Future: Gallery and Contact pages -->
-    <!-- <a href="/gallery">gallery</a> -->
-    <!-- <a href="/contact">contact</a> -->
+    <div class="nav-left">
+      <a href="/" class="logo"><span class="logo-s">S</span><span class="logo-r">R</span></a>
+      <a href="/work">work</a>
+      <a href="/about">about</a>
+      <!-- Future: Gallery and Contact pages -->
+      <!-- <a href="/gallery">gallery</a> -->
+      <!-- <a href="/contact">contact</a> -->
+    </div>
+    <div class="clock" aria-hidden="true"></div>
   </nav>
 
   <slot />
@@ -144,23 +159,18 @@ const { title = "Seema Rida", description = "CogSci researcher exploring sensors
       cursor.style.top = e.clientY + 'px';
     });
 
-    // Navigation bar show/hide on scroll
-    const nav = document.querySelector('nav');
-    let lastScrollTop = 0;
-    let scrollThreshold = 100;
+    // Live clock
+    const clockElement = document.querySelector('.clock');
 
-    window.addEventListener('scroll', () => {
-      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      clockElement.textContent = `${hours}:${minutes}`;
+    }
 
-      if (Math.abs(scrollTop - lastScrollTop) > scrollThreshold) {
-        if (scrollTop > lastScrollTop && scrollTop > 200) {
-          nav.classList.add('hidden');
-        } else {
-          nav.classList.remove('hidden');
-        }
-        lastScrollTop = scrollTop;
-      }
-    });
+    updateClock();
+    setInterval(updateClock, 60000); // Update every minute
   </script>
 </body>
 </html>
