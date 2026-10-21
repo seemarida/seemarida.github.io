@@ -2,6 +2,7 @@
 import { footerSocialLinks } from '../data/siteConfig';
 
 const { title = "Seema Rida", description = "CogSci researcher exploring sensors, signals, & the brain" } = Astro.props;
+const currentPath = Astro.url.pathname;
 ---
 
 <!DOCTYPE html>
@@ -85,15 +86,22 @@ const { title = "Seema Rida", description = "CogSci researcher exploring sensors
       font-size: 1rem;
       font-family: 'VT323', monospace;
       letter-spacing: 0.05em;
+      padding: 0.25rem 0.5rem;
+      transition: none;
     }
 
-    .nav-left a:hover {
+    .nav-left a:not(.logo):hover {
       color: #6FAB84;
     }
 
-    .nav-left a:focus {
+    .nav-left a:not(.logo):focus {
       outline: 2px solid #6FAB84;
       outline-offset: 4px;
+    }
+
+    .nav-left a.current {
+      background: #1C1917;
+      color: #F8F6F4;
     }
 
     .logo {
@@ -104,11 +112,22 @@ const { title = "Seema Rida", description = "CogSci researcher exploring sensors
       display: inline-block;
       text-decoration: none;
       cursor: pointer;
+      padding: 0;
     }
 
     .logo span {
       display: inline-block;
       transition: transform 0.3s ease;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .logo:hover .logo-s {
+        transform: translate(-3px, -3px);
+      }
+
+      .logo:hover .logo-r {
+        transform: translate(3px, 3px);
+      }
     }
 
     .logo:hover .logo-s {
@@ -202,8 +221,8 @@ const { title = "Seema Rida", description = "CogSci researcher exploring sensors
   <nav>
     <div class="nav-left">
       <a href="/" class="logo"><span class="logo-s">S</span><span class="logo-r">R</span></a>
-      <a href="/work">work</a>
-      <a href="/about">about</a>
+      <a href="/work" class={currentPath.startsWith('/work') ? 'current' : ''}>work</a>
+      <a href="/about" class={currentPath.startsWith('/about') ? 'current' : ''}>about</a>
       <!-- Future: Gallery and Contact pages -->
       <!-- <a href="/gallery">gallery</a> -->
       <!-- <a href="/contact">contact</a> -->
