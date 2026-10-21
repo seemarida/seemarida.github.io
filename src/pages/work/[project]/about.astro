@@ -1,6 +1,4 @@
 ---
-import SiteLayout from '../../../layouts/SiteLayout.astro';
-import RetroWindow from '../../../components/RetroWindow.astro';
 import { projects } from '../../../data/workData';
 
 export async function getStaticPaths() {
@@ -25,55 +23,110 @@ const oldResearchMapping = {
 const oldPath = oldResearchMapping[project.slug];
 ---
 
-<SiteLayout title={`${project.label} | Seema Rida`}>
-  <main>
-    <RetroWindow
-      title={`work / ${project.slug} / about.txt`}
-      backLink={`/work/${project.slug}`}
-      backLabel="close"
-    >
-      <div class="text-content">
-        {oldPath && (
-          <iframe src={`/research/${oldPath}`} class="content-frame"></iframe>
-        )}
-      </div>
-    </RetroWindow>
-  </main>
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{project.label} | Seema Rida</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
-    main {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-      min-height: calc(100vh - 200px);
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    .text-content {
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #E7E3DC;
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    .retro-window {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       background: #F8F6F4;
       border: 2px solid #1C1917;
-      padding: 2rem;
-      min-height: 400px;
-      font-family: 'Inter', sans-serif;
-      font-size: 1rem;
-      line-height: 1.6;
+      box-shadow: 4px 4px 0 #1C1917;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .title-bar {
+      background: #6FAB84;
+      border-bottom: 2px solid #1C1917;
+      padding: 0.5rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .window-title {
+      font-family: 'VT323', monospace;
+      font-size: 1.25rem;
+      color: #F8F6F4;
+      letter-spacing: 0.05em;
+    }
+
+    .close-btn {
+      font-family: 'VT323', monospace;
+      font-size: 1.125rem;
+      background: #F8F6F4;
+      border: 2px solid #1C1917;
+      padding: 0.25rem 1rem;
+      cursor: pointer;
+      text-decoration: none;
       color: #1C1917;
+      letter-spacing: 0.05em;
+      transition: none;
+      min-width: 80px;
+      text-align: center;
+    }
+
+    .close-btn:hover,
+    .close-btn:focus {
+      background: #1C1917;
+      color: #F8F6F4;
+      outline: none;
     }
 
     .content-frame {
+      flex: 1;
       width: 100%;
-      min-height: 600px;
       border: none;
       background: #FAF8F5;
+      display: block;
     }
 
     @media (max-width: 768px) {
-      main {
-        padding: 3rem 1rem;
+      .window-title {
+        font-size: 1rem;
       }
 
-      .text-content {
-        padding: 1.5rem;
+      .close-btn {
+        font-size: 1rem;
+        padding: 0.25rem 0.75rem;
+        min-width: 70px;
       }
     }
   </style>
-</SiteLayout>
+</head>
+<body>
+  <div class="retro-window">
+    <div class="title-bar">
+      <span class="window-title">work / {project.slug} / about.txt</span>
+      <a href={`/work/${project.slug}`} class="close-btn">close</a>
+    </div>
+    {oldPath && (
+      <iframe src={`/research/${oldPath}`} class="content-frame"></iframe>
+    )}
+  </div>
+</body>
+</html>
