@@ -1,0 +1,132 @@
+---
+import { projects } from '../../../data/workData';
+
+export async function getStaticPaths() {
+  return projects.map(project => ({
+    params: { project: project.slug },
+    props: { project }
+  }));
+}
+
+const { project } = Astro.props;
+
+// Map to old research pages
+const oldResearchMapping = {
+  'children-movement': 'biosensor-movement',
+  'ppg-skin-tones': 'ppg-skin-tone',
+  'eeg-attention': 'eeg-attention',
+  'clip-illusions': 'optical-illusions-clip',
+  'rnn-sarcasm': 'sarcastic-headlines',
+  'icg-neural-correlations': 'icg-neural-correlations'
+};
+
+const oldPath = oldResearchMapping[project.slug];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{project.label} | Seema Rida</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #E7E3DC;
+      overflow: hidden;
+      height: 100vh;
+    }
+
+    .retro-window {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: #F8F6F4;
+      border: 2px solid #1C1917;
+      box-shadow: 4px 4px 0 #1C1917;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .title-bar {
+      background: #6FAB84;
+      border-bottom: 2px solid #1C1917;
+      padding: 0.5rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .window-title {
+      font-family: 'VT323', monospace;
+      font-size: 1.25rem;
+      color: #F8F6F4;
+      letter-spacing: 0.05em;
+    }
+
+    .close-btn {
+      font-family: 'VT323', monospace;
+      font-size: 1.125rem;
+      background: #F8F6F4;
+      border: 2px solid #1C1917;
+      padding: 0.25rem 1rem;
+      cursor: pointer;
+      text-decoration: none;
+      color: #1C1917;
+      letter-spacing: 0.05em;
+      transition: none;
+      min-width: 80px;
+      text-align: center;
+    }
+
+    .close-btn:hover,
+    .close-btn:focus {
+      background: #1C1917;
+      color: #F8F6F4;
+      outline: none;
+    }
+
+    .content-frame {
+      flex: 1;
+      width: 100%;
+      border: none;
+      background: #FAF8F5;
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .window-title {
+        font-size: 1rem;
+      }
+
+      .close-btn {
+        font-size: 1rem;
+        padding: 0.25rem 0.75rem;
+        min-width: 70px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="retro-window">
+    <div class="title-bar">
+      <span class="window-title">projects / {project.slug} / about.txt</span>
+      <a href={`/projects/${project.slug}`} class="close-btn">close</a>
+    </div>
+    {oldPath && (
+      <iframe src={`/research/${oldPath}`} class="content-frame"></iframe>
+    )}
+  </div>
+</body>
+</html>
