@@ -1,4 +1,6 @@
 ---
+import { footerSocialLinks } from '../data/siteConfig';
+
 const { title = "Seema Rida", description = "CogSci researcher exploring sensors, signals, & the brain" } = Astro.props;
 ---
 
@@ -129,6 +131,55 @@ const { title = "Seema Rida", description = "CogSci researcher exploring sensors
         font-size: 0.875rem;
       }
     }
+
+    /* Footer */
+    footer {
+      border-top: 2px solid #1C1917;
+      background: #F8F6F4;
+      padding: 0.5rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: 'VT323', monospace;
+      font-size: 1rem;
+      color: #1C1917;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: #1C1917;
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: #6FAB84;
+    }
+
+    .footer-links a:focus {
+      outline: 2px solid #6FAB84;
+      outline-offset: 4px;
+    }
+
+    @media (max-width: 768px) {
+      footer {
+        padding: 0.5rem 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .footer-links {
+        gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
   </style>
 </head>
 <body>
@@ -149,6 +200,20 @@ const { title = "Seema Rida", description = "CogSci researcher exploring sensors
   </nav>
 
   <slot />
+
+  <!-- Footer -->
+  <footer>
+    <span>© 2026 seema rida</span>
+    <ul class="footer-links">
+      {footerSocialLinks.map(link => (
+        <li>
+          <a href={link.href} target={link.name !== 'Email' ? '_blank' : undefined} rel={link.name !== 'Email' ? 'noopener noreferrer' : undefined}>
+            {link.name.toLowerCase()}
+          </a>
+        </li>
+      ))}
+    </ul>
+  </footer>
 
   <script>
     // Custom cursor follower
