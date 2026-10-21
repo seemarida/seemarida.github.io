@@ -33,6 +33,12 @@ export const projects: Project[] = [
         thumbnail: '/emotibit.jpeg'
       },
       {
+        type: 'photos',
+        label: 'thesis_photo.png',
+        href: '/thesis_photo.png',
+        thumbnail: '/thesis_photo.png'
+      },
+      {
         type: 'demo',
         label: 'biosensor_monitor.html',
         href: '/projects/biosensor-monitor.html'
@@ -46,7 +52,6 @@ export const projects: Project[] = [
     category: 'wearables',
     date: 'January 2026 – Present',
     description: 'Investigating whether wearable biosensors work equally well across skin tones, and what that means for the future of inclusive biosensing.',
-    thumbnail: '/thesis_photo.png',
     resources: []
   },
   {
@@ -58,6 +63,12 @@ export const projects: Project[] = [
     description: 'Real-world biosensor data is messy. I built a pipeline to make it usable.',
     thumbnail: '/biosignal-pipeline.png',
     resources: [
+      {
+        type: 'photos',
+        label: 'biosignal-pipeline.png',
+        href: '/biosignal-pipeline.png',
+        thumbnail: '/biosignal-pipeline.png'
+      },
       {
         type: 'demo',
         label: 'biosignal_demo.html',
@@ -75,9 +86,14 @@ export const projects: Project[] = [
     thumbnail: '/attention.png',
     resources: [
       {
-        type: 'paper',
+        type: 'slides',
         label: 'presentation.pdf',
         href: '/projects/cogs189_final_project.pdf'
+      },
+      {
+        type: 'code',
+        label: 'code',
+        href: 'https://github.com/seemarida/cogs_189_project'
       },
       {
         type: 'demo',
@@ -114,9 +130,9 @@ export const projects: Project[] = [
     thumbnail: '/optical-illusions-clip.png',
     resources: [
       {
-        type: 'paper',
-        label: 'cogs_185_final_report.pdf',
-        href: '/projects/cogs_185_final_report.pdf'
+        type: 'code',
+        label: 'code',
+        href: 'https://github.com/seemarida/COGS118B_FinalProject_Team21'
       },
       {
         type: 'demo',
@@ -127,12 +143,6 @@ export const projects: Project[] = [
         type: 'demo',
         label: 'clip_rabbit_duck.html',
         href: '/projects/clip_rabbit_duck.html'
-      },
-      {
-        type: 'photos',
-        label: 'face.png',
-        href: '/face.png',
-        thumbnail: '/face.png'
       }
     ]
   },
@@ -144,6 +154,16 @@ export const projects: Project[] = [
     date: 'September 2024 – December 2024',
     description: 'Can a character-level RNN learn sarcasm? I trained three architectures on The Onion to find out, comparing vanilla RNN, LSTM, and GRU performance on context-dependent irony.',
     resources: [
+      {
+        type: 'paper',
+        label: 'report.pdf',
+        href: '/projects/cogs_185_final_report.pdf'
+      },
+      {
+        type: 'code',
+        label: 'code',
+        href: 'https://github.com/seemarida/cogs185_final_project'
+      },
       {
         type: 'demo',
         label: 'sarcasm_demo.html',
@@ -158,6 +178,12 @@ export const projects: Project[] = [
     category: 'computational',
     date: 'March 2023 – 2025',
     description: 'Understanding multiscale neural structure by implementing the ICG algorithm from Munn et al. (2024). How do neurons look uncorrelated individually but coordinated as populations?',
-    resources: []
+    resources: [
+      {
+        type: 'code',
+        label: 'code',
+        href: 'https://github.com/seemarida/zebrafishProject'
+      }
+    ]
   }
 ];
