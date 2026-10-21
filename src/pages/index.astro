@@ -149,60 +149,6 @@ import RetroWindow from '../components/RetroWindow.astro';
       flex: 1;
     }
 
-    .intro-line {
-      font-family: 'VT323', monospace;
-      font-size: 1.125rem;
-      color: #1C1917;
-      letter-spacing: 0.05em;
-    }
-
-    .intro-line .highlight {
-      background: #6FAB84;
-      color: #F8F6F4;
-      padding: 0 0.25rem;
-    }
-
-    .main-title {
-      font-family: 'Pixelify Sans', cursive;
-      font-weight: 700;
-      line-height: 1.1;
-      color: #1C1917;
-    }
-
-    .main-title .sensors {
-      font-size: 3.5rem;
-    }
-
-    .main-title .signals {
-      font-size: 2.75rem;
-    }
-
-    .main-title .brain {
-      font-size: 1.75rem;
-      display: inline;
-    }
-
-    .blinking-cursor {
-      display: inline-block;
-      width: 0.75rem;
-      height: 1.75rem;
-      background: #1C1917;
-      margin-left: 0.25rem;
-      vertical-align: text-bottom;
-    }
-
-    @media (prefers-reduced-motion: no-preference) {
-      .blinking-cursor {
-        animation: blink 1s steps(2) infinite;
-      }
-    }
-
-    @keyframes blink {
-      50% {
-        opacity: 0;
-      }
-    }
-
     .bio {
       font-family: 'VT323', monospace;
       font-size: 1.125rem;
@@ -215,13 +161,6 @@ import RetroWindow from '../components/RetroWindow.astro';
       display: flex;
       flex-direction: column;
       gap: 1rem;
-    }
-
-    .cta-text {
-      font-family: 'VT323', monospace;
-      font-size: 1.125rem;
-      color: #1C1917;
-      letter-spacing: 0.05em;
     }
 
     .cta-buttons {
@@ -305,23 +244,6 @@ import RetroWindow from '../components/RetroWindow.astro';
         align-items: center;
       }
 
-      .main-title .sensors {
-        font-size: 2.5rem;
-      }
-
-      .main-title .signals {
-        font-size: 2rem;
-      }
-
-      .main-title .brain {
-        font-size: 1.5rem;
-      }
-
-      .blinking-cursor {
-        width: 0.5rem;
-        height: 1.5rem;
-      }
-
       .cta-buttons {
         flex-direction: column;
       }
@@ -386,16 +308,6 @@ import RetroWindow from '../components/RetroWindow.astro';
 
           <!-- Right Section: Content -->
           <div class="right-section">
-            <div class="intro-line">
-              <span class="highlight">cogSci researcher</span> exploring
-            </div>
-
-            <div class="main-title">
-              <div class="sensors">Sensors,</div>
-              <div class="signals">Signals,</div>
-              <div class="brain">& the Brain<span class="blinking-cursor" aria-hidden="true"></span></div>
-            </div>
-
             <div class="bio">
               Hi, I'm Seema. Welcome to my website!
             </div>
@@ -405,7 +317,6 @@ import RetroWindow from '../components/RetroWindow.astro';
             </div>
 
             <div class="cta-section">
-              <div class="cta-text">click the icons on the left, or start here:</div>
               <div class="cta-buttons">
                 <a href="/projects" class="retro-btn">browse projects</a>
                 <a href="/about" class="retro-btn">about me</a>
