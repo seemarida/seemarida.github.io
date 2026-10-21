@@ -157,65 +157,8 @@ import RetroWindow from '../components/RetroWindow.astro';
       letter-spacing: 0.05em;
     }
 
-    .cta-section {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .cta-buttons {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .retro-btn {
-      font-family: 'VT323', monospace;
-      font-size: 1rem;
-      padding: 0.5rem 1rem;
-      background: #F8F6F4;
-      border: 2px solid #1C1917;
-      box-shadow: 4px 4px 0 #1C1917;
-      color: #1C1917;
-      text-decoration: none;
-      letter-spacing: 0.05em;
+    .welcome-icon {
       cursor: pointer;
-      transition: none;
-      display: inline-block;
-    }
-
-    @media (prefers-reduced-motion: no-preference) {
-      .retro-btn:hover {
-        background: #6FAB84;
-        animation: buttonPress 0.1s steps(1);
-      }
-
-      .retro-btn:active {
-        transform: translate(2px, 2px);
-        box-shadow: 2px 2px 0 #1C1917;
-      }
-    }
-
-    .retro-btn:hover {
-      background: #6FAB84;
-    }
-
-    .retro-btn:active {
-      transform: translate(2px, 2px);
-      box-shadow: 2px 2px 0 #1C1917;
-    }
-
-    .retro-btn:focus {
-      outline: none;
-      background: #1C1917;
-      color: #F8F6F4;
-    }
-
-    @keyframes buttonPress {
-      to {
-        transform: translate(2px, 2px);
-        box-shadow: 2px 2px 0 #1C1917;
-      }
     }
 
     @media (max-width: 768px) {
@@ -242,14 +185,6 @@ import RetroWindow from '../components/RetroWindow.astro';
         flex-direction: column;
         gap: 1.5rem;
         align-items: center;
-      }
-
-      .cta-buttons {
-        flex-direction: column;
-      }
-
-      .retro-btn {
-        text-align: center;
       }
     }
   </style>
@@ -294,39 +229,76 @@ import RetroWindow from '../components/RetroWindow.astro';
     </div>
 
     <div class="container">
-    <RetroWindow title="welcome.exe" backLabel="">
-      <div class="hero-wrapper">
-        <div class="hero-section">
-          <!-- Left Section: Image -->
-          <div class="left-section">
-            <div class="image-panel">
-              <div class="image-container">
-                <img src="/home_drawing.jpg" alt="Seema's illustration" />
+    <!-- Minimized welcome.exe icon -->
+    <div class="desktop-icon welcome-icon" id="welcomeIcon" style="display: none;">
+      <svg viewBox="0 0 80 80" class="icon-svg" aria-hidden="true">
+        <!-- Pixelated waving person -->
+        <!-- Head -->
+        <rect x="28" y="16" width="24" height="24" fill="#1C1917" />
+        <!-- Body -->
+        <rect x="32" y="40" width="16" height="20" fill="#1C1917" />
+        <!-- Left arm (down) -->
+        <rect x="24" y="44" width="8" height="12" fill="#1C1917" />
+        <!-- Right arm (waving up) -->
+        <rect x="48" y="36" width="8" height="12" fill="#1C1917" />
+        <!-- Hand waving -->
+        <rect x="52" y="32" width="8" height="4" fill="#1C1917" />
+      </svg>
+      <span class="icon-label">welcome.exe</span>
+    </div>
+
+    <!-- Welcome window -->
+    <div id="welcomeWindow">
+      <RetroWindow title="welcome.exe" backLabel="×">
+        <div class="hero-wrapper">
+          <div class="hero-section">
+            <!-- Left Section: Image -->
+            <div class="left-section">
+              <div class="image-panel">
+                <div class="image-container">
+                  <img src="/home_drawing.jpg" alt="Seema's illustration" />
+                </div>
               </div>
             </div>
-          </div>
 
-          <!-- Right Section: Content -->
-          <div class="right-section">
-            <div class="bio">
-              Hi, I'm Seema. Welcome to my website!
-            </div>
+            <!-- Right Section: Content -->
+            <div class="right-section">
+              <div class="bio">
+                Hi, I'm Seema. Welcome to my website!
+              </div>
 
-            <div class="bio">
-              I build tech to understand physiology and behavior. Originally from Amman, studied cognitive science at UC San Diego, now in the Bay Area working on neuromodulation and bioelectronics at Stanford.
-            </div>
-
-            <div class="cta-section">
-              <div class="cta-buttons">
-                <a href="/projects" class="retro-btn">browse projects</a>
-                <a href="/about" class="retro-btn">about me</a>
-                <a href="/resume" class="retro-btn">resume</a>
+              <div class="bio">
+                I build tech to understand physiology and behavior. Originally from Amman, studied cognitive science at UC San Diego, now in the Bay Area working on neuromodulation and bioelectronics at Stanford.
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </RetroWindow>
+      </RetroWindow>
     </div>
+    </div>
+
+    <script>
+      // Handle welcome.exe minimize/restore
+      const welcomeWindow = document.getElementById('welcomeWindow');
+      const welcomeIcon = document.getElementById('welcomeIcon');
+      const closeBtn = welcomeWindow?.querySelector('.close-btn');
+
+      if (closeBtn && closeBtn.getAttribute('href') !== '') {
+        closeBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          // Minimize window
+          welcomeWindow.style.display = 'none';
+          welcomeIcon.style.display = 'flex';
+        });
+      }
+
+      if (welcomeIcon) {
+        welcomeIcon.addEventListener('click', () => {
+          // Restore window
+          welcomeWindow.style.display = 'block';
+          welcomeIcon.style.display = 'none';
+        });
+      }
+    </script>
   </div>
 </SiteLayout>
