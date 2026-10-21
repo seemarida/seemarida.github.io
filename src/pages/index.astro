@@ -1,5 +1,6 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
+import RetroWindow from '../components/RetroWindow.astro';
 ---
 
 <SiteLayout>
@@ -8,11 +9,11 @@ import SiteLayout from '../layouts/SiteLayout.astro';
     .container {
       max-width: 1200px;
       margin: 0 auto;
-      padding: 1rem 2rem 4rem 2rem;
+      padding: 4rem 2rem;
       display: flex;
       justify-content: center;
       align-items: center;
-      min-height: calc(100vh - 150px);
+      min-height: calc(100vh - 200px);
     }
 
     .hero-wrapper {
@@ -32,18 +33,6 @@ import SiteLayout from '../layouts/SiteLayout.astro';
       position: relative;
     }
 
-    .hero-section::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      top: 0;
-      height: 100%;
-      width: 1px;
-      background: transparent;
-      transform: translateX(-25.5px);
-      pointer-events: none;
-    }
-
     .left-section {
       display: flex;
       flex-direction: column;
@@ -60,35 +49,20 @@ import SiteLayout from '../layouts/SiteLayout.astro';
     }
 
     .image-container {
-      animation: levitate 2s ease-in-out infinite;
       position: relative;
       display: inline-block;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .image-container {
+        animation: levitate 2s steps(4) infinite;
+      }
     }
 
     .image-container img {
       width: 195px;
       height: 252px;
       object-fit: cover;
-    }
-
-    .image-tooltip {
-      position: absolute;
-      background: rgba(229, 231, 235, 0.95);
-      color: #6B7280;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 400;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      white-space: nowrap;
-      z-index: 10;
-    }
-
-    .image-container:hover .image-tooltip {
-      opacity: 1;
     }
 
     @keyframes levitate {
@@ -170,7 +144,7 @@ import SiteLayout from '../layouts/SiteLayout.astro';
       }
 
       .container {
-        padding: 2rem 1rem;
+        padding: 3rem 1rem;
       }
 
       .bio {
@@ -181,50 +155,35 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 
   <!-- Main Content -->
   <div class="container">
-    <div class="hero-wrapper">
-      <div class="hero-section">
-        <!-- Left Section: Greeting + Image -->
-        <div class="left-section">
-          <div class="greeting">Hi. I'm Seema</div>
-          <div class="image-container">
-            <img src="/home_drawing.jpg" alt="Seema's illustration" />
-            <div class="image-tooltip">welcome :)</div>
+    <RetroWindow title="hi, i'm seema" backLabel="">
+      <div class="hero-wrapper">
+        <div class="hero-section">
+          <!-- Left Section: Greeting + Image -->
+          <div class="left-section">
+            <div class="greeting">Hi. I'm Seema</div>
+            <div class="image-container">
+              <img src="/home_drawing.jpg" alt="Seema's illustration" />
+            </div>
+          </div>
+
+          <!-- Right Section: Title -->
+          <div class="right-section">
+            <div class="subtitle">
+              <span class="highlight">CogSci researcher</span> exploring
+            </div>
+            <div class="main-title">
+              <div class="sensors">Sensors,</div>
+              <div class="signals">Signals,</div>
+              <div class="brain">& the Brain</div>
+            </div>
           </div>
         </div>
 
-        <!-- Right Section: Title -->
-        <div class="right-section">
-          <div class="subtitle">
-            <span class="highlight">CogSci researcher</span> exploring
-          </div>
-          <div class="main-title">
-            <div class="sensors">Sensors,</div>
-            <div class="signals">Signals,</div>
-            <div class="brain">& the Brain</div>
-          </div>
+        <!-- Bio Section -->
+        <div class="bio">
+          I build technology to understand physiology and behavior. Originally from Amman, now in the Bay Area working on wearable biosensing and bioelectronics research at Stanford.
         </div>
       </div>
-
-      <!-- Bio Section -->
-      <div class="bio">
-        I build technology to understand physiology and behavior. Originally from Amman, currently in San Diego studying children in classrooms using wearable biosensors at UCSD.
-      </div>
-    </div>
+    </RetroWindow>
   </div>
-
-  <script>
-    // Image tooltip follower
-    const imageContainer = document.querySelector('.image-container');
-    const tooltip = document.querySelector('.image-tooltip');
-
-    imageContainer.addEventListener('mousemove', (e) => {
-      const rect = imageContainer.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      tooltip.style.left = x + 'px';
-      tooltip.style.top = y + 'px';
-      tooltip.style.transform = 'translate(-50%, -50%)';
-    });
-  </script>
 </SiteLayout>

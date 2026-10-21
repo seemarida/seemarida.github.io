@@ -85,15 +85,20 @@ const { title, objectCount, backLink = '/work', backLabel = 'x' } = Astro.props;
     cursor: default;
   }
 
-  .close-btn:hover,
-  .close-btn:focus {
+  .close-btn:not([href=""]):hover,
+  .close-btn:not([href=""]):focus {
     background: #1C1917;
     color: #F8F6F4;
   }
 
-  .close-btn:focus {
+  .close-btn:not([href=""]):focus {
     outline: 2px solid #F8F6F4;
     outline-offset: -4px;
+  }
+
+  .close-btn[href=""] {
+    cursor: default;
+    pointer-events: none;
   }
 
   @media (prefers-reduced-motion: reduce) {
