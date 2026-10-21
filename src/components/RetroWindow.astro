@@ -4,17 +4,18 @@ interface Props {
   objectCount?: number;
   backLink?: string;
   backLabel?: string;
+  statusText?: string;
 }
 
-const { title, objectCount, backLink = '/work', backLabel = 'x' } = Astro.props;
+const { title, objectCount, backLink = '/work', backLabel = 'x', statusText } = Astro.props;
 ---
 
 <div class="retro-window">
   <div class="title-bar">
     <span class="window-title">{title}</span>
     <div class="window-controls">
-      <button class="control-btn" aria-label="decorative"></button>
-      <button class="control-btn" aria-label="decorative"></button>
+      <button class="control-btn" aria-label="decorative">−</button>
+      <button class="control-btn" aria-label="decorative">□</button>
       <a href={backLink} class="control-btn close-btn" aria-label="close window">{backLabel}</a>
     </div>
   </div>
@@ -26,6 +27,11 @@ const { title, objectCount, backLink = '/work', backLabel = 'x' } = Astro.props;
   {objectCount !== undefined && (
     <div class="status-bar">
       {objectCount} object{objectCount === 1 ? '' : 's'}
+    </div>
+  )}
+  {statusText && (
+    <div class="status-bar">
+      {statusText}
     </div>
   )}
 </div>
