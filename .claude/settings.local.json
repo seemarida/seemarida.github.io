@@ -13,7 +13,10 @@
       "Bash(curl:*)",
       "Bash(cat:*)",
       "Bash(gh workflow run:*)",
-      "Bash(gh run:*)"
+      "Bash(gh run:*)",
+      "Bash(git log:*)",
+      "WebSearch",
+      "Bash(tree:*)"
     ],
     "deny": []
   }

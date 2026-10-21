@@ -1,0 +1,198 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { workCategories } from '../../data/workData';
+---
+
+<SiteLayout title="work | Seema Rida">
+  <main>
+    <h1>work</h1>
+    <div class="folders">
+      {workCategories.map(category => (
+        <a href={`/work/${category.slug}`} class="folder-link" aria-label={`view ${category.name} projects`}>
+          <div class="folder-icon-container">
+            <svg viewBox="0 0 160 120" class="folder-icon" aria-hidden="true">
+              <!-- Folder outline -->
+              <path
+                d="M 10 30 L 60 30 L 70 40 L 150 40 L 150 110 L 10 110 Z"
+                fill="#6FAB84"
+                stroke="#1C1917"
+                stroke-width="2"
+                shape-rendering="crispEdges"
+              />
+              <!-- Tab detail -->
+              <path
+                d="M 60 30 L 70 40 L 150 40"
+                fill="none"
+                stroke="#1C1917"
+                stroke-width="2"
+                shape-rendering="crispEdges"
+              />
+              <!-- Inner fold line -->
+              <line
+                x1="10"
+                y1="45"
+                x2="150"
+                y2="45"
+                stroke="#1C1917"
+                stroke-width="1"
+                shape-rendering="crispEdges"
+              />
+            </svg>
+          </div>
+          <div class="folder-label">
+            <span class="folder-name">{category.name}</span>
+            <span class="folder-count">{category.projects.length} item{category.projects.length === 1 ? '' : 's'}</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </main>
+
+  <style>
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      min-height: calc(100vh - 200px);
+    }
+
+    h1 {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 2.5rem;
+      font-weight: 400;
+      color: #1C1917;
+      margin-bottom: 4rem;
+      text-align: center;
+    }
+
+    .folders {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 4rem;
+      flex-wrap: wrap;
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .folder-link {
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+      outline: none;
+      padding: 0.5rem;
+    }
+
+    .folder-icon-container {
+      position: relative;
+      width: 160px;
+      height: 120px;
+    }
+
+    .folder-link:hover .folder-icon-container,
+    .folder-link:focus .folder-icon-container {
+      outline: 2px dotted #1C1917;
+      outline-offset: 4px;
+    }
+
+    .folder-icon {
+      width: 100%;
+      height: 100%;
+    }
+
+    .folder-label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.125rem;
+      padding: 0.25rem 0.75rem;
+      transition: none;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .folder-link:hover .folder-label,
+      .folder-link:focus .folder-label {
+        animation: invertLabel 0.1s steps(1) forwards;
+      }
+    }
+
+    @keyframes invertLabel {
+      to {
+        background: #1C1917;
+        color: #F8F6F4;
+      }
+    }
+
+    .folder-link:hover .folder-label,
+    .folder-link:focus .folder-label {
+      background: #1C1917;
+    }
+
+    .folder-name {
+      font-family: 'VT323', monospace;
+      font-size: 1.25rem;
+      color: #1C1917;
+      text-align: center;
+      line-height: 1.2;
+      letter-spacing: 0.05em;
+    }
+
+    .folder-link:hover .folder-name,
+    .folder-link:focus .folder-name {
+      color: #F8F6F4;
+    }
+
+    .folder-count {
+      font-family: 'VT323', monospace;
+      font-size: 1rem;
+      color: #6B7280;
+      line-height: 1.2;
+      letter-spacing: 0.05em;
+    }
+
+    .folder-link:hover .folder-count,
+    .folder-link:focus .folder-count {
+      color: #E7E3DC;
+    }
+
+    .folder-link:focus {
+      outline: 2px solid #6FAB84;
+      outline-offset: 8px;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        padding: 3rem 1.5rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .folders {
+        gap: 3rem;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .folder-icon-container {
+        width: 140px;
+        height: 105px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .folders {
+        max-width: 100%;
+      }
+
+      .folder-icon-container {
+        width: 120px;
+        height: 90px;
+      }
+    }
+  </style>
+</SiteLayout>

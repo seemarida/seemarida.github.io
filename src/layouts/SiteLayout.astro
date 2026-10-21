@@ -1,0 +1,166 @@
+---
+const { title = "Seema Rida", description = "CogSci researcher exploring sensors, signals, & the brain" } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&family=Libre+Baskerville:wght@400;700&family=Inter:wght@300;400;500;600&family=VT323&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #F8F6F4;
+      color: #1C1917;
+      line-height: 1.6;
+      cursor: none;
+    }
+
+    /* Custom Cursor */
+    .cursor {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(107, 114, 128, 0.5);
+      position: fixed;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease-out;
+    }
+
+    /* Navigation Bar */
+    nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem 3rem;
+      gap: 6rem;
+      position: sticky;
+      top: 0;
+      background: #F8F6F4;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+
+    nav.hidden {
+      transform: translateY(-100%);
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #1C1917;
+      font-size: 1rem;
+      font-weight: 300;
+      font-family: 'Inter', sans-serif;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #6FAB84;
+    }
+
+    nav a:focus {
+      outline: 2px solid #6FAB84;
+      outline-offset: 4px;
+    }
+
+    .logo {
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 2rem;
+      color: #6FAB84;
+      font-weight: 400;
+      display: inline-block;
+      position: relative;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .logo span {
+      display: inline-block;
+      transition: transform 0.3s ease;
+      font-family: 'Nanum Pen Script', cursive;
+      font-size: 2rem;
+      color: #6FAB84;
+      font-weight: 400;
+    }
+
+    .logo:hover .logo-s {
+      transform: translate(-3px, -3px);
+    }
+
+    .logo:hover .logo-r {
+      transform: translate(3px, 3px);
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        padding: 1.5rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Custom Cursor -->
+  <div class="cursor"></div>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="/work">work</a>
+    <a href="/about">about</a>
+    <a href="/" class="logo"><span class="logo-s">S</span><span class="logo-r">R</span></a>
+    <!-- Future: Gallery and Contact pages -->
+    <!-- <a href="/gallery">gallery</a> -->
+    <!-- <a href="/contact">contact</a> -->
+  </nav>
+
+  <slot />
+
+  <script>
+    // Custom cursor follower
+    const cursor = document.querySelector('.cursor');
+
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+
+    // Navigation bar show/hide on scroll
+    const nav = document.querySelector('nav');
+    let lastScrollTop = 0;
+    let scrollThreshold = 100;
+
+    window.addEventListener('scroll', () => {
+      let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+      if (Math.abs(scrollTop - lastScrollTop) > scrollThreshold) {
+        if (scrollTop > lastScrollTop && scrollTop > 200) {
+          nav.classList.add('hidden');
+        } else {
+          nav.classList.remove('hidden');
+        }
+        lastScrollTop = scrollTop;
+      }
+    });
+  </script>
+</body>
+</html>

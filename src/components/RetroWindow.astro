@@ -1,0 +1,139 @@
+---
+interface Props {
+  title: string;
+  objectCount?: number;
+  backLink?: string;
+  backLabel?: string;
+}
+
+const { title, objectCount, backLink = '/work', backLabel = 'x' } = Astro.props;
+---
+
+<div class="retro-window">
+  <div class="title-bar">
+    <span class="window-title">{title}</span>
+    <div class="window-controls">
+      <button class="control-btn" aria-label="decorative"></button>
+      <button class="control-btn" aria-label="decorative"></button>
+      <a href={backLink} class="control-btn close-btn" aria-label="close window">{backLabel}</a>
+    </div>
+  </div>
+
+  <div class="window-content">
+    <slot />
+  </div>
+
+  {objectCount !== undefined && (
+    <div class="status-bar">
+      {objectCount} object{objectCount === 1 ? '' : 's'}
+    </div>
+  )}
+</div>
+
+<style>
+  .retro-window {
+    max-width: 880px;
+    margin: 0 auto;
+    background: #F8F6F4;
+    border: 2px solid #1C1917;
+    box-shadow: 4px 4px 0 #1C1917;
+  }
+
+  .title-bar {
+    background: #6FAB84;
+    border-bottom: 2px solid #1C1917;
+    padding: 0.5rem 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .window-title {
+    font-family: 'VT323', monospace;
+    font-size: 1.25rem;
+    color: #F8F6F4;
+    line-height: 1;
+    letter-spacing: 0.05em;
+  }
+
+  .window-controls {
+    display: flex;
+    gap: 0.375rem;
+    flex-shrink: 0;
+  }
+
+  .control-btn {
+    width: 18px;
+    height: 18px;
+    background: #F8F6F4;
+    border: 2px solid #1C1917;
+    padding: 0;
+    cursor: pointer;
+    font-family: 'VT323', monospace;
+    font-size: 1rem;
+    line-height: 1;
+    color: #1C1917;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: none;
+  }
+
+  .control-btn:not(.close-btn) {
+    cursor: default;
+  }
+
+  .close-btn:hover,
+  .close-btn:focus {
+    background: #1C1917;
+    color: #F8F6F4;
+  }
+
+  .close-btn:focus {
+    outline: 2px solid #F8F6F4;
+    outline-offset: -4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .control-btn {
+      transition: none;
+    }
+  }
+
+  .window-content {
+    padding: 2rem;
+    background: #F8F6F4;
+  }
+
+  .status-bar {
+    background: #E7E3DC;
+    border-top: 2px solid #1C1917;
+    padding: 0.25rem 0.75rem;
+    font-family: 'VT323', monospace;
+    font-size: 1rem;
+    color: #1C1917;
+    line-height: 1.2;
+  }
+
+  @media (max-width: 768px) {
+    .retro-window {
+      box-shadow: 3px 3px 0 #1C1917;
+    }
+
+    .window-content {
+      padding: 1.5rem 1rem;
+    }
+
+    .window-title {
+      font-size: 1.125rem;
+    }
+
+    .control-btn {
+      width: 16px;
+      height: 16px;
+      font-size: 0.875rem;
+    }
+  }
+</style>

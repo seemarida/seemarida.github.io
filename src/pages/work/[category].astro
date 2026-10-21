@@ -1,0 +1,186 @@
+---
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import RetroWindow from '../../components/RetroWindow.astro';
+import { workCategories } from '../../data/workData';
+
+export async function getStaticPaths() {
+  return workCategories.map(category => ({
+    params: { category: category.slug },
+    props: { category }
+  }));
+}
+
+const { category } = Astro.props;
+---
+
+<SiteLayout title={`${category.name} | Seema Rida`}>
+  <main>
+    <RetroWindow
+      title={category.name}
+      objectCount={category.projects.length}
+      backLink="/work"
+    >
+      <div class="projects-grid">
+        {category.projects.map(project => (
+          <a href={project.link} class="project-tile">
+            <div class="project-thumbnail">
+              {project.thumbnail ? (
+                <img src={project.thumbnail} alt={project.title} />
+              ) : (
+                <div class="thumbnail-fallback">
+                  <svg viewBox="0 0 80 80" class="fallback-pattern">
+                    <defs>
+                      <pattern id="pixel-pattern" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+                        <rect x="0" y="0" width="4" height="4" fill="#6FAB84"/>
+                        <rect x="4" y="0" width="4" height="4" fill="#F8F6F4"/>
+                        <rect x="0" y="4" width="4" height="4" fill="#F8F6F4"/>
+                        <rect x="4" y="4" width="4" height="4" fill="#6FAB84"/>
+                      </pattern>
+                    </defs>
+                    <rect width="80" height="80" fill="url(#pixel-pattern)"/>
+                  </svg>
+                </div>
+              )}
+            </div>
+            <div class="project-info">
+              <h2 class="project-title">{project.title}</h2>
+              <p class="project-date">{project.date}</p>
+              <p class="project-description">{project.description}</p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </RetroWindow>
+  </main>
+
+  <style>
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      min-height: calc(100vh - 200px);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+
+    .project-tile {
+      display: block;
+      background: #FFFFFF;
+      border: 2px solid #1C1917;
+      text-decoration: none;
+      transition: none;
+      position: relative;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .project-tile:hover {
+        animation: tileShift 0.1s steps(2) forwards;
+      }
+    }
+
+    @keyframes tileShift {
+      to {
+        box-shadow: 3px 3px 0 #1C1917;
+        transform: translate(-1px, -1px);
+      }
+    }
+
+    .project-tile:hover {
+      box-shadow: 3px 3px 0 #1C1917;
+      transform: translate(-1px, -1px);
+    }
+
+    .project-tile:focus {
+      outline: 2px solid #6FAB84;
+      outline-offset: 4px;
+    }
+
+    .project-thumbnail {
+      width: 100%;
+      height: 180px;
+      border-bottom: 2px solid #1C1917;
+      overflow: hidden;
+      background: #F8F6F4;
+    }
+
+    .project-thumbnail img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .thumbnail-fallback {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .fallback-pattern {
+      width: 80px;
+      height: 80px;
+    }
+
+    .project-info {
+      padding: 1.25rem;
+    }
+
+    .project-title {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1.125rem;
+      font-weight: 400;
+      color: #1C1917;
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .project-date {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: #6FAB84;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-description {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 300;
+      color: #6B7280;
+      line-height: 1.6;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    @media (max-width: 768px) {
+      main {
+        padding: 3rem 1rem;
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      .project-thumbnail {
+        height: 160px;
+      }
+
+      .project-info {
+        padding: 1rem;
+      }
+
+      .project-title {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</SiteLayout>
