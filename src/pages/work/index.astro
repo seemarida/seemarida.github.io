@@ -1,50 +1,50 @@
 ---
 import SiteLayout from '../../layouts/SiteLayout.astro';
-import { workCategories } from '../../data/workData';
+import { projects } from '../../data/workData';
 ---
 
 <SiteLayout title="work | Seema Rida">
   <main>
     <h1>work</h1>
-    <div class="folders">
-      {workCategories.map(category => (
-        <a href={`/work/${category.slug}`} class="folder-link" aria-label={`view ${category.name} projects`}>
-          <div class="folder-icon-container">
-            <svg viewBox="0 0 160 120" class="folder-icon" aria-hidden="true">
-              <!-- Folder outline -->
-              <path
-                d="M 10 30 L 60 30 L 70 40 L 150 40 L 150 110 L 10 110 Z"
-                fill="#6FAB84"
-                stroke="#1C1917"
-                stroke-width="2"
-                shape-rendering="crispEdges"
-              />
-              <!-- Tab detail -->
-              <path
-                d="M 60 30 L 70 40 L 150 40"
-                fill="none"
-                stroke="#1C1917"
-                stroke-width="2"
-                shape-rendering="crispEdges"
-              />
-              <!-- Inner fold line -->
-              <line
-                x1="10"
-                y1="45"
-                x2="150"
-                y2="45"
-                stroke="#1C1917"
-                stroke-width="1"
-                shape-rendering="crispEdges"
-              />
-            </svg>
-          </div>
-          <div class="folder-label">
-            <span class="folder-name">{category.name}</span>
-            <span class="folder-count">{category.projects.length} item{category.projects.length === 1 ? '' : 's'}</span>
-          </div>
-        </a>
-      ))}
+    <div class="desktop">
+      {projects.map(project => {
+        const itemCount = 1 + project.resources.length;
+        return (
+          <a href={`/work/${project.shortName}`} class="folder-link" aria-label={`view ${project.shortName} project`}>
+            <div class="folder-icon-container">
+              <svg viewBox="0 0 160 120" class="folder-icon" aria-hidden="true">
+                <path
+                  d="M 10 30 L 60 30 L 70 40 L 150 40 L 150 110 L 10 110 Z"
+                  fill="#6FAB84"
+                  stroke="#1C1917"
+                  stroke-width="2"
+                  shape-rendering="crispEdges"
+                />
+                <path
+                  d="M 60 30 L 70 40 L 150 40"
+                  fill="none"
+                  stroke="#1C1917"
+                  stroke-width="2"
+                  shape-rendering="crispEdges"
+                />
+                <line
+                  x1="10"
+                  y1="45"
+                  x2="150"
+                  y2="45"
+                  stroke="#1C1917"
+                  stroke-width="1"
+                  shape-rendering="crispEdges"
+                />
+              </svg>
+            </div>
+            <div class="folder-label">
+              <span class="folder-name">{project.shortName.replace(/_/g, ' ')}</span>
+              <span class="folder-count">{itemCount} item{itemCount === 1 ? '' : 's'}</span>
+            </div>
+          </a>
+        );
+      })}
     </div>
   </main>
 
@@ -65,14 +65,13 @@ import { workCategories } from '../../data/workData';
       text-align: center;
     }
 
-    .folders {
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 4rem;
-      flex-wrap: wrap;
-      max-width: 700px;
+    .desktop {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 3rem 2rem;
+      max-width: 900px;
       margin: 0 auto;
+      justify-content: center;
     }
 
     .folder-link {
@@ -87,8 +86,8 @@ import { workCategories } from '../../data/workData';
 
     .folder-icon-container {
       position: relative;
-      width: 160px;
-      height: 120px;
+      width: 120px;
+      height: 90px;
     }
 
     .folder-link:hover .folder-icon-container,
@@ -109,6 +108,7 @@ import { workCategories } from '../../data/workData';
       gap: 0.125rem;
       padding: 0.25rem 0.75rem;
       transition: none;
+      max-width: 100%;
     }
 
     @media (prefers-reduced-motion: no-preference) {
@@ -121,7 +121,6 @@ import { workCategories } from '../../data/workData';
     @keyframes invertLabel {
       to {
         background: #1C1917;
-        color: #F8F6F4;
       }
     }
 
@@ -132,11 +131,13 @@ import { workCategories } from '../../data/workData';
 
     .folder-name {
       font-family: 'VT323', monospace;
-      font-size: 1.25rem;
+      font-size: 1.125rem;
       color: #1C1917;
       text-align: center;
       line-height: 1.2;
       letter-spacing: 0.05em;
+      word-wrap: break-word;
+      max-width: 100%;
     }
 
     .folder-link:hover .folder-name,
@@ -146,7 +147,7 @@ import { workCategories } from '../../data/workData';
 
     .folder-count {
       font-family: 'VT323', monospace;
-      font-size: 1rem;
+      font-size: 0.9375rem;
       color: #6B7280;
       line-height: 1.2;
       letter-spacing: 0.05em;
@@ -172,26 +173,34 @@ import { workCategories } from '../../data/workData';
         margin-bottom: 3rem;
       }
 
-      .folders {
-        gap: 3rem;
-        flex-direction: column;
-        align-items: center;
+      .desktop {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+        gap: 2.5rem 1.5rem;
       }
 
       .folder-icon-container {
-        width: 140px;
-        height: 105px;
+        width: 110px;
+        height: 82.5px;
       }
     }
 
     @media (max-width: 480px) {
-      .folders {
-        max-width: 100%;
+      .desktop {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 2rem 1rem;
       }
 
       .folder-icon-container {
-        width: 120px;
-        height: 90px;
+        width: 100px;
+        height: 75px;
+      }
+
+      .folder-name {
+        font-size: 1rem;
+      }
+
+      .folder-count {
+        font-size: 0.875rem;
       }
     }
   </style>
