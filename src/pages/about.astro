@@ -1,101 +1,89 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
+import RetroWindow from '../components/RetroWindow.astro';
 ---
 
 <SiteLayout title="about | Seema Rida">
   <style>
-    .page-container {
-      max-width: 1100px;
+    main {
+      max-width: 1200px;
       margin: 0 auto;
       padding: 4rem 2rem;
+      min-height: calc(100vh - 200px);
     }
 
-    h1 {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 2.5rem;
-      font-weight: 400;
-      color: #1C1917;
-      margin-bottom: 3rem;
-      text-align: center;
-    }
-
-    /* About Section */
-    .about-content {
+    .about-layout {
       display: grid;
-      grid-template-columns: 250px 1fr;
-      gap: 4rem;
+      grid-template-columns: 200px 1fr;
+      gap: 2rem;
       align-items: start;
-      margin-bottom: 5rem;
     }
 
     .headshot-container {
       position: relative;
-      display: inline-block;
+      border: 2px solid #E7E3DC;
+      background: radial-gradient(circle, rgba(28, 25, 23, 0.02) 1px, transparent 1px);
+      background-size: 12px 12px;
+      padding: 1rem;
     }
 
     .headshot-container img {
       width: 100%;
-      border-radius: 12px;
-      border: 2px solid #E7E3DC;
+      display: block;
+      border: 2px solid #1C1917;
     }
 
-    .headshot-tooltip {
-      position: absolute;
-      background: rgba(229, 231, 235, 0.95);
-      color: #6B7280;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 400;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-      white-space: nowrap;
-      z-index: 10;
+    .content-section {
+      font-family: 'VT323', monospace;
+      font-size: 1.125rem;
+      color: #1C1917;
+      line-height: 1.6;
+      letter-spacing: 0.05em;
     }
 
-    .headshot-container:hover .headshot-tooltip {
-      opacity: 1;
-    }
-
-    .about-text {
-      font-size: 1.05rem;
-      color: #6B7280;
-      line-height: 1.8;
-    }
-
-    .about-text p {
+    .content-section p {
       margin-bottom: 1.5rem;
     }
 
-    /* Experience Section */
-    .experience-columns {
+    .sections-container {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 3rem;
+      gap: 2rem;
+      margin-top: 2rem;
+      justify-content: center;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    .experience-column h2 {
-      font-family: 'Libre Baskerville', serif;
-      font-size: 1.3rem;
-      font-weight: 600;
+    .section-column {
+      display: flex;
+      flex-direction: column;
+    }
+
+    h2 {
+      font-family: 'VT323', monospace;
+      font-size: 1.5rem;
+      font-weight: 400;
       color: #1C1917;
-      margin-bottom: 1.5rem;
+      margin: 0 0 1rem;
+      border-bottom: 2px solid #1C1917;
+      padding-bottom: 0.5rem;
     }
 
     .experience-list {
       display: flex;
       flex-direction: column;
-      gap: 1.25rem;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
     }
 
     .experience-item {
-      border-left: 2px solid #E7E3DC;
-      padding-left: 1rem;
-      transition: border-color 0.3s ease;
       display: flex;
       gap: 1rem;
+      border-left: 4px solid #E7E3DC;
+      padding-left: 1rem;
+      transition: border-color 0.2s;
     }
 
     .experience-item:hover {
@@ -103,22 +91,24 @@ import SiteLayout from '../layouts/SiteLayout.astro';
     }
 
     .experience-logo {
-      width: 40px;
-      height: 40px;
       flex-shrink: 0;
+      width: 60px;
+      height: 60px;
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #FFFFFF;
-      border-radius: 8px;
-      border: 1px solid #E7E3DC;
-      padding: 6px;
+      border: 2px solid #1C1917;
+      background: #F8F6F4;
+      padding: 0.5rem;
     }
 
     .experience-logo img {
       width: 100%;
       height: 100%;
       object-fit: contain;
+      filter: contrast(1.2);
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
     }
 
     .experience-content {
@@ -126,189 +116,173 @@ import SiteLayout from '../layouts/SiteLayout.astro';
     }
 
     .experience-title {
-      font-family: 'Inter', sans-serif;
-      font-size: 1rem;
-      font-weight: 600;
+      font-size: 1.125rem;
       color: #1C1917;
       margin-bottom: 0.25rem;
     }
 
     .experience-org {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
       color: #6B7280;
-      font-weight: 400;
       margin-bottom: 0.25rem;
     }
 
     .experience-date {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.85rem;
       color: #6FAB84;
-      font-weight: 400;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
     }
 
     .experience-description {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
-      color: #6B7280;
-      line-height: 1.6;
-      margin-top: 0.5rem;
+      color: #1C1917;
+      line-height: 1.7;
+      font-size: 1rem;
     }
 
     @media (max-width: 768px) {
-      .page-container {
-        padding: 3rem 1.5rem;
+      main {
+        padding: 3rem 1rem;
       }
 
-      h1 {
-        font-size: 2rem;
-      }
-
-      .about-content {
+      .about-layout {
         grid-template-columns: 1fr;
         gap: 2rem;
-        margin-bottom: 4rem;
       }
 
       .headshot-container {
-        max-width: 300px;
+        max-width: 200px;
         margin: 0 auto;
       }
 
-      .experience-columns {
+      .sections-container {
         grid-template-columns: 1fr;
         gap: 2rem;
+      }
+
+      .experience-logo {
+        width: 50px;
+        height: 50px;
       }
     }
   </style>
 
-  <div class="page-container">
-    <h1>about</h1>
+  <main>
+    <RetroWindow title="about me.txt" backLink="/" backLabel="×">
+      <div class="about-layout">
+        <div class="headshot-container">
+          <img src="/headshot.png" alt="Seema Rida" />
+        </div>
 
-    <!-- About Section -->
-    <div class="about-content">
-      <div class="headshot-container">
-        <img src="/headshot.png" alt="Seema Rida headshot" />
-        <div class="headshot-tooltip">hey!</div>
-      </div>
+        <div class="content-section">
+          <p>
+            I'm a researcher interested in wearable tech, physiology, and behavior. I just graduated from UC San Diego with a B.S. in Cognitive Science (Machine Learning & Neural Computation) and a minor in Computer Science, and I'm now a research engineer at Stanford, working on neuromodulation and bioelectronic applications.
+          </p>
+          <p>
+            Understanding how the brain and body work has always been more than academic for me. It's personal. Learning how my own brain works is part of what pulled me toward neuroscience and behavior in the first place. Outside of research, I enjoy photography, boxing, thrifting, and live music!
+          </p>
 
-      <div class="about-text">
-        <p>
-          I'm a researcher interested in wearable tech, physiology, and behavior. I just graduated from UC San Diego with a B.S. in Cognitive Science (Machine Learning & Neural Computation) and a minor in Computer Science.
-        </p>
-        <p>
-          Understanding how the brain and body work has always been more than academic for me, it's personal. Learning how my own brain works is part of what pulls me toward neurotech and wearables in the first place. Other than my love for research, I enjoy photography, learning and listening to new music, and thrifting!
-        </p>
-      </div>
-    </div>
+          <div class="sections-container">
+            <div class="section-column">
+              <h2>experience</h2>
+              <div class="experience-list">
+            <div class="experience-item">
+              <div class="experience-logo">
+                <img src="/logos/stanford.png" alt="Stanford" />
+              </div>
+              <div class="experience-content">
+                <div class="experience-title">Research Engineer</div>
+                <div class="experience-org">Stanford Radiology</div>
+                <div class="experience-date">Jun 2026 – Present</div>
+              </div>
+            </div>
 
-    <!-- Experience Section -->
-    <div class="experience-columns">
-      <!-- Experience Column -->
-      <div class="experience-column">
-        <h2>Experience</h2>
-        <div class="experience-list">
-          <div class="experience-item">
-            <div class="experience-logo">
-              <img src="/logos/ucsd.png" alt="UCSD" />
+            <div class="experience-item">
+              <div class="experience-logo">
+                <img src="/logos/ucsd.png" alt="UCSD" />
+              </div>
+              <div class="experience-content">
+                <div class="experience-title">Undergraduate Researcher</div>
+                <div class="experience-org">Chiba Lab · UCSD</div>
+                <div class="experience-date">Oct 2023 – Sep 2026</div>
+              </div>
             </div>
-            <div class="experience-content">
-              <div class="experience-title">Undergraduate Researcher</div>
-              <div class="experience-org">Chiba Lab · UCSD</div>
-            </div>
-          </div>
 
-          <div class="experience-item">
-            <div class="experience-logo">
-              <img src="/logos/urh.png" alt="URH" />
+            <div class="experience-item">
+              <div class="experience-logo">
+                <img src="/logos/urh.png" alt="URH" />
+              </div>
+              <div class="experience-content">
+                <div class="experience-title">UC Scholar</div>
+                <div class="experience-org">Undergraduate Research Hub</div>
+                <div class="experience-date">Jan 2025 – Jun 2026</div>
+              </div>
             </div>
-            <div class="experience-content">
-              <div class="experience-title">UC Scholar</div>
-              <div class="experience-org">Undergraduate Research Hub</div>
-            </div>
-          </div>
 
-          <div class="experience-item">
-            <div class="experience-logo">
-              <img src="/logos/abwaab.png" alt="Abwaab" />
+            <div class="experience-item">
+              <div class="experience-logo">
+                <img src="/logos/abwaab.png" alt="Abwaab" />
+              </div>
+              <div class="experience-content">
+                <div class="experience-title">Data Science Intern</div>
+                <div class="experience-org">Abwaab</div>
+                <div class="experience-date">Jun 2024 – Sep 2024</div>
+              </div>
             </div>
-            <div class="experience-content">
-              <div class="experience-title">Data Science Intern</div>
-              <div class="experience-org">Abwaab</div>
-            </div>
-          </div>
 
-          <div class="experience-item">
-            <div class="experience-logo">
-              <img src="/logos/ira.png" alt="IRA" />
+            <div class="experience-item">
+              <div class="experience-logo">
+                <img src="/logos/ira.png" alt="IRA" />
+              </div>
+              <div class="experience-content">
+                <div class="experience-title">Robotics Instructor</div>
+                <div class="experience-org">International Robotics Academy</div>
+                <div class="experience-date">Jun 2022 – Aug 2023</div>
+              </div>
             </div>
-            <div class="experience-content">
-              <div class="experience-title">Robotics Instructor</div>
-              <div class="experience-org">International Robotics Academy</div>
+              </div>
+            </div>
+
+            <div class="section-column">
+              <h2>leadership & teaching</h2>
+              <div class="experience-list">
+            <div class="experience-item">
+              <div class="experience-logo">
+                <img src="/logos/tps.png" alt="TPS" />
+              </div>
+              <div class="experience-content">
+                <div class="experience-title">Co-President</div>
+                <div class="experience-org">Tritons Prosthetic Society</div>
+                <div class="experience-date">May 2025 – Jun 2026</div>
+                <div class="experience-description">Lead a student org focused on building prosthetics and teaching members the fundamentals of prosthetic design.</div>
+              </div>
+            </div>
+
+            <div class="experience-item">
+              <div class="experience-logo">
+                <img src="/logos/ucsd.png" alt="UCSD" />
+              </div>
+              <div class="experience-content">
+                <div class="experience-title">Teaching Assistant</div>
+                <div class="experience-org">Neural Signal Processing (COGS 118C)</div>
+                <div class="experience-date">Jan 2026 – Jun 2026</div>
+                <div class="experience-description">Neural Signal Processing with Prof. Eran Mukamel. I hosted office hours, graded coding assignments, and met with students for project support.</div>
+              </div>
+            </div>
+
+            <div class="experience-item">
+              <div class="experience-logo">
+                <img src="/logos/cssa.png" alt="CSSA" />
+              </div>
+              <div class="experience-content">
+                <div class="experience-title">Peer Mentor</div>
+                <div class="experience-org">Cognitive Science Student Association</div>
+                <div class="experience-date">Nov 2022 – Jun 2026</div>
+              </div>
+            </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-      <!-- Leadership & Teaching Column -->
-      <div class="experience-column">
-        <h2>Leadership & Teaching</h2>
-        <div class="experience-list">
-          <div class="experience-item">
-            <div class="experience-logo">
-              <img src="/logos/tps.png" alt="TPS" />
-            </div>
-            <div class="experience-content">
-              <div class="experience-title">Co-President</div>
-              <div class="experience-org">Tritons Prosthetic Society</div>
-              <div class="experience-date">May 2025 – Jun 2026</div>
-              <div class="experience-description">Lead a student org focused on building prosthetics and teaching members the fundamentals of prosthetic design.</div>
-            </div>
-          </div>
-
-          <div class="experience-item">
-            <div class="experience-logo">
-              <img src="/logos/ucsd.png" alt="UCSD" />
-            </div>
-            <div class="experience-content">
-              <div class="experience-title">Teaching Assistant</div>
-              <div class="experience-org">Neural Signal Processing (COGS 118C)</div>
-              <div class="experience-date">Jan 2026 – Jun 2026</div>
-              <div class="experience-description">Neural Signal Processing with Prof. Eran Mukamel. I hosted office hours, graded coding assignments, and met with students for project support.</div>
-            </div>
-          </div>
-
-          <div class="experience-item">
-            <div class="experience-logo">
-              <img src="/logos/cssa.png" alt="CSSA" />
-            </div>
-            <div class="experience-content">
-              <div class="experience-title">Peer Mentor</div>
-              <div class="experience-org">Cognitive Science Student Association</div>
-              <div class="experience-date">Nov 2022 – Jun 2026</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // Headshot tooltip follower
-    const headshotContainer = document.querySelector('.headshot-container');
-    const headshotTooltip = document.querySelector('.headshot-tooltip');
-
-    if (headshotContainer && headshotTooltip) {
-      headshotContainer.addEventListener('mousemove', (e) => {
-        const rect = headshotContainer.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        headshotTooltip.style.left = x + 'px';
-        headshotTooltip.style.top = y + 'px';
-        headshotTooltip.style.transform = 'translate(-50%, -50%)';
-      });
-    }
-  </script>
+    </RetroWindow>
+  </main>
 </SiteLayout>

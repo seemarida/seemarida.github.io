@@ -161,6 +161,15 @@ import RetroWindow from '../components/RetroWindow.astro';
       cursor: pointer;
     }
 
+    /* Main Content */
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      padding-right: 2rem;
+    }
+
     @media (max-width: 768px) {
       .desktop {
         flex-direction: column;
@@ -260,11 +269,17 @@ import RetroWindow from '../components/RetroWindow.astro';
             <!-- Right Section: Content -->
             <div class="right-section">
               <div class="bio">
-                Hi, I'm Seema. Welcome to my website!
+                Hi I'm Seema, and welcome to my website!
               </div>
 
               <div class="bio">
-                I build tech to understand physiology and behavior. Originally from Amman, studied cognitive science at UC San Diego, now in the Bay Area working on neuromodulation and bioelectronics at Stanford.
+                I like building tools that help us understand physiology and behavior.
+              </div>
+              <div class="bio">
+                Originally from Amman, now in the Bay Area working on neuromodulation and bioelectronics at Stanford.
+              </div>
+              <div class="bio">
+                Feel free to click around to explore my work and learn more about me :)
               </div>
             </div>
           </div>
