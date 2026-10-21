@@ -12,6 +12,8 @@ export async function getStaticPaths() {
 
 const { project } = Astro.props;
 
+// Temporary: still redirect to old research pages
+// TODO: Extract content and render in RetroWindow
 const oldResearchMapping = {
   'children-movement': 'biosensor-movement',
   'ppg-skin-tones': 'ppg-skin-tone',
