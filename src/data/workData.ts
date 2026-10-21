@@ -6,7 +6,8 @@ export interface Resource {
 }
 
 export interface Project {
-  shortName: string;
+  slug: string;
+  label: string;
   title: string;
   category: 'wearables' | 'computational';
   date: string;
@@ -17,7 +18,8 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    shortName: 'movement_and_affect',
+    slug: 'children-movement',
+    label: "children's movement in classrooms",
     title: 'Movement Behavior in Children using Wearable Biosensors in the Classroom',
     category: 'wearables',
     date: 'September 2025 – Present',
@@ -26,7 +28,7 @@ export const projects: Project[] = [
     resources: [
       {
         type: 'photos',
-        label: 'emotibit.jpeg',
+        label: 'sensor diagram (vendor)',
         href: '/emotibit.jpeg',
         thumbnail: '/emotibit.jpeg'
       },
@@ -38,23 +40,18 @@ export const projects: Project[] = [
     ]
   },
   {
-    shortName: 'ppg_signal_accuracy',
+    slug: 'ppg-skin-tones',
+    label: 'ppg accuracy across skin tones',
     title: 'PPG Signal Accuracy Across Skin Tones',
     category: 'wearables',
     date: 'January 2026 – Present',
     description: 'Investigating whether wearable biosensors work equally well across skin tones, and what that means for the future of inclusive biosensing.',
     thumbnail: '/thesis_photo.png',
-    resources: [
-      {
-        type: 'photos',
-        label: 'thesis_photo.png',
-        href: '/thesis_photo.png',
-        thumbnail: '/thesis_photo.png'
-      }
-    ]
+    resources: []
   },
   {
-    shortName: 'biosignal_pipeline',
+    slug: 'biosignal-pipeline',
+    label: 'biosignal cleaning pipeline',
     title: 'Motion Artifact Removal Pipeline',
     category: 'wearables',
     date: 'September 2025 – Present',
@@ -69,7 +66,8 @@ export const projects: Project[] = [
     ]
   },
   {
-    shortName: 'eeg_and_attention',
+    slug: 'eeg-attention',
+    label: 'detecting attention with eeg',
     title: 'EEG-based Attention Classification',
     category: 'computational',
     date: 'January 2025 – March 2025',
@@ -78,7 +76,7 @@ export const projects: Project[] = [
     resources: [
       {
         type: 'paper',
-        label: 'cogs189_final_project.pdf',
+        label: 'presentation.pdf',
         href: '/projects/cogs189_final_project.pdf'
       },
       {
@@ -107,7 +105,8 @@ export const projects: Project[] = [
     ]
   },
   {
-    shortName: 'optical_illusions_in_clip',
+    slug: 'clip-illusions',
+    label: 'optical illusions in clip',
     title: 'Optical Illusions in CLIP',
     category: 'computational',
     date: 'September 2025 – December 2025',
@@ -138,7 +137,8 @@ export const projects: Project[] = [
     ]
   },
   {
-    shortName: 'rnns_and_satire',
+    slug: 'rnn-sarcasm',
+    label: 'can an rnn learn sarcasm',
     title: 'Sarcastic Headline Generator',
     category: 'computational',
     date: 'September 2024 – December 2024',
@@ -152,10 +152,11 @@ export const projects: Project[] = [
     ]
   },
   {
-    shortName: 'multiscale_dynamics',
+    slug: 'icg-neural-correlations',
+    label: 'coarse-graining neural correlations',
     title: 'Iterative Coarse-Graining of Neural Correlations',
     category: 'computational',
-    date: 'March 2023 – Present',
+    date: 'March 2023 – 2025',
     description: 'Understanding multiscale neural structure by implementing the ICG algorithm from Munn et al. (2024). How do neurons look uncorrelated individually but coordinated as populations?',
     resources: []
   }

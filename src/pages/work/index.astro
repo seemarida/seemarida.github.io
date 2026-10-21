@@ -10,7 +10,7 @@ import { projects } from '../../data/workData';
       {projects.map(project => {
         const itemCount = 1 + project.resources.length;
         return (
-          <a href={`/work/${project.shortName}`} class="folder-link" aria-label={`view ${project.shortName} project`}>
+          <a href={`/work/${project.slug}`} class="folder-link" aria-label={`view ${project.label} project`}>
             <div class="folder-icon-container">
               <svg viewBox="0 0 160 120" class="folder-icon" aria-hidden="true">
                 <path
@@ -39,7 +39,7 @@ import { projects } from '../../data/workData';
               </svg>
             </div>
             <div class="folder-label">
-              <span class="folder-name">{project.shortName.replace(/_/g, ' ')}</span>
+              <span class="folder-name">{project.label}</span>
               <span class="folder-count">{itemCount} item{itemCount === 1 ? '' : 's'}</span>
             </div>
           </a>

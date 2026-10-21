@@ -5,7 +5,7 @@ import { projects } from '../../../data/workData';
 
 export async function getStaticPaths() {
   return projects.map(project => ({
-    params: { project: project.shortName },
+    params: { project: project.slug },
     props: { project }
   }));
 }
@@ -14,16 +14,16 @@ const { project } = Astro.props;
 const itemCount = 1 + project.resources.length;
 ---
 
-<SiteLayout title={`${project.shortName.replace(/_/g, ' ')} | Seema Rida`}>
+<SiteLayout title={`${project.label} | Seema Rida`}>
   <main>
     <RetroWindow
-      title={`work / ${project.shortName}`}
+      title={`work / ${project.slug}`}
       objectCount={itemCount}
       backLink="/work"
     >
       <div class="files-grid">
         <!-- about.txt always present -->
-        <a href={`/work/${project.shortName}/about`} class="file-link">
+        <a href={`/work/${project.slug}/about`} class="file-link">
           <svg viewBox="0 0 80 100" class="file-icon" aria-hidden="true">
             <!-- Page with folded corner -->
             <path

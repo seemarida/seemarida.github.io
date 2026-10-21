@@ -5,7 +5,7 @@ import { projects } from '../../../data/workData';
 
 export async function getStaticPaths() {
   return projects.map(project => ({
-    params: { project: project.shortName },
+    params: { project: project.slug },
     props: { project }
   }));
 }
@@ -13,16 +13,16 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 
 const oldResearchMapping = {
-  'movement_and_affect': 'biosensor-movement',
-  'ppg_signal_accuracy': 'ppg-skin-tone',
-  'eeg_and_attention': 'eeg-attention',
-  'optical_illusions_in_clip': 'optical-illusions-clip',
-  'rnns_and_satire': 'sarcastic-headlines',
-  'multiscale_dynamics': 'icg-neural-correlations',
-  'biosignal_pipeline': null
+  'children-movement': 'biosensor-movement',
+  'ppg-skin-tones': 'ppg-skin-tone',
+  'eeg-attention': 'eeg-attention',
+  'clip-illusions': 'optical-illusions-clip',
+  'rnn-sarcasm': 'sarcastic-headlines',
+  'icg-neural-correlations': 'icg-neural-correlations',
+  'biosignal-pipeline': null
 };
 
-const oldPath = oldResearchMapping[project.shortName];
+const oldPath = oldResearchMapping[project.slug];
 const redirectUrl = oldPath ? `/research/${oldPath}` : `/projects/biosignal-pipeline`;
 ---
 
