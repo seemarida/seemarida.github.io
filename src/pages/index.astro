@@ -111,9 +111,8 @@ import RetroWindow from '../components/RetroWindow.astro';
       padding: 1.5rem;
       border: 2px solid #E7E3DC;
       display: flex;
-      flex-direction: column;
       align-items: center;
-      gap: 0.75rem;
+      justify-content: center;
     }
 
     .image-container {
@@ -141,44 +140,6 @@ import RetroWindow from '../components/RetroWindow.astro';
       50% {
         transform: translateY(-8px);
       }
-    }
-
-    .speech-bubble {
-      position: relative;
-      background: #FFFFFF;
-      border: 2px solid #1C1917;
-      box-shadow: 3px 3px 0 #1C1917;
-      padding: 0.5rem 1rem;
-      font-family: 'VT323', monospace;
-      font-size: 1.125rem;
-      color: #1C1917;
-      letter-spacing: 0.05em;
-    }
-
-    .speech-bubble::before {
-      content: '';
-      position: absolute;
-      top: -8px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 0;
-      border-left: 8px solid transparent;
-      border-right: 8px solid transparent;
-      border-bottom: 8px solid #1C1917;
-    }
-
-    .speech-bubble::after {
-      content: '';
-      position: absolute;
-      top: -4px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 0;
-      height: 0;
-      border-left: 6px solid transparent;
-      border-right: 6px solid transparent;
-      border-bottom: 6px solid #FFFFFF;
     }
 
     .right-section {
@@ -414,13 +375,12 @@ import RetroWindow from '../components/RetroWindow.astro';
     <RetroWindow title="welcome.exe" backLabel="">
       <div class="hero-wrapper">
         <div class="hero-section">
-          <!-- Left Section: Image with Speech Bubble -->
+          <!-- Left Section: Image -->
           <div class="left-section">
             <div class="image-panel">
               <div class="image-container">
                 <img src="/home_drawing.jpg" alt="Seema's illustration" />
               </div>
-              <div class="speech-bubble">hi, i'm seema!</div>
             </div>
           </div>
 
@@ -437,11 +397,15 @@ import RetroWindow from '../components/RetroWindow.astro';
             </div>
 
             <div class="bio">
-              I'm a project research engineer at Stanford working on neuromodulation and bioelectronics. Originally from Amman, now in the Bay Area.
+              Hi, I'm Seema. Welcome to my website!
+            </div>
+
+            <div class="bio">
+              I build tech to understand physiology and behavior. Originally from Amman, studied cognitive science at UC San Diego, now in the Bay Area working on neuromodulation and bioelectronics at Stanford.
             </div>
 
             <div class="cta-section">
-              <div class="cta-text">welcome to my website! click the icons on the left, or start here:</div>
+              <div class="cta-text">click the icons on the left, or start here:</div>
               <div class="cta-buttons">
                 <a href="/projects" class="retro-btn">browse projects</a>
                 <a href="/about" class="retro-btn">about me</a>
