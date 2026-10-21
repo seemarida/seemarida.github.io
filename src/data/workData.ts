@@ -37,11 +37,6 @@ export const projects: Project[] = [
         label: 'thesis_photo.png',
         href: '/thesis_photo.png',
         thumbnail: '/thesis_photo.png'
-      },
-      {
-        type: 'demo',
-        label: 'biosensor_monitor.html',
-        href: '/projects/biosensor-monitor.html'
       }
     ]
   },
@@ -68,11 +63,6 @@ export const projects: Project[] = [
         label: 'biosignal-pipeline.png',
         href: '/biosignal-pipeline.png',
         thumbnail: '/biosignal-pipeline.png'
-      },
-      {
-        type: 'demo',
-        label: 'biosignal_demo.html',
-        href: '/biosignal-demo.html'
       }
     ]
   },
@@ -94,11 +84,6 @@ export const projects: Project[] = [
         type: 'code',
         label: 'code',
         href: 'https://github.com/seemarida/cogs_189_project'
-      },
-      {
-        type: 'demo',
-        label: 'eeg_channels.html',
-        href: '/eeg-channels.html'
       },
       {
         type: 'photos',
@@ -133,16 +118,6 @@ export const projects: Project[] = [
         type: 'code',
         label: 'code',
         href: 'https://github.com/seemarida/COGS118B_FinalProject_Team21'
-      },
-      {
-        type: 'demo',
-        label: 'clip_embedding_demo.html',
-        href: '/projects/clip_embedding_demo.html'
-      },
-      {
-        type: 'demo',
-        label: 'clip_rabbit_duck.html',
-        href: '/projects/clip_rabbit_duck.html'
       }
     ]
   },
@@ -163,11 +138,6 @@ export const projects: Project[] = [
         type: 'code',
         label: 'code',
         href: 'https://github.com/seemarida/cogs185_final_project'
-      },
-      {
-        type: 'demo',
-        label: 'sarcasm_demo.html',
-        href: '/projects/sarcasm_demo.html'
       }
     ]
   },
