@@ -19,7 +19,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     slug: 'children-movement',
-    label: "children's movement in classrooms",
+    label: 'movement & affect',
     title: 'Movement Behavior in Children using Wearable Biosensors in the Classroom',
     category: 'wearables',
     date: 'September 2025 – Present',
@@ -42,7 +42,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'ppg-skin-tones',
-    label: 'ppg accuracy across skin tones',
+    label: 'ppg signal accuracy',
     title: 'PPG Signal Accuracy Across Skin Tones',
     category: 'wearables',
     date: 'January 2026 – Present',
@@ -50,25 +50,8 @@ export const projects: Project[] = [
     resources: []
   },
   {
-    slug: 'biosignal-pipeline',
-    label: 'biosignal cleaning pipeline',
-    title: 'Motion Artifact Removal Pipeline',
-    category: 'wearables',
-    date: 'September 2025 – Present',
-    description: 'Real-world biosensor data is messy. I built a pipeline to make it usable.',
-    thumbnail: '/biosignal-pipeline.png',
-    resources: [
-      {
-        type: 'photos',
-        label: 'biosignal-pipeline.png',
-        href: '/biosignal-pipeline.png',
-        thumbnail: '/biosignal-pipeline.png'
-      }
-    ]
-  },
-  {
     slug: 'eeg-attention',
-    label: 'detecting attention with eeg',
+    label: 'eeg & attention',
     title: 'EEG-based Attention Classification',
     category: 'computational',
     date: 'January 2025 – March 2025',
@@ -123,7 +106,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'rnn-sarcasm',
-    label: 'can an rnn learn sarcasm',
+    label: 'rnns & satire',
     title: 'Sarcastic Headline Generator',
     category: 'computational',
     date: 'September 2024 – December 2024',
@@ -143,7 +126,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'icg-neural-correlations',
-    label: 'coarse-graining neural correlations',
+    label: 'multiscale dynamics',
     title: 'Iterative Coarse-Graining of Neural Correlations',
     category: 'computational',
     date: 'March 2023 – 2025',
