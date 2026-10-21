@@ -108,7 +108,7 @@ import RetroWindow from '../components/RetroWindow.astro';
     .image-panel {
       background: radial-gradient(circle, rgba(28, 25, 23, 0.02) 1px, transparent 1px);
       background-size: 12px 12px;
-      padding: 1.5rem;
+      padding: 1rem;
       border: 2px solid #E7E3DC;
       display: flex;
       align-items: center;
@@ -127,8 +127,8 @@ import RetroWindow from '../components/RetroWindow.astro';
     }
 
     .image-container img {
-      width: 180px;
-      height: 232px;
+      width: 140px;
+      height: 180px;
       object-fit: cover;
       display: block;
     }
@@ -232,17 +232,13 @@ import RetroWindow from '../components/RetroWindow.astro';
     <!-- Minimized welcome.exe icon -->
     <div class="desktop-icon welcome-icon" id="welcomeIcon" style="display: none;">
       <svg viewBox="0 0 80 80" class="icon-svg" aria-hidden="true">
-        <!-- Pixelated waving person -->
-        <!-- Head -->
-        <rect x="28" y="16" width="24" height="24" fill="#1C1917" />
-        <!-- Body -->
-        <rect x="32" y="40" width="16" height="20" fill="#1C1917" />
-        <!-- Left arm (down) -->
-        <rect x="24" y="44" width="8" height="12" fill="#1C1917" />
-        <!-- Right arm (waving up) -->
-        <rect x="48" y="36" width="8" height="12" fill="#1C1917" />
-        <!-- Hand waving -->
-        <rect x="52" y="32" width="8" height="4" fill="#1C1917" />
+        <!-- Simple document/text file icon with "Hi!" -->
+        <path d="M 15 10 L 15 70 L 65 70 L 65 25 L 50 10 Z"
+          fill="#F8F6F4" stroke="#1C1917" stroke-width="2" shape-rendering="crispEdges" />
+        <path d="M 50 10 L 50 25 L 65 25"
+          fill="#E7E3DC" stroke="#1C1917" stroke-width="2" shape-rendering="crispEdges" />
+        <!-- Waving hand emoji style -->
+        <text x="40" y="50" font-family="VT323, monospace" font-size="24" fill="#1C1917" text-anchor="middle">Hi!</text>
       </svg>
       <span class="icon-label">welcome.exe</span>
     </div>

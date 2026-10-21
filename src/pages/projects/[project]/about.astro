@@ -1,4 +1,6 @@
 ---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import RetroWindow from '../../../components/RetroWindow.astro';
 import { projects } from '../../../data/workData';
 
 export async function getStaticPaths() {
@@ -9,124 +11,133 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-
-// Map to old research pages
-const oldResearchMapping = {
-  'children-movement': 'biosensor-movement',
-  'ppg-skin-tones': 'ppg-skin-tone',
-  'eeg-attention': 'eeg-attention',
-  'clip-illusions': 'optical-illusions-clip',
-  'rnn-sarcasm': 'sarcastic-headlines',
-  'icg-neural-correlations': 'icg-neural-correlations'
-};
-
-const oldPath = oldResearchMapping[project.slug];
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{project.label} | Seema Rida</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<SiteLayout title={`${project.label} | Seema Rida`}>
+  <main>
+    <RetroWindow
+      title={`projects / ${project.slug} / about.txt`}
+      backLink={`/projects/${project.slug}`}
+      backLabel="close"
+    >
+      <div class="about-content">
+        <h1>{project.title}</h1>
+        <p class="project-meta">{project.date}</p>
+        <p class="project-description">{project.description}</p>
+
+        {project.resources.length > 0 && (
+          <div class="resources-section">
+            <h2>resources</h2>
+            <ul>
+              {project.resources.map(resource => (
+                <li>
+                  <a href={resource.href} target={resource.type === 'code' ? '_blank' : undefined} rel={resource.type === 'code' ? 'noopener noreferrer' : undefined}>
+                    {resource.label}
+                  </a>
+                  <span class="resource-type">({resource.type})</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </RetroWindow>
+  </main>
+
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      min-height: calc(100vh - 200px);
     }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #E7E3DC;
-      overflow: hidden;
-      height: 100vh;
-    }
-
-    .retro-window {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: #FFFFFF;
-      border: 2px solid #1C1917;
-      box-shadow: 4px 4px 0 #1C1917;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .title-bar {
-      background: #6FAB84;
-      border-bottom: 2px solid #1C1917;
-      padding: 0.5rem 1rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-shrink: 0;
-    }
-
-    .window-title {
-      font-family: 'VT323', monospace;
-      font-size: 1.25rem;
-      color: #F8F6F4;
-      letter-spacing: 0.05em;
-    }
-
-    .close-btn {
+    .about-content {
       font-family: 'VT323', monospace;
       font-size: 1.125rem;
-      background: #F8F6F4;
-      border: 2px solid #1C1917;
-      padding: 0.25rem 1rem;
-      cursor: pointer;
-      text-decoration: none;
       color: #1C1917;
+      line-height: 1.6;
       letter-spacing: 0.05em;
+    }
+
+    h1 {
+      font-family: 'VT323', monospace;
+      font-size: 1.5rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+      color: #1C1917;
+    }
+
+    h2 {
+      font-family: 'VT323', monospace;
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin: 2rem 0 1rem;
+      color: #1C1917;
+    }
+
+    .project-meta {
+      color: #6B7280;
+      margin-bottom: 1.5rem;
+    }
+
+    .project-description {
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+
+    .resources-section ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .resources-section li {
+      margin-bottom: 0.75rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .resources-section li::before {
+      content: '>';
+      position: absolute;
+      left: 0;
+      color: #6FAB84;
+    }
+
+    .resources-section a {
+      color: #1C1917;
+      text-decoration: none;
       transition: none;
-      min-width: 80px;
-      text-align: center;
     }
 
-    .close-btn:hover,
-    .close-btn:focus {
-      background: #1C1917;
-      color: #F8F6F4;
-      outline: none;
+    .resources-section a:hover {
+      color: #6FAB84;
+      text-decoration: underline;
     }
 
-    .content-frame {
-      flex: 1;
-      width: 100%;
-      border: none;
-      background: #FFFFFF;
-      display: block;
+    .resources-section a:focus {
+      outline: 2px solid #6FAB84;
+      outline-offset: 2px;
+    }
+
+    .resource-type {
+      color: #6B7280;
+      margin-left: 0.5rem;
+      font-size: 1rem;
     }
 
     @media (max-width: 768px) {
-      .window-title {
-        font-size: 1rem;
+      main {
+        padding: 3rem 1rem;
       }
 
-      .close-btn {
+      h1 {
+        font-size: 1.25rem;
+      }
+
+      .about-content {
         font-size: 1rem;
-        padding: 0.25rem 0.75rem;
-        min-width: 70px;
       }
     }
   </style>
-</head>
-<body>
-  <div class="retro-window">
-    <div class="title-bar">
-      <span class="window-title">projects / {project.slug} / about.txt</span>
-      <a href={`/projects/${project.slug}`} class="close-btn">close</a>
-    </div>
-    {oldPath && (
-      <iframe src={`/research/${oldPath}`} class="content-frame"></iframe>
-    )}
-  </div>
-</body>
-</html>
+</SiteLayout>
