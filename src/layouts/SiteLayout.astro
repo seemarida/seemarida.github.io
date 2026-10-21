@@ -138,11 +138,13 @@ const currentPath = Astro.url.pathname;
       transform: translate(3px, 3px);
     }
 
-    .clock {
+    .clocks {
       font-family: 'VT323', monospace;
       font-size: 1rem;
       color: #1C1917;
       letter-spacing: 0.05em;
+      display: flex;
+      gap: 1.5rem;
     }
 
     @media (max-width: 768px) {
@@ -158,8 +160,15 @@ const currentPath = Astro.url.pathname;
         font-size: 1.25rem;
       }
 
-      .clock {
+      .clocks {
         font-size: 0.875rem;
+        flex-direction: column;
+        gap: 0.25rem;
+        text-align: right;
+      }
+
+      .clock-amman {
+        display: none;
       }
     }
 
@@ -227,7 +236,10 @@ const currentPath = Astro.url.pathname;
       <!-- <a href="/gallery">gallery</a> -->
       <!-- <a href="/contact">contact</a> -->
     </div>
-    <div class="clock" aria-hidden="true"></div>
+    <div class="clocks" aria-hidden="true">
+      <time class="clock-california"></time>
+      <time class="clock-amman"></time>
+    </div>
   </nav>
 
   <main>
@@ -257,18 +269,44 @@ const currentPath = Astro.url.pathname;
       cursor.style.top = e.clientY + 'px';
     });
 
-    // Live clock
-    const clockElement = document.querySelector('.clock');
+    // Dual timezone clocks
+    const clockCalifornia = document.querySelector('.clock-california');
+    const clockAmman = document.querySelector('.clock-amman');
 
-    function updateClock() {
+    function updateClocks() {
       const now = new Date();
-      const hours = String(now.getHours()).padStart(2, '0');
-      const minutes = String(now.getMinutes()).padStart(2, '0');
-      clockElement.textContent = `${hours}:${minutes}`;
+
+      // California time (America/Los_Angeles)
+      const californiaFormatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'America/Los_Angeles',
+        weekday: 'short',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      });
+      const californiaParts = californiaFormatter.formatToParts(now);
+      const caWeekday = californiaParts.find(p => p.type === 'weekday').value.toLowerCase();
+      const caHour = californiaParts.find(p => p.type === 'hour').value;
+      const caMinute = californiaParts.find(p => p.type === 'minute').value;
+      clockCalifornia.textContent = `california ${caWeekday} ${caHour}:${caMinute}`;
+
+      // Amman time (Asia/Amman)
+      const ammanFormatter = new Intl.DateTimeFormat('en-US', {
+        timeZone: 'Asia/Amman',
+        weekday: 'short',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      });
+      const ammanParts = ammanFormatter.formatToParts(now);
+      const amWeekday = ammanParts.find(p => p.type === 'weekday').value.toLowerCase();
+      const amHour = ammanParts.find(p => p.type === 'hour').value;
+      const amMinute = ammanParts.find(p => p.type === 'minute').value;
+      clockAmman.textContent = `amman ${amWeekday} ${amHour}:${amMinute}`;
     }
 
-    updateClock();
-    setInterval(updateClock, 60000); // Update every minute
+    updateClocks();
+    setInterval(updateClocks, 60000); // Update every minute
   </script>
 </body>
 </html>
