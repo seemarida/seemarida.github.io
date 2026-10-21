@@ -27,6 +27,10 @@ const { title = "Seema Rida", description = "CogSci researcher exploring sensors
       box-sizing: border-box;
     }
 
+    html, body {
+      height: 100%;
+    }
+
     body {
       font-family: 'Inter', sans-serif;
       background: #F8F6F4;
@@ -35,6 +39,12 @@ const { title = "Seema Rida", description = "CogSci researcher exploring sensors
       color: #1C1917;
       line-height: 1.6;
       cursor: none;
+      display: flex;
+      flex-direction: column;
+    }
+
+    main {
+      flex: 1;
     }
 
     /* Custom Cursor */
@@ -201,11 +211,13 @@ const { title = "Seema Rida", description = "CogSci researcher exploring sensors
     <div class="clock" aria-hidden="true"></div>
   </nav>
 
-  <slot />
+  <main>
+    <slot />
+  </main>
 
   <!-- Footer -->
   <footer>
-    <span>© 2026 seema rida</span>
+    <span>(c) 2026 seema rida</span>
     <ul class="footer-links">
       {footerSocialLinks.map(link => (
         <li>
