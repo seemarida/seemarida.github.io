@@ -1,0 +1,136 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import RetroWindow from '../components/RetroWindow.astro';
+
+const photos = [
+  'DSC01478.JPG',
+  'BB2F8F6E-51EE-4B64-937C-F8C03F8C2A93.JPG',
+  'DSC00263.JPG',
+  'DSC00894.JPG',
+  'F54E8E01-7708-4825-9F46-B9D6FFFA1ABF.JPG',
+  'DSC02433.JPG',
+  'DSC00210.JPG',
+  '0638793D-97AE-4A1A-AE88-0D3F47599E98.JPG',
+  'DSC01526.JPG',
+  'DSC00675.JPG',
+  'BFF87EA4-7104-4EE9-8B74-B3C171F90859.JPG',
+  'DSC01318.JPG',
+  'DSC00855.JPG',
+  'DSC02537.JPG',
+  '610C399C-10E4-49A2-BA89-3903894AD85D.JPG',
+  'DSC00777.JPG',
+  'D5C2CEA9-776A-46EA-8629-08BFC0362FE1.JPG',
+  'DSC01530.JPG',
+  'DSC00271.JPG',
+  'DSC01588.JPG',
+  'DSC02405.JPG',
+  'DSC00815.JPG',
+  'DSC01522.JPG',
+  'DSC01009.JPG',
+  'IMG_0105.JPG',
+  'DSC01291.JPG',
+];
+---
+
+<SiteLayout title="gallery | Seema Rida">
+  <style>
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 4rem 2rem;
+      min-height: calc(100vh - 200px);
+    }
+
+    .gallery-intro {
+      font-family: 'VT323', monospace;
+      font-size: 1.125rem;
+      color: #1C1917;
+      line-height: 1.6;
+      letter-spacing: 0.05em;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .gallery-grid {
+      column-count: 3;
+      column-gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .photo-card {
+      position: relative;
+      break-inside: avoid;
+      margin-bottom: 1.5rem;
+      transition: transform 0.2s;
+    }
+
+    .photo-card:hover {
+      transform: translateY(-4px);
+    }
+
+    .photo-container {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      background: #F8F6F4;
+    }
+
+    .photo-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .photo-caption {
+      font-family: 'VT323', monospace;
+      font-size: 1rem;
+      color: #1C1917;
+      margin-top: 0.75rem;
+      text-align: center;
+      letter-spacing: 0.05em;
+    }
+
+    .placeholder-text {
+      font-family: 'VT323', monospace;
+      font-size: 1.125rem;
+      color: #6B7280;
+      text-align: center;
+      padding: 3rem 2rem;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 1024px) {
+      .gallery-grid {
+        column-count: 2;
+      }
+    }
+
+    @media (max-width: 768px) {
+      main {
+        padding: 3rem 1rem;
+      }
+
+      .gallery-grid {
+        column-count: 1;
+      }
+    }
+  </style>
+
+  <main>
+    <RetroWindow title="gallery" backLink="/" backLabel="×">
+      <div class="gallery-intro">
+        <p>seema's visual diary</p>
+      </div>
+
+      <div class="gallery-grid">
+        {photos.map((photo) => (
+          <div class="photo-card">
+            <div class="photo-container">
+              <img src={`/gallery/${photo}`} alt={`Photography by Seema Rida - ${photo}`} loading="lazy" />
+            </div>
+          </div>
+        ))}
+      </div>
+    </RetroWindow>
+  </main>
+</SiteLayout>

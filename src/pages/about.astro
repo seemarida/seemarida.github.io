@@ -13,10 +13,17 @@ import RetroWindow from '../components/RetroWindow.astro';
     }
 
     .about-layout {
-      display: grid;
-      grid-template-columns: 200px 1fr;
+      display: flex;
+      flex-direction: column;
       gap: 2rem;
-      align-items: start;
+    }
+
+    .bio-section {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      max-width: 900px;
+      margin: 0 auto;
     }
 
     .headshot-container {
@@ -25,6 +32,8 @@ import RetroWindow from '../components/RetroWindow.astro';
       background: radial-gradient(circle, rgba(28, 25, 23, 0.02) 1px, transparent 1px);
       background-size: 12px 12px;
       padding: 1rem;
+      flex-shrink: 0;
+      width: 200px;
     }
 
     .headshot-container img {
@@ -34,11 +43,11 @@ import RetroWindow from '../components/RetroWindow.astro';
     }
 
     .content-section {
-      font-family: 'VT323', monospace;
-      font-size: 1.125rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
       color: #1C1917;
       line-height: 1.6;
-      letter-spacing: 0.05em;
+      flex: 1;
     }
 
     .content-section p {
@@ -143,14 +152,13 @@ import RetroWindow from '../components/RetroWindow.astro';
         padding: 3rem 1rem;
       }
 
-      .about-layout {
-        grid-template-columns: 1fr;
-        gap: 2rem;
+      .bio-section {
+        flex-direction: column;
+        align-items: center;
       }
 
       .headshot-container {
-        max-width: 200px;
-        margin: 0 auto;
+        width: 180px;
       }
 
       .sections-container {
@@ -168,19 +176,22 @@ import RetroWindow from '../components/RetroWindow.astro';
   <main>
     <RetroWindow title="about me.txt" backLink="/" backLabel="×">
       <div class="about-layout">
-        <div class="headshot-container">
-          <img src="/headshot.png" alt="Seema Rida" />
+        <div class="bio-section">
+          <div class="headshot-container">
+            <img src="/headshot.png" alt="Seema Rida" />
+          </div>
+
+          <div class="content-section">
+            <p>
+              I'm a researcher interested in wearable tech, physiology, and behavior. I just graduated from UC San Diego with a B.S. in Cognitive Science (Machine Learning & Neural Computation) and a minor in Computer Science, and I'm now a research engineer at Stanford, working on neuromodulation and bioelectronic applications.
+            </p>
+            <p>
+              Understanding how the brain and body work has always been more than academic for me. It's personal. Learning how my own brain works is part of what pulled me toward neuroscience and behavior in the first place. Outside of research, I enjoy photography, boxing, thrifting, and live music!
+            </p>
+          </div>
         </div>
 
-        <div class="content-section">
-          <p>
-            I'm a researcher interested in wearable tech, physiology, and behavior. I just graduated from UC San Diego with a B.S. in Cognitive Science (Machine Learning & Neural Computation) and a minor in Computer Science, and I'm now a research engineer at Stanford, working on neuromodulation and bioelectronic applications.
-          </p>
-          <p>
-            Understanding how the brain and body work has always been more than academic for me. It's personal. Learning how my own brain works is part of what pulled me toward neuroscience and behavior in the first place. Outside of research, I enjoy photography, boxing, thrifting, and live music!
-          </p>
-
-          <div class="sections-container">
+        <div class="sections-container">
             <div class="section-column">
               <h2>experience</h2>
               <div class="experience-list">
@@ -252,7 +263,6 @@ import RetroWindow from '../components/RetroWindow.astro';
                 <div class="experience-title">Co-President</div>
                 <div class="experience-org">Tritons Prosthetic Society</div>
                 <div class="experience-date">May 2025 – Jun 2026</div>
-                <div class="experience-description">Lead a student org focused on building prosthetics and teaching members the fundamentals of prosthetic design.</div>
               </div>
             </div>
 
@@ -264,7 +274,6 @@ import RetroWindow from '../components/RetroWindow.astro';
                 <div class="experience-title">Teaching Assistant</div>
                 <div class="experience-org">Neural Signal Processing (COGS 118C)</div>
                 <div class="experience-date">Jan 2026 – Jun 2026</div>
-                <div class="experience-description">Neural Signal Processing with Prof. Eran Mukamel. I hosted office hours, graded coding assignments, and met with students for project support.</div>
               </div>
             </div>
 
@@ -281,7 +290,6 @@ import RetroWindow from '../components/RetroWindow.astro';
               </div>
             </div>
           </div>
-        </div>
       </div>
     </RetroWindow>
   </main>

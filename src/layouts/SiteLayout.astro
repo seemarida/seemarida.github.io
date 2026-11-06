@@ -222,10 +222,8 @@ const currentPath = Astro.url.pathname;
     <div class="nav-left">
       <a href="/" class="logo"><span class="logo-s">S</span><span class="logo-r">R</span></a>
       <a href="/projects" class={currentPath.startsWith('/projects') ? 'current' : ''}>projects</a>
+      <a href="/gallery" class={currentPath.startsWith('/gallery') ? 'current' : ''}>gallery</a>
       <a href="/about" class={currentPath.startsWith('/about') ? 'current' : ''}>about</a>
-      <!-- Future: Gallery and Contact pages -->
-      <!-- <a href="/gallery">gallery</a> -->
-      <!-- <a href="/contact">contact</a> -->
     </div>
     <time class="clock" aria-hidden="true"></time>
   </nav>
